@@ -33,5 +33,21 @@ class User {
     public function setUserPassword($user_password) {
         $this->user_password = $user_password;
     }
+    //CREACION DEL CONSTRUCTOR
+    public function __construct( ) {
+        //zero arguments
+        if (func_num_args() == 0) {
+            $this->id_user = '';
+            $this->user_name = '';
+            $this->user_password = '';
+        }
+        //two arguments received, create object with values from arguments
+        if (func_num_args() == 3) {
+            $args = func_get_args(); //read arguments into array
+            $this->id_user = $args[0];
+            $this->user_name = $args[1];
+            $this->user_password = $args[2];
+        }
+    }
 }
 ?>
