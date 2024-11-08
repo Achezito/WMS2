@@ -1,4 +1,5 @@
 <?php
+require_once('C:/xampp/htdocs/WMS2/LandingPage/pruebas/phpFiles/mySqlConnection.php');
 class User {
     private $id_user;
     private $user_name;
@@ -24,20 +25,11 @@ class User {
         $this->user_name = $user_name;
     }
 
-    // Getter para user_password
-    public function getUserPassword() {
-        return $this->user_password;
-    }
-
     // Setter para user_password
     public function setUserPassword($user_password) {
         $this->user_password = $user_password;
     }
 
-    // Función para imprimir "Hola Mundo"
-    public function saludar() {
-        echo "Hola Mundo";
-    }
     //CREACION DEL CONSTRUCTOR
     public function __construct( ) {
         //zero arguments
@@ -56,7 +48,4 @@ class User {
     }
 }
 
-// Usando la clase User y llamando a la función saludar
-$user = new User();
-$user->saludar();  // Esto imprimirá "Hola Mundo"
 ?>
