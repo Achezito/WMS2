@@ -33,6 +33,11 @@ class User {
     public function setUserPassword($user_password) {
         $this->user_password = $user_password;
     }
+
+    // Función para imprimir "Hola Mundo"
+    public function saludar() {
+        echo "Hola Mundo";
+    }
     //CREACION DEL CONSTRUCTOR
     public function __construct( ) {
         //zero arguments
@@ -50,4 +55,8 @@ class User {
         }
     }
 }
+
+// Usando la clase User y llamando a la función saludar
+$user = new User();
+$user->saludar();  // Esto imprimirá "Hola Mundo"
 ?>
