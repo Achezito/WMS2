@@ -1,6 +1,10 @@
 <?php
 require_once('C:/xampp/htdocs/WMS2/LandingPage/pruebas/phpFiles/mySqlConnection.php');
 class User {
+
+    //statements 
+    private static $login = "SELECT id_users, user_name ,user_password FROM users where user_name = ?;";
+
     private $id_user;
     private $user_name;
     private $user_password;
@@ -45,6 +49,28 @@ class User {
             $this->user_name = $args[1];
             $this->user_password = $args[2];
         }
+    }
+
+    public static function login ($user_name, $password){
+        //get connection
+        $connection = Conexion::get_connection();
+        //prepare statement
+        $command = $connection->prepare(self::$login);
+        //bind param
+        $command -> bind_param('s', $user_name);
+        //execute
+        $command->execute();
+        //bind_ result
+        $command -> bind_result($id_user, $user_name, $hashed_password);
+        //read data
+        if ($command-> fetch()){
+
+            if (sha1($password) == $hashed_password){
+                return new User($id_user,$user_name, $hashed_password);
+            } 
+        } 
+        return null;
+        
     }
 }
 
