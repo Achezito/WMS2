@@ -1,0 +1,148 @@
+:root {
+    --font-family: 'Roboto', Arial, Helvetica, sans-serif;
+    --color-background: #4a4949;
+    --color-text: #ffffff;
+    --color-hover: #007bff;
+    --header-background: #003a73;
+    --header-text-color: #ffffff;
+    --header-height: 60px;
+    --font-size-h1: 16pt;
+    --icon-size: 18px;
+    --user-photo-size: 35px;
+    --menu-background: #333333;
+    --menu-text-color: #ffffff;
+    --menu-hover: #444444;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-family);
+}
+
+body {
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: var(--header-background);
+    height: var(--header-height);
+    color: var(--header-text-color);
+    padding: 0 20px;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+h1 {
+    font-size: var(--font-size-h1);
+    color: var(--header-text-color);
+    font-weight: bold;
+    margin-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#header-left, #header-right {
+    display: flex;
+    align-items: center;
+}
+
+#header-menu {
+    margin-right: 20px;
+    cursor: pointer;
+    color: var(--header-text-color);
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+
+#header-menu:hover {
+    color: var(--color-hover);
+}
+
+#header-logo {
+    height: 40px;
+}
+
+#header-logo img {
+    height: 100%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#header-logo img:hover {
+    transform: scale(1.05);
+}
+
+#user-photo {
+    margin-left: 15px;
+}
+
+#user-photo img {
+    height: var(--user-photo-size);
+    width: var(--user-photo-size);
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 5px var(--shadow-color);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#user-photo img:hover {
+    transform: scale(1.1);
+}
+
+#header-logos i {
+    font-size: var(--icon-size);
+    color: var(--header-text-color);
+    margin-left: 15px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#header-logos i:hover {
+    color: var(--color-hover);
+}
+
+#menu {
+    position: absolute;
+    top: var(--header-height);
+    left: 0;
+    width: 250px;
+    background-color: var(--menu-background);
+    color: var(--menu-text-color);
+    display: none;
+    box-shadow: 2px 2px 8px var(--shadow-color);
+    border-right: 3px solid var(--color-hover);
+    transition: all 0.3s ease;
+}
+
+#menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#menu li {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+#menu li a {
+    color: var(--menu-text-color);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+#menu li:hover {
+    background-color: var(--menu-hover);
+}
