@@ -8,6 +8,8 @@ CREATE TABLE users (
 
 
 INSERT INTO users (user_name, user_password) VALUE 
-('santiPrah12', SHA1('elmejor1234')),
-('marianaNoob', SHA1('pobr3t0na')),
-('gamyGod', SHA1('JOJO'));
+('santiPrah12','elmejor1234'),
+('marianaNoob', 'pobr3t0na'),
+('gamyGod', 'JOJO');
+
+SELECT id_users, user_name ,user_password FROM users where user_name = 'gamyGod';
