@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+$limite_inactividad = 1000; // 10 minutos
 require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {

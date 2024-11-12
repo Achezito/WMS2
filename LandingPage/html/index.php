@@ -1,13 +1,33 @@
-
 <?php
-
 session_start();
 
-var_dump($_SESSION); // Verifica todas las variables de sesión
+// Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
+$limite_inactividad = 10;
+
+// Verificar el tiempo de inactividad
+if (isset($_SESSION['ultimo_acceso'])) {
+    $inactividad = time() - $_SESSION['ultimo_acceso'];
+
+    // Si el tiempo de inactividad supera el límite, cerrar sesión y redirigir
+    if ($inactividad > $limite_inactividad) {
+        session_unset();
+        session_destroy();
+
+        // Redirigir a login.php con el mensaje de sesión expirada
+        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        exit();
+    }
+}
+
+// Actualizar el tiempo de último acceso
+$_SESSION['ultimo_acceso'] = time();
+
+
+// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['worker_user'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
-} 
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,11 +36,8 @@ if (!isset($_SESSION['worker_user'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="../css/index.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
-
-    
 </head>
 <body>
 
@@ -34,9 +51,9 @@ if (!isset($_SESSION['worker_user'])) {
             </div>
             <h1>CISTA</h1>
             <h1>
-        Bienvenido <?php echo htmlspecialchars($_SESSION['worker_user']) . ' con id: ' . htmlspecialchars($_SESSION['personal_id'] .
-        'y correo: '. htmlspecialchars($_SESSION['email'])); ?>
-    </h1>
+                Bienvenido <?php echo htmlspecialchars($_SESSION['worker_user']) . ' con id: ' . htmlspecialchars($_SESSION['personal_id'] .
+                ' y correo: '. htmlspecialchars($_SESSION['email'])); ?>
+            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
