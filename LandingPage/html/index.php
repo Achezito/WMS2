@@ -1,3 +1,34 @@
+<?php
+session_start();
+
+// Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
+$limite_inactividad = 10;
+
+// Verificar el tiempo de inactividad
+if (isset($_SESSION['ultimo_acceso'])) {
+    $inactividad = time() - $_SESSION['ultimo_acceso'];
+
+    // Si el tiempo de inactividad supera el límite, cerrar sesión y redirigir
+    if ($inactividad > $limite_inactividad) {
+        session_unset();
+        session_destroy();
+
+        // Redirigir a login.php con el mensaje de sesión expirada
+        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        exit();
+    }
+}
+
+// Actualizar el tiempo de último acceso
+$_SESSION['ultimo_acceso'] = time();
+
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['worker_user'])) {
+    header('location: /WMS2/LandingPage/html/login.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +40,7 @@
     <script src="../js/index.js"></script>
 </head>
 <body>
+
     <header>
         <div id="header-left">
             <div id="header-menu" onclick="toggleMenu()">
@@ -17,7 +49,11 @@
             <div id="header-logo">
                 <img src="../img/Logos/LineLogo.png" >
             </div>
-            <h1>cista</h1>
+            <h1>CISTA</h1>
+            <h1>
+                Bienvenido <?php echo htmlspecialchars($_SESSION['worker_user']) . ' con id: ' . htmlspecialchars($_SESSION['personal_id'] .
+                ' y correo: '. htmlspecialchars($_SESSION['email'])); ?>
+            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">

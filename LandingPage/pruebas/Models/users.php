@@ -100,8 +100,7 @@ class User
     }
 
 
-   public static function login($user_name, $password)
-{
+   public static function login($user_name, $password){
     // Obtener la conexión a la base de datos
     $connection = Conexion::get_connection();
 
