@@ -50,6 +50,9 @@ CREATE TABLE edificios (
     nombre VARCHAR(100) NOT NULL
 );
 
+INSERT INTO edificios (nombre) VALUES 
+('Campues tijuana');
+
 -- PERSONALES Table
 CREATE TABLE personales (
     personal_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -60,12 +63,21 @@ CREATE TABLE personales (
     edificio_id INT NOT NULL,
     FOREIGN KEY (edificio_id) REFERENCES edificios(edificio_id)
 );
+SELECT * FROM personales;
+ALTER TABLE personales AUTO_INCREMENT = 1;
+
+
+INSERT INTO personales (nombre, primer_apellido, segundo_apellido, correo, worker_user,worker_password, edificio_id) VALUES
+('Jese Santiago', ' Perez', 'Salazar', 'ut-tijuana@gmail.com', 'santi',SHA1('holamundo'), 1),
+('Jese Santiago', ' Perez', 'Salazar', 'ut-tijuana2@gmail.com', 'gamyyy',SHA1('holamundo'), 1);
+SHOW TABLE STATUS LIKE 'personales';
 
 ALTER TABLE personales 
     ADD COLUMN worker_user VARCHAR(255) NOT NULL;
 
     ALTER TABLE personales 
     ADD COLUMN worke_password VARCHAR(255) NOT NULL COMMENT 'Contraseña encriptada del trabajador';
+
 
 
 -- MANTENIMIENTO Table

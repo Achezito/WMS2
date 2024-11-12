@@ -1,14 +1,29 @@
+
+<?php
+
+session_start();
+
+var_dump($_SESSION); // Verifica todas las variables de sesión
+if (!isset($_SESSION['worker_user'])) {
+    header('location: /WMS2/LandingPage/html/login.php');
+    exit();
+} 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="C:/xampp/htdocs/WMS2/WMS2/LandingPage/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../js/index.js"></script>
+    <script src="C:/xampp/htdocs/WMS2/WMS2/LandingPage/js/index.js"></script>
+    
 </head>
 <body>
+<h1>
+        Bienvenido <?php echo htmlspecialchars($_SESSION['worker_user']) . ' con id: ' . htmlspecialchars($_SESSION['personal_id']); ?>
+    </h1>
     <header>
         <div id="header-left">
             <div id="header-menu" onclick="toggleMenu()" >
