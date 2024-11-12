@@ -34,8 +34,8 @@ if (!isset($_SESSION['worker_user'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <title>Principal</title>
+    <link rel="stylesheet" href="/LandingPage/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
 </head>
@@ -43,7 +43,7 @@ if (!isset($_SESSION['worker_user'])) {
 
     <header>
         <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()" >
+            <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
@@ -61,17 +61,35 @@ if (!isset($_SESSION['worker_user'])) {
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>
-                <i class="fas fa-globe"></i>
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
             </div>
         </div>
     </header>
+
+    <!-- Menú lateral -->
     <div id="menu">
         <ul>
             <li><i class="fas fa-home"></i><a href="#"> Home</a></li>
             <li><i class="far fa-user"></i><a href="#"> My account</a></li>
             <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
         </ul>
+    </div>
+    
+    <!-- División para los cinco botones en forma de cartas -->
+    <div id="button-cards-container">
+        <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
+        <div class="button-card"><i class="fas fa-search"></i> Materiales</div>
+        <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
+        <div class="button-card"><i class="fas fa-user"></i> Usuarios</div>
+        <div class="button-card"><i class="fas fa-clock"></i> Historiales</div>
+    </div>
+    
+    <!-- División para las cuatro cartas de contenido -->
+    <div id="cards-container">
+        <div class="card">Movimientos recientes en los materiales</div>
+        <div class="card">Materiales más solicitados en la semana</div>
+        <div class="card">Materiales críticos en el inventario</div>
+        <div class="card">Próximos equipos de recibir mantenimiento</div>
     </div>
 </body>
 </html>
