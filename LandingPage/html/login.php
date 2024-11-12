@@ -8,8 +8,6 @@ $error_message = isset($_SESSION['error_message']) ? $_SESSION['error_message'] 
 unset($_SESSION['error_message']);
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -23,25 +21,26 @@ unset($_SESSION['error_message']);
 
     <div class="container">
         <div class="right-panel">
-            <h2>Crear una cuenta</h2>
+            <h2>Iniciar sesión</h2>
+
+            <!-- Mostrar el mensaje de error si está presente -->
             <?php if ($error_message): ?>
-        <div id="error" style="color: red;"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-        <form action="/WMS2/WMS2/LandingPage/phpFiles/config/process_login.php" method="POST">
-    <div class="form-group">
-        <label for="name">Nombre</label>
-        <input type="text" id="name" name="username" required>
-    </div>
-    <div class="form-group">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-group">
-        <label for="password">Contraseña</label>
-        <input type="password" id="password" name="password" required>
-    </div>
-    <button type="submit">Iniciar Sesión</button>
-</form>
+                <div id="error" style="color: red;"><?php echo htmlspecialchars($error_message); ?></div>
+            <?php endif; ?>
+
+            <!-- Formulario de login -->
+            <form action="/WMS2/LandingPage/phpFiles/config/process_login.php" method="POST">
+                <div class="form-group">
+                    <label for="name">Nombre de usuario</label>
+                    <input type="text" id="name" name="username" required>
+                </div>
+              
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button class="sign-in" type="submit">Iniciar Sesión</button>
+            </form>
 
         </div>
        
@@ -52,6 +51,7 @@ unset($_SESSION['error_message']);
             </div>
         </div>
         
- 
     </div>
+
+</body>
 </html>

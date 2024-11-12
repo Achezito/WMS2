@@ -1,5 +1,5 @@
 <?php
-require_once('C:/xampp/htdocs/WMS2/WMS2/LandingPage/phpFiles/config/conexion.php');
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
 
 class Personal {
     private $personal_id;
@@ -10,9 +10,9 @@ class Personal {
     private $worker_user;
     private $edificio_id;
 
-    private static $login = "SELECT personal_id, worker_user, correo, worker_password FROM personales WHERE worker_user = ? AND correo = ?";
+    private static $login = "SELECT personal_id, worker_user, correo, worker_password FROM personales WHERE worker_user = ?";
    
-    private static $checkUser = "SELECT worker_user FROM personales WHERE worker_user = ? AND correo = ?;";
+    private static $checkUser = "SELECT worker_user FROM personales WHERE worker_user = ? ;";
 
     // Constructor para inicializar los atributos
     public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $correo = null, $worker_user = null, $edificio_id = null)
@@ -28,7 +28,6 @@ class Personal {
     
     // Getters y Setters
 
-    // Getter y Setter para personal_id
     public function getPersonalId() {
         return $this->personal_id;
     }
@@ -37,7 +36,6 @@ class Personal {
         $this->personal_id = $personal_id;
     }
 
-    // Getter y Setter para nombre
     public function getNombre() {
         return $this->nombre;
     }
@@ -46,7 +44,6 @@ class Personal {
         $this->nombre = $nombre;
     }
 
-    // Getter y Setter para primer_apellido
     public function getPrimerApellido() {
         return $this->primer_apellido;
     }
@@ -55,7 +52,6 @@ class Personal {
         $this->primer_apellido = $primer_apellido;
     }
 
-    // Getter y Setter para segundo_apellido
     public function getSegundoApellido() {
         return $this->segundo_apellido;
     }
@@ -64,7 +60,6 @@ class Personal {
         $this->segundo_apellido = $segundo_apellido;
     }
 
-    // Getter y Setter para correo
     public function getCorreo() {
         return $this->correo;
     }
@@ -73,7 +68,6 @@ class Personal {
         $this->correo = $correo;
     }
 
-    // Getter y Setter para worker_user
     public function getWorkerUser() {
         return $this->worker_user;
     }
@@ -82,7 +76,6 @@ class Personal {
         $this->worker_user = $worker_user;
     }
 
-    // Getter y Setter para edificio_id
     public function getEdificioId() {
         return $this->edificio_id;
     }
@@ -91,61 +84,47 @@ class Personal {
         $this->edificio_id = $edificio_id;
     }
 
-     public static function login($worker_user, $email, $password){
-    // Obtener la conexión a la base de datos
-    $connection = Conexion::get_connection();
-
-    // Verificar si la conexión fue exitosa
-    if ($connection->connect_error) {
-        // Manejar el error de conexión
-        return null;
-    }
-
-    $checkCommand = $connection->prepare(self::$checkUser);
-        $checkCommand->bind_param('ss', $worker_user, $email);
+    public static function login($worker_user, $password) {
+        $connection = Conexion::get_connection();
+        if ($connection->connect_error) {
+            return "Error de conexión: " . $connection->connect_error;
+        }
+    
+        // Verificar si el usuario existe
+        $checkCommand = $connection->prepare(self::$checkUser);
+        $checkCommand->bind_param('s', $worker_user);
         $checkCommand->execute();
         $checkCommand->store_result();
-
+    
         if ($checkCommand->num_rows === 0) {
             $checkCommand->close();
-           return "El usuario o correo no existen";  
+            return "El usuario no existe";  
         }
         $checkCommand->close();
-
-    // Preparar la consulta para obtener el usuario y su hash de contraseña
-    $command = $connection->prepare(self::$login);
-    if ($command === false) {
-        // Manejar el error si la consulta no se prepara correctamente
+    
+        // Preparar y ejecutar la consulta para obtener el hash de la contraseña
+        $command = $connection->prepare(self::$login);
+        if ($command === false) {
+            return "Error al preparar la consulta";
+        }
+    
+        $command->bind_param('s', $worker_user);
+        $command->execute();
+        $command->bind_result($personal_id, $worker_user, $correo, $hashed_password);
+    
+        if ($command->fetch()) {
+            // Comparar la contraseña ingresada con el hash almacenado en la base de datos
+            if (sha1($password) === $hashed_password) {
+                // Si la contraseña es correcta, retornar un nuevo objeto Personal sin el hash de la contraseña
+                return new Personal($personal_id, null, null, null, $correo, $worker_user, null);
+            } else {
+                // Si la contraseña no coincide
+                return "Nombre o contraseña incorrecta";
+            }
+        }
+    
         return null;
     }
-
-    $command->bind_param('ss', $worker_user,$email);
-    $command->execute();
-
-    // Obtener el resultado
-    $command->bind_result($personal_id, $worker_user, $email, $hashed_password);
-
-    // Verificar si se encontró al usuario
-    if ($command->fetch()) {
-        // Depuración: Mostrar usuario encontrado y el hash de la contraseña (elimina esta línea en producción)
-        echo "Usuario encontrado: $worker_user - Hash de contraseña: $hashed_password\n";
-
-        // Comparar la contraseña ingresada con el hash almacenado en la base de datos
-        if (sha1($password) === $hashed_password) {
-            // Si la contraseña es correcta, retornar un nuevo objeto User
-            return new Personal($personal_id, null, null, null, $email, $worker_user, null);
-        } else {
-            // Si la contraseña no coincide
-            return "Nombre o contraseña incorrecta";
-        }
-    }
-
-    // Si no se encuentra el usuario
-    return null;
-}
     
-
-
-
 }
 ?>
