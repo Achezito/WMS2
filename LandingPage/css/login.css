@@ -11,15 +11,15 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background:  #002a54;
+   
     color: #333;
 }
 
 .container {
     display: flex;
-    width: 80%;
-    max-width: 900px;
-    border-radius: 15px;
+    width: 100%;
+   
+    height: 100vh;
     overflow: hidden;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
     background-color: #ffffff;
