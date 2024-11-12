@@ -1,15 +1,4 @@
-function init() {
-    document.getElementById("header-menu").onclick = toggleMenu;
 
-    // Agrega el evento para el enlace de "Préstamos"
-    const prestamosLink = document.getElementById("prestamos-link");
-    if (prestamosLink) {
-        prestamosLink.addEventListener("click", function(event) {
-            event.preventDefault(); // Evita el comportamiento predeterminado del enlace
-            window.location.href = 'file:///C:/xampp1/htdocs/PROYECTO/WMS2/Landing%20Page/formularios/prestamos.html';
-        });
-    }
-}
 
 // Función para mostrar/ocultar el menú
 function toggleMenu() {

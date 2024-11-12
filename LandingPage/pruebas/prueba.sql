@@ -50,6 +50,9 @@ CREATE TABLE edificios (
     nombre VARCHAR(100) NOT NULL
 );
 
+INSERT INTO edificios (nombre) VALUES 
+('Campues tijuana');
+
 -- PERSONALES Table
 CREATE TABLE personales (
     personal_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -60,12 +63,21 @@ CREATE TABLE personales (
     edificio_id INT NOT NULL,
     FOREIGN KEY (edificio_id) REFERENCES edificios(edificio_id)
 );
+SELECT * FROM personales;
+ALTER TABLE personales AUTO_INCREMENT = 1;
+
+
+INSERT INTO personales (nombre, primer_apellido, segundo_apellido, correo, worker_user,worker_password, edificio_id) VALUES
+('Jese Santiago', ' Perez', 'Salazar', 'ut-tijuana@gmail.com', 'santi',SHA1('holamundo'), 1),
+('Jese Santiago', ' Perez', 'Salazar', 'ut-tijuana2@gmail.com', 'gamyyy',SHA1('holamundo'), 1);
+SHOW TABLE STATUS LIKE 'personales';
 
 ALTER TABLE personales 
     ADD COLUMN worker_user VARCHAR(255) NOT NULL;
 
     ALTER TABLE personales 
     ADD COLUMN worke_password VARCHAR(255) NOT NULL COMMENT 'Contraseña encriptada del trabajador';
+
 
 
 -- MANTENIMIENTO Table
@@ -160,3 +172,137 @@ CREATE TABLE ppt (
     FOREIGN KEY (personal_id) REFERENCES personales(personal_id),
     FOREIGN KEY (proveedor_id) REFERENCES proveedores(proveedor_id)
 );
+
+
+
+
+INSERT INTO edificios (nombre) VALUES 
+('Campus Tijuana'),
+('Campus Mexicali');
+
+
+INSERT INTO estatus (estatus) VALUES
+('Disponible'),
+('En mantenimiento'),
+('Prestado'),
+('Fuera de servicio');
+ALTER TABLE estatus AUTO_INCREMENT = 1;
+
+
+
+INSERT INTO tipo_material (nombre, categoria, descripcion) VALUES
+('Laptop', 'Electrónica', 'Computadora portátil de uso general'),
+('Proyector', 'Electrónica', 'Proyector multimedia para presentaciones'),
+('Silla', 'Mobiliario', 'Silla de oficina ergonómica');
+
+INSERT INTO proveedores (nombre, telefono, correo) VALUES
+('Proveedor A', '6611234567', 'proveedorA@empresa.com'),
+('Proveedor B', '6617654321', 'proveedorB@empresa.com');
+
+INSERT INTO personales (nombre, primer_apellido, segundo_apellido, correo, worker_user, worker_password, edificio_id) VALUES
+('Juan', 'Lopez', 'Martinez', 'juan.lopez@empresa.com', 'juanito', SHA1('holamundo'), 1),
+('Ana', 'Ramirez', 'Sanchez', 'ana.ramirez@empresa.com', 'anita', SHA1('holamundo'), 2);
+
+
+INSERT INTO materiales (serie, modelo, edificio_id, estatus_id, tipo_material_id) VALUES
+('12345A', 'Dell XPS 13', 1, 1, 1),  -- Laptop, Disponible
+('67890B', 'Epson 3000', 1, 2, 2),  -- Proyector, En mantenimiento
+('11223C', 'Silla Ergo', 2, 3, 3);  -- Silla, Prestado
+
+
+INSERT INTO prestamos (fecha_salida, fecha_devolucion, notas, personal_id) VALUES
+('2024-11-01', '2024-11-10', 'Préstamo de laptop para uso en clase', 1),
+('2024-11-05', '2024-11-15', 'Préstamo de proyector para presentación', 2);
+
+INSERT INTO material_prestamos (prestamo_id, material_id, cantidad) VALUES
+(1, 4, 1),  -- Prestamo de 1 Laptop
+(2, 5, 1);  -- Prestamo de 1 Proyector
+
+
+INSERT INTO transacciones (tipo_transaccion, fecha_inicio, fecha_final, notas) VALUES
+('Ingreso', '2024-11-01 08:00:00', '2024-11-01 09:00:00', 'Ingreso de material de oficina'),
+('Egreso', '2024-11-05 10:00:00', NULL, 'Egreso de material para presentación');
+
+INSERT INTO material_transaccion (transaccion_id, material_id, cantidad) VALUES
+(1, 4, 5),  -- 5 Laptops ingresadas
+(2, 5, 3);  -- 3 Proyectores egresados
+
+INSERT INTO mantenimiento (descripcion, fecha_inicio, fecha_final, personal_id) VALUES
+('Mantenimiento preventivo de proyectores', '2024-11-01', '2024-11-03', 1),
+('Revisión de sillas ergonómicas', '2024-11-05', NULL, 2);
+
+
+
+INSERT INTO mantenimiento_material (mantenimiento_id, material_id) VALUES
+(1, 5),  -- Mantenimiento al proyector
+(2, 6);  -- Mantenimiento a la silla
+
+
+CREATE VIEW vista_materiales AS
+SELECT 
+    m.material_id,
+    m.serie,
+    m.modelo,
+    e.nombre AS edificio,
+    s.estatus AS estatus,
+    t.nombre AS tipo_material
+FROM 
+    materiales m
+JOIN 
+    estatus s ON m.estatus_id = s.estatus_id
+JOIN 
+    tipo_material t ON m.tipo_material_id = t.tipo_material_id
+JOIN 
+    edificios e ON m.edificio_id = e.edificio_id;
+
+
+CREATE VIEW vista_prestamos_materiales AS
+SELECT 
+    p.prestamo_id,
+    p.fecha_salida,
+    p.fecha_devolucion,
+    m.serie,
+    m.modelo,
+    m.tipo_material_id,
+    mp.cantidad,
+    pe.nombre AS personal_prestamo
+FROM 
+    prestamos p
+JOIN 
+    material_prestamos mp ON p.prestamo_id = mp.prestamo_id
+JOIN 
+    materiales m ON mp.material_id = m.material_id
+JOIN 
+    personales pe ON p.personal_id = pe.personal_id;
+
+
+SELECT m.descripcion, m.fecha_inicio, m.fecha_final, ma.serie, ma.modelo
+FROM mantenimiento m
+JOIN mantenimiento_material mm ON m.mantenimiento_id = mm.mantenimiento_id
+JOIN materiales ma ON mm.material_id = ma.material_id;
+
+
+
+
+SELECT 
+    pe.nombre, 
+    pe.primer_apellido, 
+    pe.segundo_apellido, 
+    mp.cantidad, 
+    m.serie, 
+    m.modelo
+FROM 
+    personales pe
+JOIN 
+    prestamos p ON pe.personal_id = p.personal_id
+JOIN 
+    material_prestamos mp ON p.prestamo_id = mp.prestamo_id
+JOIN 
+    materiales m ON mp.material_id = m.material_id
+WHERE 
+    p.fecha_devolucion IS NULL;  -- Filtra solo los materiales que no han sido devueltos
+
+
+ALTER TABLE prestamos
+ADD COLUMN usuario_id INT NOT NULL,
+ADD FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id);
