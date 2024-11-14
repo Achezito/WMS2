@@ -22,6 +22,11 @@ class Personal {
         return $this->username;
     }
 
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
+
 
     // Getters y Setters
     public function getPersonalId() {
@@ -67,6 +72,17 @@ class Personal {
         $this->edificio_id = $edificio_id;
     }
 
+
+    public static function setFullname($nombre, $primerApellido) {
+        $fullname = $nombre . ' ' . $primerApellido;
+        return $fullname;
+    }
+    
+
+    public function getFullname() {
+        return $this->nombre . ' ' . $this->primer_apellido;
+    }
+    
     // Método para cargar los datos específicos de un personal basado en cuenta_id
 
 }

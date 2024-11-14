@@ -16,17 +16,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($user instanceof Personal) {
         $_SESSION['user_type'] = 'personal';
         $_SESSION['user_id'] = $user->getPersonalId();
-     
+        $_SESSION['edificio_id'] = $user->getEdificioId();
+        $_SESSION['fullname'] = $user->getFullname();
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/index.php" 
+            "redirect" => "/WMS2/LandingPage/html/index.php",
+            "debug" => "Sesión iniciada correctamente para personal"
         ]);
         exit;
+    
+
+    
     } else if ($user instanceof Usuario) {
         $_SESSION['user_type'] = 'usuario';
         $_SESSION['user_id'] = $user->getUsuarioId();
         $_SESSION['username'] = $user->getNombre();
+       
 
         echo json_encode([
             "success" => true,

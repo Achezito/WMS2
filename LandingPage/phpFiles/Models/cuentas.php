@@ -9,6 +9,9 @@ class Cuenta {
                c.nombre_usuario AS username, 
                c.contraseña AS password, 
                p.personal_id AS personal_id, 
+               p.nombre as Nombre,
+               p.primer_apellido as PrimerApellido,
+               p.edificio_id as Edificio,
                u.usuario_id AS usuario_id
         FROM cuentas c
         LEFT JOIN personales p ON c.personal_id = p.personal_id
@@ -25,22 +28,29 @@ class Cuenta {
         $command = $connection->prepare(self::$loginQuery);
         $command->bind_param('s', $username);
         $command->execute();
-        $command->bind_result($type, $id, $username, $hashed_password, $personal_id, $usuario_id);
+        $command->bind_result($type, $id, $username, $hashed_password, 
+        $personal_id, $nombre, $primerApellido, $edificio_id ,$usuario_id);
 
         if ($command->fetch()) {
             if (sha1($password) === $hashed_password) {
                 if ($type === 'personal') {
-                    // Pasa el username al constructor de Personal
-                    return new Personal($personal_id, null, null, null, null, $username);
+                    // Crear el nombre completo usando el método setFullname
+                    $fullName = Personal::setFullname($nombre, $primerApellido);
+                    
+                    // Retornar la instancia de Personal con el nombre completo
+                    return new Personal($personal_id, $fullName, null, null, $edificio_id, $username);
                 } else if ($type === 'usuario') {
+                    error_log("Tipo de cuenta: usuario"); // Log temporal
                     return new Usuario($usuario_id, $username);
                 }
+                
             } else {
                 return "Nombre o contraseña incorrecta";
             }
         } else {
             return "El usuario no existe";
         }
+        
     }
 }
 ?>

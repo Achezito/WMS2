@@ -24,7 +24,7 @@ $_SESSION['ultimo_acceso'] = time();
 
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['worker_user'])) {
+if (!isset($_SESSION['user_type'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
@@ -51,8 +51,7 @@ if (!isset($_SESSION['worker_user'])) {
             </div>
             <h1>CISTA</h1>
             <h1>
-                Bienvenido <?php echo htmlspecialchars($_SESSION['worker_user']) . ' con id: ' . htmlspecialchars($_SESSION['personal_id'] .
-                ' y correo: '. htmlspecialchars($_SESSION['email'])); ?>
+                Bienvenido <?php echo htmlspecialchars($_SESSION['fullname']) ?>
             </h1>
         </div>
         <div id="header-right">
@@ -69,7 +68,7 @@ if (!isset($_SESSION['worker_user'])) {
     <!-- Menú lateral -->
     <div id="menu">
         <ul>
-            <li><i class="fas fa-home"></i><a href="#"> Home</a></li>
+            <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/login.php"> Home</a></li>
             <li><i class="far fa-user"></i><a href="#"> My account</a></li>
             <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
         </ul>
