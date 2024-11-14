@@ -2,7 +2,7 @@
 session_start();
 
 // Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
-$limite_inactividad = 10;
+$limite_inactividad = 100000;
 
 // Verificar el tiempo de inactividad
 if (isset($_SESSION['ultimo_acceso'])) {
@@ -35,7 +35,7 @@ if (!isset($_SESSION['worker_user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="/LandingPage/css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
 </head>
