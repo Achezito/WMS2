@@ -1,38 +1,50 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 session_start();
-header('Content-Type: application/json'); // Establece el encabezado JSON
+header('Content-Type: application/json');
 
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/cuentas.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitizar las entradas de usuario
     $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
     $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
 
-    // Intenta hacer login con los datos ingresados
-    $user = Personal::login($username, $password);
+    $user = Cuenta::login($username, $password);
 
     if ($user instanceof Personal) {
-        // Configurar las variables de sesión en caso de éxito
-        $_SESSION['personal_id'] = $user->getPersonalId();
-        $_SESSION['worker_user'] = $user->getWorkerUser();
-        $_SESSION['email'] = $user->getCorreo();
+        $_SESSION['user_type'] = 'personal';
+        $_SESSION['user_id'] = $user->getPersonalId();
+     
 
-        // Respuesta JSON de éxito
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/index.php"
+            "redirect" => "/WMS2/LandingPage/html/index.php" 
         ]);
+        exit;
+    } else if ($user instanceof Usuario) {
+        $_SESSION['user_type'] = 'usuario';
+        $_SESSION['user_id'] = $user->getUsuarioId();
+        $_SESSION['username'] = $user->getNombre();
+
+        echo json_encode([
+            "success" => true,
+            "redirect" => "/WMS2/LandingPage/html/usuario.php" 
+        ]);
+        exit;
     } else {
-        // El login falló, por ejemplo, usuario no encontrado o contraseña incorrecta
         echo json_encode([
             "success" => false,
-            "message" => $user // El mensaje de error que tu método login devuelve
+            "message" => $user
         ]);
+        exit;
     }
 }
 
-    
+// Respuesta JSON de error por defecto en caso de que algo falle inesperadamente
+echo json_encode([
+    "success" => false,
+    "message" => "Ocurrió un error inesperado. Inténtalo más tarde."
+]);
 ?>
-

@@ -49,6 +49,8 @@ CREATE TABLE edificios (
     edificio_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     nombre VARCHAR(100) NOT NULL
 );
+INSERT INTO edificios (edificio_id, nombre) VALUES
+(1, 'docencia 1');
 
 INSERT INTO edificios (nombre) VALUES 
 ('Campues tijuana');
@@ -59,7 +61,6 @@ CREATE TABLE personales (
     nombre VARCHAR(50) NOT NULL,
     primer_apellido VARCHAR(50) NOT NULL,
     segundo_apellido VARCHAR(50),
-    correo VARCHAR(100) UNIQUE NOT NULL,
     edificio_id INT NOT NULL,
     FOREIGN KEY (edificio_id) REFERENCES edificios(edificio_id)
 );
@@ -79,7 +80,32 @@ ALTER TABLE personales
     ADD COLUMN worke_password VARCHAR(255) NOT NULL COMMENT 'Contraseña encriptada del trabajador';
 
 
+    INSERT INTO personales (personal_id, nombre, primer_apellido, segundo_apellido, edificio_id) VALUES
+(1, 'Juan', 'Pérez', 'Gómez', 1);
 
+
+INSERT INTO cuentas (cuenta_id, nombre_usuario, contraseña, tipo_cuenta, usuario_id) 
+VALUES (3,  'santipro', SHA1('1234'), 'usuario', 3);
+
+
+INSERT INTO usuarios (nombre, descripcion, estado) 
+VALUES ('Juan Pérez', 'Administrador del sistema', 'alta');
+
+
+INSERT INTO cuentas (cuenta_id, personal_id, nombre_usuario, contraseña, tipo_cuenta) 
+VALUES (1, 1, 'juanp', SHA1('holamundo'), 'personal');
+
+
+    SELECT c.tipo_cuenta AS type, 
+               c.cuenta_id AS id, 
+               c.nombre_usuario AS username, 
+               c.contraseña AS password, 
+               p.personal_id AS personal_id, 
+               u.usuario_id AS usuario_id
+        FROM cuentas c
+        LEFT JOIN personales p ON c.personal_id = p.personal_id
+        LEFT JOIN usuarios u ON c.usuario_id = u.usuario_id
+        WHERE c.nombre_usuario = 'santi';
 -- MANTENIMIENTO Table
 CREATE TABLE mantenimiento (
     mantenimiento_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
@@ -89,6 +115,9 @@ CREATE TABLE mantenimiento (
     personal_id INT,
     FOREIGN KEY (personal_id) REFERENCES personales(personal_id)
 );
+
+CREATE INDEX idx_nombre_usuario ON cuentas (nombre_usuario);
+
 
 -- USUARIOS Table (PERSONAS)
 CREATE TABLE usuarios (
@@ -121,6 +150,18 @@ CREATE TABLE materiales (
     FOREIGN KEY (tipo_material_id) REFERENCES tipo_material(tipo_material_id)
 );
 
+
+CREATE TABLE cuentas (
+    cuenta_id INT PRIMARY KEY AUTO_INCREMENT,
+    nombre_usuario VARCHAR(50) NOT NULL UNIQUE,
+    contraseña VARCHAR(255) NOT NULL,
+    tipo_cuenta ENUM('usuario', 'personal') NOT NULL,
+    
+    usuario_id INT,
+    personal_id INT,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id),
+    FOREIGN KEY (personal_id) REFERENCES personales(personal_id)
+);
 
 
 -- PRESTAMOS Table
