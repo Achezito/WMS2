@@ -84,6 +84,11 @@ class Personal {
         $this->edificio_id = $edificio_id;
     }
 
+
+    public static function checkEdificio(){
+        
+    }
+
     public static function login($worker_user, $password) {
         $connection = Conexion::get_connection();
         if ($connection->connect_error) {
@@ -116,6 +121,7 @@ class Personal {
             // Comparar la contraseña ingresada con el hash almacenado en la base de datos
             if (sha1($password) === $hashed_password) {
                 // Si la contraseña es correcta, retornar un nuevo objeto Personal sin el hash de la contraseña
+
                 return new Personal($personal_id, null, null, null, $correo, $worker_user, null);
             } else {
                 // Si la contraseña no coincide

@@ -172,70 +172,95 @@ CREATE TABLE ppt (
     FOREIGN KEY (personal_id) REFERENCES personales(personal_id),
     FOREIGN KEY (proveedor_id) REFERENCES proveedores(proveedor_id)
 );
-
-
-
-
-INSERT INTO edificios (nombre) VALUES 
-('Campus Tijuana'),
-('Campus Mexicali');
-
-
-INSERT INTO estatus (estatus) VALUES
-('Disponible'),
-('En mantenimiento'),
-('Prestado'),
-('Fuera de servicio');
+ALTER TABLE edificios AUTO_INCREMENT = 1;
+ALTER TABLE personales AUTO_INCREMENT = 1;
 ALTER TABLE estatus AUTO_INCREMENT = 1;
+ALTER TABLE tipo_material AUTO_INCREMENT = 1;
+ALTER TABLE materiales AUTO_INCREMENT = 1;
+ALTER TABLE usuarios AUTO_INCREMENT = 1;
+ALTER TABLE proveedores AUTO_INCREMENT = 1;
+ALTER TABLE transacciones AUTO_INCREMENT = 1;
+ALTER TABLE material_transaccion AUTO_INCREMENT = 1;
+ALTER TABLE ppt AUTO_INCREMENT = 1;
+ALTER TABLE prestamos AUTO_INCREMENT = 1;
+ALTER TABLE material_prestamos AUTO_INCREMENT = 1;
+ALTER TABLE mantenimiento AUTO_INCREMENT = 1;
+ALTER TABLE mantenimiento_material AUTO_INCREMENT = 1;
 
 
 
-INSERT INTO tipo_material (nombre, categoria, descripcion) VALUES
-('Laptop', 'Electrónica', 'Computadora portátil de uso general'),
-('Proyector', 'Electrónica', 'Proyector multimedia para presentaciones'),
-('Silla', 'Mobiliario', 'Silla de oficina ergonómica');
 
-INSERT INTO proveedores (nombre, telefono, correo) VALUES
-('Proveedor A', '6611234567', 'proveedorA@empresa.com'),
-('Proveedor B', '6617654321', 'proveedorB@empresa.com');
+-- Tabla: edificios
+INSERT INTO edificios (edificio_id, nombre) VALUES 
+(1, 'Edificio Principal'),
+(2, 'Edificio Anexo');
 
-INSERT INTO personales (nombre, primer_apellido, segundo_apellido, correo, worker_user, worker_password, edificio_id) VALUES
-('Juan', 'Lopez', 'Martinez', 'juan.lopez@empresa.com', 'juanito', SHA1('holamundo'), 1),
-('Ana', 'Ramirez', 'Sanchez', 'ana.ramirez@empresa.com', 'anita', SHA1('holamundo'), 2);
+-- Tabla: personales
+INSERT INTO personales (personal_id, nombre, primer_apellido, segundo_apellido, correo, worker_password, worker_user, edificio_id) VALUES 
+(1, 'Juan', 'Pérez', 'Lopez', 'juan.perez@correo.com', 'password1', 'jPerez', 1),
+(2, 'Ana', 'Gomez', 'Martinez', 'ana.gomez@correo.com', 'password2', 'aGomez', 2);
 
+-- Tabla: estatus
+INSERT INTO estatus (estatus_id, estatus) VALUES 
+(1, 'Disponible'),
+(2, 'Mantenimiento'),
+(3, 'Prestado');
 
-INSERT INTO materiales (serie, modelo, edificio_id, estatus_id, tipo_material_id) VALUES
-('12345A', 'Dell XPS 13', 1, 1, 1),  -- Laptop, Disponible
-('67890B', 'Epson 3000', 1, 2, 2),  -- Proyector, En mantenimiento
-('11223C', 'Silla Ergo', 2, 3, 3);  -- Silla, Prestado
+-- Tabla: tipo_material
+INSERT INTO tipo_material (tipo_material_id, nombre, categoria, descripcion) VALUES 
+(1, 'Laptop', 'Computación', 'Dispositivo portátil'),
+(2, 'Proyector', 'Audiovisual', 'Proyector de video');
 
+-- Tabla: materiales
+INSERT INTO materiales (material_id, serie, modelo, edificio_id, estatus_id, tipo_material_id) VALUES 
+(1, 'ABC123', 'HP Envy', 1, 1, 1),
+(2, 'XYZ456', 'Epson X100', 2, 1, 2);
 
-INSERT INTO prestamos (fecha_salida, fecha_devolucion, notas, personal_id) VALUES
-('2024-11-01', '2024-11-10', 'Préstamo de laptop para uso en clase', 1),
-('2024-11-05', '2024-11-15', 'Préstamo de proyector para presentación', 2);
+-- Tabla: usuarios
+INSERT INTO usuarios (usuario_id, nombre, descripcion, fecha_creacion, estado) VALUES 
+(1, 'Mario Lopez', 'Profesor de matemáticas', CURRENT_TIMESTAMP, 'alta'),
+(2, 'Sara Sanchez', 'Administrativo', CURRENT_TIMESTAMP, 'alta');
 
-INSERT INTO material_prestamos (prestamo_id, material_id, cantidad) VALUES
-(1, 4, 1),  -- Prestamo de 1 Laptop
-(2, 5, 1);  -- Prestamo de 1 Proyector
+-- Tabla: proveedores
+INSERT INTO proveedores (proveedor_id, nombre, telefono, correo) VALUES 
+(1, 'Proveedor Uno', '5551234567', 'proveedor1@correo.com'),
+(2, 'Proveedor Dos', '5557654321', 'proveedor2@correo.com');
 
+-- Tabla: transacciones
+INSERT INTO transacciones (transaccion_id, tipo_transaccion, fecha_inicio, fecha_final, notas) VALUES 
+(1, 'Entrada', '2024-11-01 10:00:00', '2024-11-01 11:00:00', 'Ingreso inicial de materiales'),
+(2, 'Salida', '2024-11-02 14:00:00', '2024-11-02 15:00:00', 'Material prestado para evento');
 
-INSERT INTO transacciones (tipo_transaccion, fecha_inicio, fecha_final, notas) VALUES
-('Ingreso', '2024-11-01 08:00:00', '2024-11-01 09:00:00', 'Ingreso de material de oficina'),
-('Egreso', '2024-11-05 10:00:00', NULL, 'Egreso de material para presentación');
+-- Tabla: material_transaccion
+INSERT INTO material_transaccion (transaccion_id, material_id, cantidad) VALUES 
+(1, 1, 5),
+(1, 2, 3),
+(2, 1, 1);
 
-INSERT INTO material_transaccion (transaccion_id, material_id, cantidad) VALUES
-(1, 4, 5),  -- 5 Laptops ingresadas
-(2, 5, 3);  -- 3 Proyectores egresados
+-- Tabla: ppt (Proveedor - Personal - Transaccion)
+INSERT INTO ppt (ppt_id, transaccion_id, personal_id, proveedor_id) VALUES 
+(1, 1, 1, 1),
+(2, 2, 2, 2);
 
-INSERT INTO mantenimiento (descripcion, fecha_inicio, fecha_final, personal_id) VALUES
-('Mantenimiento preventivo de proyectores', '2024-11-01', '2024-11-03', 1),
-('Revisión de sillas ergonómicas', '2024-11-05', NULL, 2);
+-- Tabla: prestamos
+INSERT INTO prestamos (prestamo_id, fecha_salida, fecha_devolucion, notas, personal_id, usuario_id) VALUES 
+(1, '2024-11-01', '2024-11-07', 'Préstamo para clase', 1, 1),
+(2, '2024-11-02', '2024-11-10', 'Préstamo para reunión', 2, 2);
 
+-- Tabla: material_prestamos
+INSERT INTO material_prestamos (prestamo_id, material_id, cantidad) VALUES 
+(1, 1, 1),
+(2, 2, 2);
 
+-- Tabla: mantenimiento
+INSERT INTO mantenimiento (mantenimiento_id, descripcion, fecha_inicio, fecha_final, personal_id) VALUES 
+(1, 'Revisión anual', '2024-10-01', '2024-10-05', 1),
+(2, 'Cambio de lámpara', '2024-10-10', '2024-10-12', 2);
 
-INSERT INTO mantenimiento_material (mantenimiento_id, material_id) VALUES
-(1, 5),  -- Mantenimiento al proyector
-(2, 6);  -- Mantenimiento a la silla
+-- Tabla: mantenimiento_material
+INSERT INTO mantenimiento_material (mantenimiento_id, material_id) VALUES 
+(1, 1),
+(2, 2);
 
 
 CREATE VIEW vista_materiales AS
@@ -290,7 +315,8 @@ SELECT
     pe.segundo_apellido, 
     mp.cantidad, 
     m.serie, 
-    m.modelo
+    m.modelo,
+    p.usuario_id
 FROM 
     personales pe
 JOIN 
@@ -306,3 +332,4 @@ WHERE
 ALTER TABLE prestamos
 ADD COLUMN usuario_id INT NOT NULL,
 ADD FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id);
+2
