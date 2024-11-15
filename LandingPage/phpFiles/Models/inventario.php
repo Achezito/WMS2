@@ -1,4 +1,5 @@
 <?php 
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
 class inventario {
     private $material_id;
     private $serie;
@@ -7,25 +8,7 @@ class inventario {
     private $estatus_id;
     private $tipo_material_id;
 
-    private static $checkMaterials = "SELECT 
-        i.material_id,
-        i.serie,
-        i.modelo,
-        e.nombre AS edificio,
-        s.estatus AS estatus,
-        t.nombre AS tipo_material,
-        p.nombre AS personal_responsable -- Suponiendo que 'nombre' en 'personales' es el responsable
-    FROM 
-        inventario AS i
-    JOIN 
-        estatus AS s ON i.estatus_id = s.estatus_id
-    JOIN 
-        tipo_material AS t ON i.tipo_material_id = t.tipo_material_id
-    JOIN 
-        edificios AS e ON i.edificio_id = e.edificio_id
-    JOIN 
-        personales AS p ON e.edificio_id = p.edificio_id
-    WHERE e.edificio_id = p.edificio_id AND s.estatus = 'disponible';";
+    
 
     // Getters y Setters
     public function getMaterialId() {
@@ -77,7 +60,37 @@ class inventario {
     }
 
     public static function checkMaterials(){
-        
+
+    }
+
+ 
+    public static function obtenerMaterialesPorEdificio($edificio_id)
+    {
+        $connection = Conexion::get_connection();
+        $sql = "
+            SELECT i.material_id, i.serie, i.modelo, tm.nombre AS tipo_material, e.nombre AS edificio
+            FROM wms.inventario i
+            JOIN wms.tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+            JOIN wms.edificios e ON i.edificio_id = e.edificio_id
+            WHERE i.edificio_id = ?
+        ";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $edificio_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $materiales = [];
+        while ($row = $result->fetch_assoc()) {
+            $materiales[] = $row;
+        }
+
+        $stmt->close();
+        $connection->close();
+
+        return $materiales;
     }
 }
+
+
 ?>

@@ -9,6 +9,9 @@ class Personal {
     private $edificio_id;
     private $username; // Nueva propiedad para almacenar el nombre de usuario
 
+
+
+
     public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $edificio_id = null, $username = null) {
         $this->personal_id = $personal_id;
         $this->nombre = $nombre;
@@ -83,6 +86,25 @@ class Personal {
         return $this->nombre . ' ' . $this->primer_apellido;
     }
     
-    // Método para cargar los datos específicos de un personal basado en cuenta_id
 
+
+    public function getEdificioDetails() {
+        $connection = Conexion::get_connection();
+        $query = "SELECT nombre FROM edificios WHERE edificio_id = ?";  // Consulta para obtener nombre y dirección del edificio
+
+        // Preparar la consulta y ejecutar
+        $command = $connection->prepare($query);
+        $command->bind_param('i', $this->edificio_id);  // Usamos el edificio_id del objeto
+        $command->execute();
+        $command->bind_result($nombre_edificio, $direccion_edificio);  // Resultados de la consulta
+
+        if ($command->fetch()) {
+            return array("nombre" => $nombre_edificio);
+        } else {
+            return "Edificio no encontrado";  // Si no se encuentra el edificio
+        }
+
+        $connection->close();
+    }
 }
+

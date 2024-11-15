@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+
 // Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
 $limite_inactividad = 100000;
 
@@ -28,6 +30,15 @@ if (!isset($_SESSION['user_type'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
+
+if (isset($_SESSION['edificio_id'])) {
+    $edificio_id = $_SESSION['edificio_id'];
+    $materiales = Inventario::obtenerMaterialesPorEdificio($edificio_id);
+} else {
+    echo "Error: No se ha asignado un edificio al usuario actual.";
+    exit();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -51,7 +62,7 @@ if (!isset($_SESSION['user_type'])) {
             </div>
             <h1>CISTA</h1>
             <h1>
-                Bienvenido <?php echo htmlspecialchars($_SESSION['fullname']) ?>
+                
             </h1>
         </div>
         <div id="header-right">
@@ -85,7 +96,31 @@ if (!isset($_SESSION['user_type'])) {
     
     <!-- División para las cuatro cartas de contenido -->
     <div id="cards-container">
-        <div class="card">Movimientos recientes en los materiales</div>
+        <div class="card">
+        <?php 
+                 if (!empty($materiales)) {
+                    echo "<table>";
+                    echo "<tr><th>ID Material</th><th>Serie</th><th>Modelo</th><th>Tipo</th><th>Edificio</th></tr>";
+                    foreach ($materiales as $material) {
+                        echo "<tr>";
+                        echo "<td>" . $material['material_id'] . "</td>";
+                        echo "<td>" . $material['serie'] . "</td>";
+                        echo "<td>" . $material['modelo'] . "</td>";
+                        echo "<td>" . $material['tipo_material'] . "</td>";
+                        echo "<td>" . $material['edificio'] . "</td>";
+                        echo "</tr>";
+                    }
+                    echo "</table>";
+                } else {
+                    echo "No hay materiales vinculados a tu edificio.";
+                }
+          
+                
+                
+                
+         ?>
+
+        </div>
         <div class="card">Materiales más solicitados en la semana</div>
         <div class="card">Materiales críticos en el inventario</div>
         <div class="card">Próximos equipos de recibir mantenimiento</div>

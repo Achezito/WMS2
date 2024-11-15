@@ -16,7 +16,7 @@
             <div id="error" style="color: red;"></div>
 
             <!-- Formulario de login -->
-            <form id="loginForm">
+            <form id="loginForm" >
                 <div class="form-group">
                     <label for="name">Nombre de usuario</label>
                     <input type="text" id="name" name="username" required>
