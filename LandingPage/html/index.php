@@ -67,9 +67,6 @@ if (isset($_SESSION['edificio_id'])) {
             </h1>
         </div>
         <div id="header-right">
-            <h1 id="welcome-msg">
-                <?php echo htmlspecialchars($_SESSION['worker_user']); ?>
-            </h1>
             <div id="user-photo">
                 <img src="../img/Users/User.jpg" alt="User Photo">
             </div>

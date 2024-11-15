@@ -2,7 +2,7 @@
 session_start();
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['worker_user'])) {
+if (!isset($_SESSION['user_id'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
@@ -36,9 +36,6 @@ $_SESSION['ultimo_acceso'] = time();
             <h1>Historiales</h1>
         </div>
         <div id="header-right">
-            <h1 id="welcome-msg">
-                <?php echo htmlspecialchars($_SESSION['worker_user']); ?>
-            </h1>
             <div id="user-photo">
                 <img src="../img/Users/User.jpg" alt="User Photo">
             </div>
