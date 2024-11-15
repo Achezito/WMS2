@@ -1,35 +1,56 @@
 <?php
-session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
-$limite_inactividad = 1000; // 10 minutos
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
+session_start();
+header('Content-Type: application/json');
+
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/cuentas.php');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Sanitiza el nombre de usuario
-    $userFetch = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+    $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
+    $password = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
 
-   
+    $user = Cuenta::login($username, $password);
 
-    // Obtén la contraseña y hasheala
+    if ($user instanceof Personal) {
+        $_SESSION['user_type'] = 'personal';
+        $_SESSION['user_id'] = $user->getPersonalId();
+        $_SESSION['edificio_id'] = $user->getEdificioId();
+        $_SESSION['fullname'] = $user->getFullname();
 
-    $passwordFetch = htmlspecialchars($_POST['password'], ENT_QUOTES, 'UTF-8');
+        echo json_encode([
+            "success" => true,
+            "redirect" => "/WMS2/LandingPage/html/index.php",
+            "debug" => "Sesión iniciada correctamente para personal"
+        ]);
+        exit;
+    
 
+    
+    } else if ($user instanceof Usuario) {
+        $_SESSION['user_type'] = 'usuario';
+        $_SESSION['user_id'] = $user->getUsuarioId();
+        $_SESSION['username'] = $user->getNombre();
+       
 
-
-    // Intenta hacer login con los datos ingresados
-    $userPersonal = Personal::login($userFetch ,$passwordFetch);
-
-    if ($userPersonal instanceof Personal) {
-        $_SESSION['personal_id'] = $userPersonal->getPersonalId();
-$_SESSION['worker_user'] = $userPersonal->getWorkerUser();
-$_SESSION['email'] = $userPersonal->getCorreo();
-
-        header("Location: /WMS2/LandingPage/html/index.php");
-        exit();
+        echo json_encode([
+            "success" => true,
+            "redirect" => "/WMS2/LandingPage/html/usuario.php" 
+        ]);
+        exit;
     } else {
-        // Maneja el mensaje específico que devuelve el método login
-        $_SESSION['error_message'] = $userPersonal;  // Puede ser "El nombre de usuario no existe." o "Contraseña incorrecta."
-        header("Location: /WMS2//LandingPage/html/login.php");
-        exit();
+        echo json_encode([
+            "success" => false,
+            "message" => $user
+        ]);
+        exit;
     }
 }
+
+// Respuesta JSON de error por defecto en caso de que algo falle inesperadamente
+echo json_encode([
+    "success" => false,
+    "message" => "Ocurrió un error inesperado. Inténtalo más tarde."
+]);
+?>
