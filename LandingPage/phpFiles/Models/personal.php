@@ -90,21 +90,22 @@ class Personal {
 
     public function getEdificioDetails() {
         $connection = Conexion::get_connection();
-        $query = "SELECT nombre FROM edificios WHERE edificio_id = ?";  // Consulta para obtener nombre y dirección del edificio
-
+        $query = "SELECT nombre FROM edificios WHERE edificio_id = ?";
+    
         // Preparar la consulta y ejecutar
         $command = $connection->prepare($query);
-        $command->bind_param('i', $this->edificio_id);  // Usamos el edificio_id del objeto
+        $command->bind_param('i', $this->edificio_id);  
         $command->execute();
-        $command->bind_result($nombre_edificio, $direccion_edificio);  // Resultados de la consulta
-
+        $command->bind_result($nombre_edificio, $direccion_edificio); 
+    
         if ($command->fetch()) {
-            return array("nombre" => $nombre_edificio);
+            $result = array("nombre" => $nombre_edificio);
         } else {
-            return "Edificio no encontrado";  // Si no se encuentra el edificio
+            $result = "Edificio no encontrado";
         }
-
+    
         $connection->close();
-    }
+        return $result;
+    }    
 }
 
