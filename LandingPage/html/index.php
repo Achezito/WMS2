@@ -11,11 +11,13 @@
 <body>
     <header>
         <div id="header-left">
+
             <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
                 <img src="../img/Logos/LineLogo.png" alt="Logo">
+
             </div>
             <h1>CISTA</h1>
         </div>
@@ -33,6 +35,7 @@
         <ul>
             <li><i class="fas fa-home"></i><a href="../html/index.html"> Home</a></li>
             <li><i class="far fa-user"></i><a href="#"> My account</a></li>
+
             <li><i class="far fa-clipboard"></i><a href="../formularios/prestamos.php"> Préstamos </a></li>
         </ul>
     </div>
