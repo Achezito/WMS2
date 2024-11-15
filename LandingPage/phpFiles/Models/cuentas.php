@@ -2,7 +2,8 @@
 require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
 require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/usuarios.php');
 
-class Cuenta {
+class Cuenta
+{
     private static $loginQuery = "
         SELECT c.tipo_cuenta AS type, 
                c.cuenta_id AS id, 
@@ -19,7 +20,9 @@ class Cuenta {
         WHERE c.nombre_usuario = ?
     ";
 
-    public static function login($username, $password) {
+    // Ejemplo del flujo de login en Cuenta.php:
+    public static function login($username, $password)
+    {
         $connection = Conexion::get_connection();
         if ($connection->connect_error) {
             return "Error de conexión: " . $connection->connect_error;
@@ -28,29 +31,31 @@ class Cuenta {
         $command = $connection->prepare(self::$loginQuery);
         $command->bind_param('s', $username);
         $command->execute();
-        $command->bind_result($type, $id, $username, $hashed_password, 
-        $personal_id, $nombre, $primerApellido, $edificio_id ,$usuario_id);
+        $command->bind_result(
+            $type,
+            $id,
+            $username,
+            $hashed_password,
+            $personal_id,
+            $nombre,
+            $primerApellido,
+            $edificio_id,
+            $usuario_id
+        );
 
         if ($command->fetch()) {
             if (sha1($password) === $hashed_password) {
                 if ($type === 'personal') {
-                    // Crear el nombre completo usando el método setFullname
                     $fullName = Personal::setFullname($nombre, $primerApellido);
-                    
-                    // Retornar la instancia de Personal con el nombre completo
-                    return new Personal($personal_id, $fullName, null, null, $edificio_id, $username);
+                    return new Personal($personal_id, $fullName, $primerApellido, null, $edificio_id, $username);
                 } else if ($type === 'usuario') {
-                    error_log("Tipo de cuenta: usuario"); // Log temporal
                     return new Usuario($usuario_id, $username);
                 }
-                
             } else {
                 return "Nombre o contraseña incorrecta";
             }
         } else {
             return "El usuario no existe";
         }
-        
     }
 }
-?>
