@@ -7,6 +7,7 @@
     --header-text-color: #ffffff;
     --header-height: 60px;
     --font-size-h1: 16pt;
+    --icon-size: 18px;
     --icon-size: 24px;
     --user-photo-size: 35px;
     --menu-background: #333333;
@@ -151,8 +152,6 @@ h1 {
 #menu li:hover {
     background-color: var(--menu-hover);
 }
-
-
 /* Nuevas clases para contenedores de tarjetas y botones */
 #button-cards-container {
     display: flex;
@@ -161,7 +160,6 @@ h1 {
     padding: 20px;
     gap: 20px;
 }
-
 .button-card {
     display: flex;
     flex-direction: column;
@@ -178,16 +176,13 @@ h1 {
     cursor: pointer;
     font-size: 14px;
 }
-
 .button-card i {
     font-size: var(--icon-size);
     margin-bottom: 8px;
 }
-
 .button-card:hover {
     background-color: var(--button-card-hover-bg);
 }
-
 #cards-container {
     display: flex;
     justify-content: space-around;
@@ -196,7 +191,6 @@ h1 {
     padding: 20px;
     gap: 20px;
 }
-
 .card {
     flex: 1;
     background-color: var(--card-background);

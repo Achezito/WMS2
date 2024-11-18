@@ -42,6 +42,7 @@ if (isset($_SESSION['edificio_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -50,15 +51,15 @@ if (isset($_SESSION['edificio_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
 </head>
-<body>
 
+<body>
     <header>
         <div id="header-left">
             <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png" >
+                <img src="../img/Logos/LineLogo.png">
             </div>
             <h1>CISTA</h1>
             <h1>
@@ -84,16 +85,29 @@ if (isset($_SESSION['edificio_id'])) {
             <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
         </ul>
     </div>
-    
+
     <!-- División para los cinco botones en forma de cartas -->
     <div id="button-cards-container">
         <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
-        <div class="button-card"><i class="fas fa-search"></i> Materiales</div>
+        <a href="materials.php" style="text-decoration: none; color: inherit;">
+            <div class="button-card">
+                <i class="fas fa-search"></i> Materiales
+            </div>
+        </a>
         <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
-        <div class="button-card"><i class="fas fa-user"></i> Usuarios</div>
-        <div class="button-card"><i class="fas fa-clock"></i> Historiales</div>
+        <a href="users.php" style="text-decoration: none; color: inherit;">
+            <div class="button-card">
+                <i class="fas fa-user"></i> Usuarios
+            </div>
+        </a>
+        <a href="history.php" style="text-decoration: none; color: inherit;">
+            <div class="button-card">
+                <i class="fas fa-clock"></i> Historiales
+            </div>
+        </a>
+
     </div>
-    
+
     <!-- División para las cuatro cartas de contenido -->
     <div id="cards-container">
         <div class="card"> MOVIMIENTOS RECIENTES LISTA DE MATERIALES 
@@ -126,4 +140,5 @@ if (isset($_SESSION['edificio_id'])) {
         <div class="card">Próximos equipos de recibir mantenimiento</div>
     </div>
 </body>
+
 </html>
