@@ -96,7 +96,7 @@ if (isset($_SESSION['edificio_id'])) {
     
     <!-- División para las cuatro cartas de contenido -->
     <div id="cards-container">
-        <div class="card">
+        <div class="card"> MOVIMIENTOS RECIENTES LISTA DE MATERIALES 
         <?php 
                  if (!empty($materiales)) {
                     echo "<table>";
