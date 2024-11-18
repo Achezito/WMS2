@@ -48,6 +48,7 @@ if (isset($_SESSION['edificio_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="../css/index.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
 </head>
@@ -110,7 +111,8 @@ if (isset($_SESSION['edificio_id'])) {
 
     <!-- División para las cuatro cartas de contenido -->
     <div id="cards-container">
-        <div class="card"> MOVIMIENTOS RECIENTES LISTA DE MATERIALES 
+        <div class="card"> 
+            <div class="header">MOVIMIENTOS RECIENTES LISTA DE MATERIALES </div>
         <?php 
                  if (!empty($materiales)) {
                     echo "<table>";
@@ -128,8 +130,8 @@ if (isset($_SESSION['edificio_id'])) {
                 } else {
                     echo "No hay materiales vinculados a tu edificio.";
                 }
+            
           
-                
                 
                 
          ?>

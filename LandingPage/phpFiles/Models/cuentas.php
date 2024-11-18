@@ -49,7 +49,7 @@ class Cuenta
                     $fullName = Personal::setFullname($nombre, $primerApellido);
                     return new Personal($personal_id, $fullName, $primerApellido, null, $edificio_id, $username);
                 } else if ($type === 'usuario') {
-                    return new Usuario($usuario_id, $username);
+                    return new Usuario($usuario_id, $username, null, null,null,$edificio_id);
                 }
             } else {
                 return "Nombre o contraseña incorrecta";

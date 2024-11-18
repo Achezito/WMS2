@@ -33,3 +33,4 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('No se encontró el ícono de cerrar sesión');
     }
 });
+

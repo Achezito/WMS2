@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_type'] = 'usuario';
         $_SESSION['user_id'] = $user->getUsuarioId();
         $_SESSION['username'] = $user->getNombre();
+        $_SESSION['edificio_id'] = $user->getEdificioId();
        
 
         echo json_encode([

@@ -184,12 +184,12 @@ h1 {
     background-color: var(--button-card-hover-bg);
 }
 #cards-container {
-    display: flex;
-    justify-content: space-around;
-    height: 350px;
+    
     margin-top: 10px;
     padding: 20px;
-    gap: 20px;
+    width: 100%;
+    float: left;
+    position: relative;
 }
 .card {
     flex: 1;
@@ -201,4 +201,38 @@ h1 {
     box-shadow: 0 4px 8px var(--card-shadow-color);
     border-radius: 10px;
     transition: transform 0.3s ease;
+    float: left;
+    width: calc(50% - 20px);
+    margin: 10px;
+    height: 205px;
+    overflow: auto;
 }
+
+.card::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra vertical */
+    height: 10px; /* Alto de la barra horizontal */
+  }
+   /* Color del track (fondo de la barra) */
+   .card::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 5px; /* Bordes redondeados */
+  }
+
+  .card::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  .card::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
+  .header {
+    position: sticky; /* Fijo dentro del contenedor */
+    top: 0; /* Se adhiere al tope del div */
+    background-color: #f9f9f9; /* Fondo para distinguirlo */
+    padding: 10px;
+    z-index: 1; /* Asegura que esté sobre otros elementos */
+    border-bottom: 1px solid #ddd; /* Línea para separar del contenido */
+    font-weight: bold;
+  }
+
+

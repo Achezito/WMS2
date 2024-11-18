@@ -28,6 +28,8 @@ if (!isset($_SESSION['user_id'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
