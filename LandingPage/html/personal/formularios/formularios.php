@@ -23,16 +23,13 @@ $_SESSION['ultimo_acceso'] = time();
 <body>
 <header>
         <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()">
+            <div id="header-menu" onclick="toggleMenu()" >
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
+                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png" >
             </div>
             <h1>CISTA</h1>
-            <h1>
-                
-            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
@@ -40,6 +37,7 @@ $_SESSION['ultimo_acceso'] = time();
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>
+                <i class="fas fa-globe"></i>
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
             </div>
         </div>
@@ -62,7 +60,13 @@ $_SESSION['ultimo_acceso'] = time();
             </div>
         </a>
     </div>
+    <div id="menu">
+    <ul>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
 
-    <script src="../js/index.js"></script>
+    </ul>
+</div>
+    <script src="/WMS2/LandingPage/js/index.js"></script>
 </body>
 </html>

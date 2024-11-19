@@ -77,8 +77,8 @@ $_SESSION['ultimo_acceso'] = time();
 </div>
 <div id="menu">
     <ul>
-        <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-        <li><i class="far fa-user"></i><a href="#"> My account</a></li>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
 
     </ul>
 </div>

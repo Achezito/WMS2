@@ -89,7 +89,6 @@ if (isset($_SESSION['edificio_id'])) {
         <ul>
             <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/login.php"> Home</a></li>
             <li><i class="far fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
-            <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
         </ul>
     </div>
 

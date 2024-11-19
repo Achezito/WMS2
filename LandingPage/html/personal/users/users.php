@@ -63,9 +63,8 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Menú lateral -->
     <div id="menu">
         <ul>
-            <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-            <li><i class="fas fa-user"></i><a href="#"> My account</a></li>
-            <li><i class="fas fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
+            <li><i class="fas fa-home"></i><a href="../indice/index.php"> Home</a></li>
+            <li><i class="fas fa-user"></i><a href="../indice/myAccount.php"> My account</a></li>
         </ul>
     </div>
 

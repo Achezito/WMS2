@@ -76,12 +76,10 @@ if (!isset($_SESSION['user_type'])) {
 
     <!-- Menú lateral -->
     <div id="menu">
-        <ul>
-            <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/login.php"> Home</a></li>
-            <li><i class="far fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
-            <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
-        </ul>
-    </div>
+    <ul>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+    </ul>
+</div>
 
     <!-- División para los cinco botones en forma de cartas -->
     <div class="profile-container">
