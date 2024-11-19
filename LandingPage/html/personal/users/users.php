@@ -72,7 +72,6 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Recuadro grande para mostrar contenido -->
     <div id="users-content">
         <div class="content-box">
-            <h2>AQUI SE DIBUJARA LA LISTA DE USUARIOS</h2>
             <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
 
             <?php
