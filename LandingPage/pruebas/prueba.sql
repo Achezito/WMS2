@@ -105,8 +105,10 @@ WHERE
 
 
 ALTER TABLE prestamos
-ADD COLUMN usuario_id INT NOT NULL,
+
 ADD FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id);
+
+
 
 
 

@@ -19,11 +19,67 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 350px;
+  float: left;
+  
+  }
+
+  .profile-details{
+    float: left;
+    width: 100%;
+    padding: 10px;
   }
   
   .profile-header {
+    position: relative;
     text-align: center;
-  }
+    padding: 2rem 1rem;
+    background: linear-gradient(135deg, #5f7fff, #847bfe); /* Degradado atractivo */
+    border-radius: 15px;
+    overflow: hidden;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.profile-header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 150px;
+    height: 150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.profile-header img {
+    position: relative;
+    z-index: 1;
+    border: 5px solid white;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header h1 {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
   
   .profile-avatar {
     width: 100px;

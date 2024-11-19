@@ -86,35 +86,28 @@ if (!isset($_SESSION['user_type'])) {
     <!-- División para los cinco botones en forma de cartas -->
     <div class="profile-container">
     <div class="profile-header">
-      <img class="profile-avatar" src="avatar.jpg" alt="Mi Avatar">
+    <img src="/WMS2/LandingPage/img/Users/User.jpg" style="max-width: 150px; height:150px;" alt="User Photo">
       <h1>Juan Pérez</h1>
+    </div>
+    
+    <div class="profile-details">
       <p class="profile-title">Desarrollador Web</p>
       <div class="profile-actions">
-        <button onclick="editProfile()">Editar Perfil</button>
+        <button onclick="editProfile()"></button>
       </div>
-    </div>
-
-    <div class="profile-details">
-      <h2>Información Personal</h2>
+      <h2 style="text-align: center; width:100%;">Información Personal</h2>
       <ul>
         <li><strong>Correo:</strong> juan@example.com</li>
         <li><strong>Teléfono:</strong> <?php echo $_SESSION['telefono']; ?></li>
         <li><strong>Ubicación:</strong> Ciudad de México, México</li>
         <li><strong>Redes Sociales:</strong>
-          <ul>
-            <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-            <li><a href="https://github.com" target="_blank">GitHub</a></li>
-          </ul>
+    
         </li>
       </ul>
     </div>
 
     <div class="profile-projects">
-      <h2>Proyectos Recientes</h2>
-      <ul>
-        <li><a href="#">Gestión de Inventarios WMS</a></li>
-        <li><a href="#">Sistema de Reservas de Salas</a></li>
-      </ul>
+
     </div>
   </div>
   <script>
