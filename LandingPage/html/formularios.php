@@ -21,15 +21,18 @@ $_SESSION['ultimo_acceso'] = time();
     <title>Registro de Préstamo de Equipos</title>
 </head>
 <body>
-    <header>
+<header>
         <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()" >
+            <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png" >
+                <img src="../img/Logos/LineLogo.png">
             </div>
             <h1>CISTA</h1>
+            <h1>
+                
+            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
@@ -37,7 +40,6 @@ $_SESSION['ultimo_acceso'] = time();
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>
-                <i class="fas fa-globe"></i>
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
             </div>
         </div>
