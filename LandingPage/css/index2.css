@@ -4,12 +4,14 @@
     border-collapse: collapse;
     margin: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
 }
 
 table th, table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    
 }
 
 table th {
@@ -34,4 +36,9 @@ table tr:hover {
     text-align: center;
     font-size: 18px;
     color: #ccc;
+}
+
+
+.content-box{
+    height: 100%;
 }

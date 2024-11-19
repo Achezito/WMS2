@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/index.php",
+            "redirect" => "/WMS2/LandingPage/html/personal/indice/index.php",
             "debug" => "Sesión iniciada correctamente para personal"
         ]);
         exit;
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/usuario.php" 
+            "redirect" => "/WMS2/LandingPage/html/users/usuario.php" 
         ]);
         exit;
     } else {

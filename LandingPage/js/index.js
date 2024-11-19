@@ -18,8 +18,7 @@ document.addEventListener("click", function(event) {
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    init();
-
+init();
     // Selecciona el ícono de cerrar sesión
     const logoutIcon = document.getElementById('logout-icon');
 

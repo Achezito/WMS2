@@ -76,9 +76,9 @@ function filterTable() {
     }
 }
 
-function onClickRow(usuarioId) {
+function onClickRow(materialid) {
     // Abrir una nueva pestaña (o ventana) con la URL deseada
-    window.open(`../html/usuarioRow.php?usuario_id=${usuarioId}`, '_blank');
+    window.open(`/WMS2/LandingPage/html/personal/inventario/materialDetails.php?material_id=${materialid}`, '_blank');
 }
 
 

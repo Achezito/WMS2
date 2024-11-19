@@ -29,13 +29,13 @@ if (isset($_SESSION['edificio_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historiales</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/index2.css">
-    <link rel="stylesheet" href="../css/users.css">
-    <link href="../css/fontawesome/fontawesome.css" rel="stylesheet" />
-    <link href="../css/fontawesome/solid.css" rel="stylesheet" />
-    <script src="../js/index.js"></script>
-    <script src="../js/tabla.js"></script>
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/users.css">
+    <link href="/WMS2/LandingPage/css/fontawesome/fontawesome.css" rel="stylesheet" />
+    <link href="/WMS2/LandingPage/css/fontawesome/solid.css" rel="stylesheet" />
+    <script src="/WMS2/LandingPage/js/index.js"></script>
+    <script src="/WMS2/LandingPage/js/usuarios.js"></script>
 </head>
 
 <body>
@@ -45,13 +45,13 @@ if (isset($_SESSION['edificio_id'])) {
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png">
+                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
             </div>
             <h1>Usuarios</h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
-                <img src="../img/Users/User.jpg" alt="User Photo">
+                <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>

@@ -4,3 +4,46 @@
     background-color: #ccc;
     height: 85vh;
 }
+
+
+.scrollable-table {
+    max-height: 400px; /* Altura máxima para el contenedor */
+    overflow-y: auto; /* Permitir scroll si la tabla excede esta altura */
+}
+
+.scrollable-table table {
+    width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+    border-collapse: collapse; /* Elimina los espacios entre bordes */
+}
+
+.scrollable-table th,
+.scrollable-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd; /* Bordes de las celdas */
+}
+
+.scrollable-table::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.scrollable-table::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.header {
+    position: sticky; /* Fijo dentro del contenedor */
+    top: 0; /* Se adhiere al tope del div */
+    background-color: #f9f9f9; /* Fondo para distinguirlo */
+    padding: 10px;
+    z-index: 1; /* Asegura que esté sobre otros elementos */
+    border-bottom: 1px solid #ddd; /* Línea para separar del contenido */
+    font-weight: bold;
+  }
+

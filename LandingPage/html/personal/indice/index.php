@@ -47,10 +47,11 @@ if (isset($_SESSION['edificio_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="../css/index.css">
-
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../js/index.js"></script>
+    <script src="/WMS2/LandingPage/js/index.js"></script>
+    
 </head>
 
 <body>
@@ -60,7 +61,7 @@ if (isset($_SESSION['edificio_id'])) {
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png">
+                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
             </div>
             <h1>CISTA</h1>
             <h1>
@@ -69,7 +70,7 @@ if (isset($_SESSION['edificio_id'])) {
         </div>
         <div id="header-right">
             <div id="user-photo">
-                <img src="../img/Users/User.jpg" alt="User Photo">
+                <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>
@@ -90,13 +91,13 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- División para los cinco botones en forma de cartas -->
     <div id="button-cards-container">
         <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
-        <a href="materials.php" style="text-decoration: none; color: inherit;">
+        <a href="../inventario/materials.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-search"></i> Materiales
             </div>
         </a>
         <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
-        <a href="users.php" style="text-decoration: none; color: inherit;">
+        <a href="../users/users.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-user"></i> Usuarios
             </div>
