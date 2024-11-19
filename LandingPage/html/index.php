@@ -94,7 +94,13 @@ if (isset($_SESSION['edificio_id'])) {
                 <i class="fas fa-search"></i> Materiales
             </div>
         </a>
-        <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
+        
+        <a href="formularios.php" style="text-decoration: none; color: inherit;">
+            <div class="button-card">
+        <i class="fas fa-file-alt"></i> Formularios
+         </div>
+        </a>
+
         <a href="users.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-user"></i> Usuarios
