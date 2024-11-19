@@ -1,7 +1,7 @@
 <?php
 session_start();
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
 
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
 
 // Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
 $limite_inactividad = 100000;
@@ -31,13 +31,7 @@ if (!isset($_SESSION['user_type'])) {
     exit();
 }
 
-if (isset($_SESSION['edificio_id'])) {
-    $edificio_id = $_SESSION['edificio_id'];
-    $materiales = Inventario::obtenerMaterialesPorEdificio($edificio_id);
-} else {
-    echo "Error: No se ha asignado un edificio al usuario actual.";
-    exit();
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -49,6 +43,7 @@ if (isset($_SESSION['edificio_id'])) {
     <title>Principal</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/myAccount.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
 
@@ -89,65 +84,45 @@ if (isset($_SESSION['edificio_id'])) {
     </div>
 
     <!-- División para los cinco botones en forma de cartas -->
-    <div id="button-cards-container">
-        <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
-        <a href="../inventario/materials.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-search"></i> Materiales
-            </div>
-        </a>
-        <a href="/WMS2/LandingPage/html/personal/formularios/formularios.php">
-            <div class="button-card">
-                <i class="fas fa-file-alt"></i> Formularios
-            </div>
-        </a>
-        <a href="../users/users.php" style="text-decoration: none; color: inherit;">
-
-            <div class="button-card">
-                <i class="fas fa-user"></i> Usuarios
-            </div>
-        </a>
-        <a href="history.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-clock"></i> Historiales
-            </div>
-        </a>
-
+    <div class="profile-container">
+    <div class="profile-header">
+      <img class="profile-avatar" src="avatar.jpg" alt="Mi Avatar">
+      <h1>Juan Pérez</h1>
+      <p class="profile-title">Desarrollador Web</p>
+      <div class="profile-actions">
+        <button onclick="editProfile()">Editar Perfil</button>
+      </div>
     </div>
 
-    <!-- División para las cuatro cartas de contenido -->
-    <div id="cards-container">
-        <div class="card">
-            <div class="header">MOVIMIENTOS RECIENTES LISTA DE MATERIALES </div>
-            <?php
-            if (!empty($materiales)) {
-                echo "<table>";
-                echo "<tr><td colspan='5'>" . $materiales[0]['edificio'] . "</td></tr>";
-                echo "<tr><th>ID Material</th><th>Serie</th><th>Modelo</th><th>Tipo</th></tr>";
-                foreach ($materiales as $material) {
-                    echo "<tr>";
-                    echo "<td>" . $material['material_id'] . "</td>";
-                    echo "<td>" . $material['serie'] . "</td>";
-                    echo "<td>" . $material['modelo'] . "</td>";
-                    echo "<td>" . $material['tipo_material'] . "</td>";
-
-                    echo "</tr>";
-                }
-                echo "</table>";
-            } else {
-                echo "No hay materiales vinculados a tu edificio.";
-            }
-
-
-
-
-            ?>
-
-        </div>
-        <div class="card">Materiales más solicitados en la semana</div>
-        <div class="card">Materiales críticos en el inventario</div>
-        <div class="card">Próximos equipos de recibir mantenimiento</div>
+    <div class="profile-details">
+      <h2>Información Personal</h2>
+      <ul>
+        <li><strong>Correo:</strong> juan@example.com</li>
+        <li><strong>Teléfono:</strong> +123 456 7890</li>
+        <li><strong>Ubicación:</strong> Ciudad de México, México</li>
+        <li><strong>Redes Sociales:</strong>
+          <ul>
+            <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
+            <li><a href="https://github.com" target="_blank">GitHub</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
+
+    <div class="profile-projects">
+      <h2>Proyectos Recientes</h2>
+      <ul>
+        <li><a href="#">Gestión de Inventarios WMS</a></li>
+        <li><a href="#">Sistema de Reservas de Salas</a></li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    function editProfile() {
+        window.open(`/WMS2/LandingPage/html/personal/indice/editMyProfile.php`, '_blank');
+    }
+  </script>
+
 </body>
 
 </html>

@@ -18,18 +18,16 @@ $_SESSION['ultimo_acceso'] = time();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/formularios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <form action="/formularios/registros.php" method="POST">
-    <title>Registro de Préstamo de Equipos</title>
+    <title>Registro de Transacción</title>
 </head>
 <body>
     <header>
         <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()" >
+            <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png" >
+                <img src="../img/Logos/LineLogo.png">
             </div>
             <h1>CISTA</h1>
         </div>
@@ -45,27 +43,27 @@ $_SESSION['ultimo_acceso'] = time();
         </div>
     </header>
 <div class="container">
-    <h2>Registro de Préstamo de Equipos</h2>
-    <form action="/registro_prestamo" method="POST">
+    <h2>Registro de Transacción</h2>
+    <form action="/registro_transaccion" method="POST">
         
         <div class="form-group">
-            <label for="personasID">ID del Usuarios:</label>
-            <input type="text" id="personasID" name="personasID" required>
+            <label for="transaccion_id">ID de la Transacción:</label>
+            <input type="text" id="transaccion_id" name="transaccion_id" required>
         </div>
         
         <div class="form-group">
-            <label for="personalesID">ID del Personal:</label>
-            <input type="text" id="personalesID" name="personalesID" required>
+            <label for="tipo_transaccion">Tipo de Transacción:</label>
+            <input type="text" id="tipo_transaccion" name="tipo_transaccion" required>
         </div>
         
         <div class="form-group">
-            <label for="fechaSalida">Fecha de Salida:</label>
-            <input type="date" id="fechaSalida" name="fechaSalida" required>
+            <label for="fecha_inicio">Fecha de Inicio:</label>
+            <input type="date" id="fecha_inicio" name="fecha_inicio" required>
         </div>
         
         <div class="form-group">
-            <label for="fechaDevolucion">Fecha de Devolución:</label>
-            <input type="date" id="fechaDevolucion" name="fechaDevolucion">
+            <label for="fecha_final">Fecha Final:</label>
+            <input type="date" id="fecha_final" name="fecha_final">
         </div>
         
         <div class="form-group">
@@ -73,13 +71,13 @@ $_SESSION['ultimo_acceso'] = time();
             <textarea id="notas" name="notas" rows="4"></textarea>
         </div>
         
-        <button type="submit">Registrar Préstamo</button>
+        <button type="submit">Registrar Transacción</button>
         
     </form>
 </div>
 <div id="menu">
     <ul>
-        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
         <li><i class="far fa-user"></i><a href="#"> My account</a></li>
 
     </ul>
