@@ -88,12 +88,6 @@ if (isset($_SESSION['edificio_id'])) {
 
     <!-- División para los cinco botones en forma de cartas -->
     <div id="button-cards-container">
-        <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
-        <a href="materials.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-search"></i> Materiales
-            </div>
-        </a>
         <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
         <a href="users.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
