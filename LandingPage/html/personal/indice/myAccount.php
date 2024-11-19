@@ -98,7 +98,7 @@ if (!isset($_SESSION['user_type'])) {
       <h2>Información Personal</h2>
       <ul>
         <li><strong>Correo:</strong> juan@example.com</li>
-        <li><strong>Teléfono:</strong> +123 456 7890</li>
+        <li><strong>Teléfono:</strong> <?php echo $_SESSION['telefono']; ?></li>
         <li><strong>Ubicación:</strong> Ciudad de México, México</li>
         <li><strong>Redes Sociales:</strong>
           <ul>

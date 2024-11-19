@@ -6,17 +6,19 @@ class Personal {
     private $nombre;
     private $primer_apellido;
     private $segundo_apellido;
+    private $telefono;
     private $edificio_id;
     private $username; // Nueva propiedad para almacenar el nombre de usuario
 
 
 
 
-    public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $edificio_id = null, $username = null) {
+    public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $telefono = null, $edificio_id = null, $username = null) {
         $this->personal_id = $personal_id;
         $this->nombre = $nombre;
         $this->primer_apellido = $primer_apellido;
         $this->segundo_apellido = $segundo_apellido;
+        $this->telefono = $telefono;
         $this->edificio_id = $edificio_id;
         $this->username = $username;
     }
@@ -63,6 +65,16 @@ class Personal {
     public function setSegundoApellido($segundo_apellido) {
         $this->segundo_apellido = $segundo_apellido;
     }
+
+
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
 
 
 

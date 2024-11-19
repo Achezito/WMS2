@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['user_id'] = $user->getPersonalId();
         $_SESSION['edificio_id'] = $user->getEdificioId();
         $_SESSION['fullname'] = $user->getFullname();
+        $_SESSION['telefono'] = $user->getTelefono();
 
         echo json_encode([
             "success" => true,
