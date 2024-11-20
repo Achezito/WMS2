@@ -56,8 +56,9 @@ if (isset($_SESSION['edificio_id'])) {
                 <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-            <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-            <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+                <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
