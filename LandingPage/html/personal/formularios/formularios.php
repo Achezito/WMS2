@@ -31,38 +31,57 @@ $_SESSION['ultimo_acceso'] = time();
             </div>
             <h1>CISTA</h1>
             <h1>
-                
+
             </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
+                <a href="/WMS2/LandingPage/html/personal/indice/myAccount.php">
                 <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
+                </a>
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
     
-    <div id="button-cards-container">
-        <a href="/WMS2/LandingPage/formularios/prestamos.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-hand-holding"></i> Préstamos
-            </div>
-        </a>
-        <a href="/WMS2/LandingPage/formularios/transacciones.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-exchange-alt"></i> Transacciones
-            </div>
-        </a>
-        <a href="/WMS2/LandingPage/formularios/mantenimiento.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-tools"></i> Mantenimiento
-            </div>
-        </a>
+    <div class="layout-container">
+    <div class="left-panel">
+        <div class="branding">
+            <img src="/WMS2/LandingPage/img/Logos/LineLogo.png" alt="Logo" class="logo">
+        </div>
     </div>
+    <div class="right-panel">
+        <div id="button-cards-container">
+            <a href="/WMS2/LandingPage/formularios/prestamos.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-hand-holding"></i> Préstamos
+                </div>
+            </a>
+            <a href="/WMS2/LandingPage/formularios/transacciones.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-exchange-alt"></i> Transacciones
+                </div>
+            </a>
+            <a href="/WMS2/LandingPage/formularios/mantenimiento.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-tools"></i> Mantenimiento
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
 
-    <script src="../js/index.js"></script>
+    <div id="menu">
+    <ul>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
+
+    </ul>
+</div>
+    <script src="/WMS2/LandingPage/js/index.js"></script>
 </body>
 </html>

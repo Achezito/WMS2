@@ -16,7 +16,7 @@ $_SESSION['ultimo_acceso'] = time();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/formularios.css">
+    <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Registro de Mantenimiento</title>
 </head>
@@ -36,13 +36,19 @@ $_SESSION['ultimo_acceso'] = time();
                 <img src="../img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
-                <i class="fas fa-globe"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
     
+    <div class="body-circle circle1"></div>
+    <div class="body-circle circle2"></div>
+    <div class="body-circle circle3"></div>
+    <div class="body-circle circle4"></div>
+    <div class="body-circle circle5"></div>
+
     <div class="container">
         <h2>Registro de Mantenimiento</h2>
         <form action="/registro_mantenimiento" method="POST">
@@ -77,8 +83,8 @@ $_SESSION['ultimo_acceso'] = time();
     
     <div id="menu">
     <ul>
-        <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-        <li><i class="far fa-user"></i><a href="#"> My account</a></li>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
 
     </ul>
 </div>

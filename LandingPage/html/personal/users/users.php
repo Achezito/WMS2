@@ -54,8 +54,9 @@ if (isset($_SESSION['edificio_id'])) {
                 <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
@@ -63,9 +64,8 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Menú lateral -->
     <div id="menu">
         <ul>
-            <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-            <li><i class="fas fa-user"></i><a href="#"> My account</a></li>
-            <li><i class="fas fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
+            <li><i class="fas fa-home"></i><a href="../indice/index.php"> Home</a></li>
+            <li><i class="fas fa-user"></i><a href="../indice/myAccount.php"> My account</a></li>
         </ul>
     </div>
 

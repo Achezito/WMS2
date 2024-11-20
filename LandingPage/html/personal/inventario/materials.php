@@ -32,7 +32,6 @@ if (isset($_SESSION['edificio_id'])) {
     <title>Historiales</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/users.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/materials.css">
     <link href="/WMS2/LandingPage/css/fontawesome/fontawesome.css" rel="stylesheet" />
     <link href="/WMS2/LandingPage/css/fontawesome/solid.css" rel="stylesheet" />
@@ -57,26 +56,26 @@ if (isset($_SESSION['edificio_id'])) {
                 <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
 
     <!-- Menú lateral -->
-    <div id="menu">
-        <ul>
-            <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-            <li><i class="fas fa-user"></i><a href="#"> My account</a></li>
-            <li><i class="fas fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
-        </ul>
-    </div>
+   <div id="menu">
+    <ul>
+        <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
+        <li><i class="fas fa-user"></i><a href="/WMS2/LandingPage/html/personal/indice/myAccount.php"> My account</a></li>
+
+    </ul>
+</div>
 
     <!-- Recuadro grande para mostrar contenido -->
 
     <div id="users-content">
     <div class="content-box">
-        <h2>AQUI SE DIBUJARA LA LISTA DE USUARIOS</h2>
         <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
         <div class="scrollable-table">
 
