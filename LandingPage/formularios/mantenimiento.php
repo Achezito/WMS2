@@ -16,7 +16,7 @@ $_SESSION['ultimo_acceso'] = time();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/formularios.css">
+    <link rel="stylesheet" href="../css/forms.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Registro de Mantenimiento</title>
 </head>
@@ -43,6 +43,12 @@ $_SESSION['ultimo_acceso'] = time();
         </div>
     </header>
     
+    <div class="body-circle circle1"></div>
+    <div class="body-circle circle2"></div>
+    <div class="body-circle circle3"></div>
+    <div class="body-circle circle4"></div>
+    <div class="body-circle circle5"></div>
+
     <div class="container">
         <h2>Registro de Mantenimiento</h2>
         <form action="/registro_mantenimiento" method="POST">
