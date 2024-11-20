@@ -43,23 +43,33 @@ $_SESSION['ultimo_acceso'] = time();
         </div>
     </header>
     
-    <div id="button-cards-container">
-        <a href="/WMS2/LandingPage/formularios/prestamos.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-hand-holding"></i> Préstamos
-            </div>
-        </a>
-        <a href="/WMS2/LandingPage/formularios/transacciones.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-exchange-alt"></i> Transacciones
-            </div>
-        </a>
-        <a href="/WMS2/LandingPage/formularios/mantenimiento.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-tools"></i> Mantenimiento
-            </div>
-        </a>
+    <div class="layout-container">
+    <div class="left-panel">
+        <div class="branding">
+            <img src="/WMS2/LandingPage/img/Logos/LineLogo.png" alt="Logo" class="logo">
+        </div>
     </div>
+    <div class="right-panel">
+        <div id="button-cards-container">
+            <a href="/WMS2/LandingPage/formularios/prestamos.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-hand-holding"></i> Préstamos
+                </div>
+            </a>
+            <a href="/WMS2/LandingPage/formularios/transacciones.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-exchange-alt"></i> Transacciones
+                </div>
+            </a>
+            <a href="/WMS2/LandingPage/formularios/mantenimiento.php" style="text-decoration: none; color: inherit;">
+                <div class="button-card">
+                    <i class="fas fa-tools"></i> Mantenimiento
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
     <div id="menu">
     <ul>
         <li><i class="fas fa-home"></i><a href="/WMS2/LandingPage/html/personal/indice/index.php"> Home</a></li>
