@@ -112,7 +112,7 @@ if (isset($_SESSION['edificio_id'])) {
                 <i class="fas fa-user"></i> Usuarios
             </div>
         </a>
-        <a href="history.php" style="text-decoration: none; color: inherit;">
+        <a href="../history/history.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-clock"></i> Historiales
             </div>
