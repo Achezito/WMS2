@@ -59,7 +59,6 @@ $_SESSION['ultimo_acceso'] = time();
                 <img src="../img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
             </div>
         </div>
