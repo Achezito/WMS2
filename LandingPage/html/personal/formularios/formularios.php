@@ -23,22 +23,29 @@ $_SESSION['ultimo_acceso'] = time();
 <body>
 <header>
         <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()" >
+            <div id="header-menu" onclick="toggleMenu()">
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png" >
+                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
             </div>
             <h1>CISTA</h1>
+            <h1>
+
+            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
+                <a href="/WMS2/LandingPage/html/personal/indice/myAccount.php">
                 <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
+                </a>
             </div>
             <div id="header-logos">
                 <i class="fas fa-cog"></i>
-                <i class="fas fa-globe"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>
