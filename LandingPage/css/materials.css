@@ -59,6 +59,7 @@ table th {
     position: sticky;
     top: 0; /* Fija el encabezado */
     z-index: 1;
+    text-align: center;
 }
 
 /* Celdas de la tabla */

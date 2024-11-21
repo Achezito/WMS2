@@ -87,3 +87,4 @@ $_SESSION['ultimo_acceso'] = time();
     <script src="/WMS2/LandingPage/js/index.js"></script>
 </body>
 </html>
+  

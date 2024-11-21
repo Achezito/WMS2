@@ -124,3 +124,9 @@ VALUES (4, 'Jose Perez', 'Alumno', 'alta', 1),
 (7, 'Jose Perez', 'Alumno', 'alta', 1),
 (8, 'Jose Perez', 'Alumno', 'alta', 1);
 
+SELECT i.material_id, i.serie, i.modelo, tm.nombre AS tipo_material, e.nombre, es.estatus AS edificio
+            FROM wms.inventario i
+            JOIN wms.tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+            JOIN wms.edificios e ON i.edificio_id = e.edificio_id
+            JOIN estatus es on i.estatus_id = es.estatus_id
+            WHERE i.edificio_id = 1 
