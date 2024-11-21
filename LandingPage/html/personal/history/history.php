@@ -1,15 +1,25 @@
 <?php
 session_start();
-
+// Incluir el archivo que contiene la función para dibujar el historial
+require_once('../../../phpFiles/Models/historiales.php');
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
 
+
 // Actualizar el tiempo de último acceso
 $_SESSION['ultimo_acceso'] = time();
+
+if (isset($_SESSION['edificio_id'])) {
+    $edificio_id = $_SESSION['edificio_id'];
+} else {
+    echo "Error: No se ha asignado un edificio al usuario actual.";
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -17,28 +27,28 @@ $_SESSION['ultimo_acceso'] = time();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cista</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link href="../css/fontawesome/fontawesome.css" rel="stylesheet" />
-    <link href="../css/fontawesome/solid.css" rel="stylesheet" />
-    <script src="../js/index.js"></script>
-    <link rel="stylesheet" href="../css/historiales.css">
+    <link rel="stylesheet" href="../../../css/index.css">
+    <link href="../../../css/fontawesome/fontawesome.css" rel="stylesheet" />
+    <link href="../../../css/fontawesome/solid.css" rel="stylesheet" />
+    <script src="../../../js/index.js"></script>
+    <link rel="stylesheet" href="../../../css/historiales.css">
     <script>
-    // Función para manejar el cambio de historial al hacer clic en un botón
-    function cambiarHistorial(index) {
-        // Ocultar todos los historiales
-        const historiales = document.querySelectorAll('.historial');
-        historiales.forEach(historial => {
-            historial.style.display = 'none';
-        });
+        // Función para manejar el cambio de historial al hacer clic en un botón
+        function cambiarHistorial(index) {
+            // Ocultar todos los historiales
+            const historiales = document.querySelectorAll('.historial');
+            historiales.forEach(historial => {
+                historial.style.display = 'none';
+            });
 
-        // Mostrar el historial seleccionado
-        document.getElementById('historial-' + index).style.display = 'block';
-    }
-    
-    // Al cargar la página, mostrar solo el historial 0 (Actividad Personal)
-    window.onload = function() {
-        cambiarHistorial(0);
-    };
+            // Mostrar el historial seleccionado
+            document.getElementById('historial-' + index).style.display = 'block';
+        }
+
+        // Al cargar la página, mostrar solo el historial 0 (Actividad Personal)
+        window.onload = function() {
+            cambiarHistorial(0);
+        };
     </script>
 
 </head>
@@ -50,13 +60,18 @@ $_SESSION['ultimo_acceso'] = time();
                 <i class="fa fa-bars"></i>
             </div>
             <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png">
+                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
             </div>
-            <h1>Cista</h1>
+            <h1>CISTA</h1>
+            <h1>
+
+            </h1>
         </div>
         <div id="header-right">
             <div id="user-photo">
-                <img src="../img/Users/User.jpg" alt="User Photo">
+                <a href="/WMS2/LandingPage/html/personal/indice/myAccount.php">
+                    <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
+                </a>
             </div>
             <div id="header-logos">
                 <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
@@ -77,7 +92,7 @@ $_SESSION['ultimo_acceso'] = time();
 
     <!-- Botones para diferentes tipos de historial -->
     <div id="button-cards-container">
-        <a href="index.php" style="text-decoration: none; color: inherit;">
+        <a href="../../../html/personal/indice/index.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-home"></i> Inicio
             </div>
@@ -103,37 +118,34 @@ $_SESSION['ultimo_acceso'] = time();
             <!-- Historial 0: Actividad Personal -->
             <div id="historial-0" class="historial" style="display:none;">
                 <?php
-                // Incluir el archivo que contiene la función para dibujar el historial
-                require_once('../phpFiles/Models/historiales.php');
-                // Llamar a la función para dibujar el historial de actividad personal
-                dibujar_historial_operaciones();
+                dibujar_historial_operaciones($edificio_id);
                 ?>
             </div>
 
             <!-- Historial 1: Préstamos -->
             <div id="historial-1" class="historial" style="display:none;">
                 <?php
-                dibujar_historial_prestamos();
+                dibujar_historial_prestamos($edificio_id);
                 ?>
             </div>
 
             <!-- Historial 2: Mantenimientos -->
             <div id="historial-2" class="historial" style="display:none;">
                 <?php
-                dibujar_historial_mantenimientos();
+                dibujar_historial_mantenimientos($edificio_id);
                 ?>
             </div>
 
             <!-- Historial 3: Transacciones -->
             <div id="historial-3" class="historial" style="display:none;">
                 <?php
-                dibujar_historial_transacciones();
+                dibujar_historial_transacciones($edificio_id);
                 ?>
             </div>
+
 
         </div>
     </div>
 </body>
+
 </html>
-
-

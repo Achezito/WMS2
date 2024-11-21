@@ -69,6 +69,10 @@ table th {
     font-size: 18px;
     text-align: left;
     border-bottom: 2px solid #e5e7eb;
+    position: sticky;
+    top: 0; /* Fija el encabezado */
+    z-index: 1;
+    text-align: center;
 }
 
 

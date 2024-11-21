@@ -46,35 +46,53 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-function filterTable() {
-    // Obtener el valor del input de búsqueda
-    const input = document.getElementById('searchInput');
-    const filter = input.value.toLowerCase(); // Convertir a minúsculas para búsqueda insensible a mayúsculas
-    const table = document.querySelector('table');
-    const rows = table.getElementsByTagName('tr'); // Obtener todas las filas de la tabla
+let tableIndex = []; // Índice para almacenar las filas y su contenido
 
-    // Recorrer las filas de la tabla (empezamos desde la fila 1 para omitir el encabezado)
-    for (let i = 1; i < rows.length; i++) {
-        const cells = rows[i].getElementsByTagName('td');
-        let rowContainsFilterText = false;
-
-        // Recorrer las celdas de cada fila
-        for (let j = 0; j < cells.length; j++) {
-            // Si alguna celda contiene el texto de búsqueda, mostramos la fila
-            if (cells[j].textContent.toLowerCase().indexOf(filter) > -1) {
-                rowContainsFilterText = true;
-                break; // No necesitamos seguir buscando en otras celdas de la fila
-            }
-        }
-
-        // Mostrar u ocultar la fila según si contiene el texto de búsqueda
-        if (rowContainsFilterText) {
-            rows[i].style.display = ''; // Mostrar la fila
-        } else {
-            rows[i].style.display = 'none'; // Ocultar la fila
-        }
-    }
+/**
+ * Función para construir el índice de la tabla.
+ * Recorre las filas de la tabla y almacena el contenido en un array.
+ */
+function buildIndex() {
+    const rows = document.querySelectorAll('table tbody tr'); // Filas del cuerpo de la tabla
+    tableIndex = Array.from(rows).map(row => ({
+        row, // Referencia a la fila
+        text: row.textContent.toLowerCase(), // Texto de la fila en minúsculas
+    }));
 }
+
+/**
+ * Función para filtrar la tabla según el texto ingresado.
+ */
+function filterTable() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+
+    tableIndex.forEach(({ row, text }) => {
+        row.style.display = text.includes(input) ? '' : 'none'; // Mostrar/ocultar fila
+    });
+}
+
+/**
+ * Función debounce para retrasar la ejecución de la búsqueda.
+ * @param {Function} func - La función a ejecutar.
+ * @param {number} delay - El retraso en milisegundos.
+ * @returns {Function}
+ */
+function debounce(func, delay) {
+    let debounceTimeout;
+    return (...args) => {
+        clearTimeout(debounceTimeout); // Limpiar el temporizador anterior
+        debounceTimeout = setTimeout(() => func(...args), delay); // Iniciar nuevo temporizador
+    };
+}
+
+// Construir el índice una vez cargado el DOM
+document.addEventListener('DOMContentLoaded', () => {
+    buildIndex();
+
+    // Asociar evento input con la función filtrada mediante debounce
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', debounce(filterTable, 300));
+});
 
 function onClickRow(materialid) {
     // Abrir una nueva pestaña (o ventana) con la URL deseada

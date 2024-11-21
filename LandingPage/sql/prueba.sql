@@ -96,42 +96,36 @@ JOIN
 WHERE 
     p.fecha_devolucion IS NULL;  -- Filtra solo los materiales que no han sido devueltos
 
-
-ALTER TABLE prestamos
-ADD COLUMN usuario_id INT NOT NULL,
-ADD FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id);
-
-
-
 SELECT * FROM prestamos
 
 
 ALTER TABLE prestamos
 ADD COLUMN estatus ENUM('pendiente', 'aprobado', 'rechazado') NOT NULL DEFAULT 'pendiente';
 
----- VISTA ACTIVIDAD PERSONAL ----
-SELECT * FROM historial_operaciones;
 
-CREATE VIEW historial_operaciones AS
+---- VISTA ACTIVIDAD PERSONAL ----
+CREATE OR REPLACE VIEW historial_operaciones AS
 SELECT 
     'Transacción' AS tipo_operacion,
     t.fecha_inicio, 
     t.fecha_final, 
     t.notas, 
-    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable
+    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable,
+    p.edificio_id
 FROM 
     transacciones t
 JOIN 
-    ppt ON t.transaccion_id = ppt.transaccion_id
+    inventario_transaccion it ON t.transaccion_id = it.transaccion_id
 JOIN 
-    personales p ON ppt.personal_id = p.personal_id
+    personales p ON it.personal_id = p.personal_id
 UNION ALL 
 SELECT 
     'Mantenimiento' AS tipo_operacion,
     m.fecha_inicio, 
     m.fecha_final, 
     m.notas, 
-    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable
+    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable,
+    p.edificio_id
 FROM 
     mantenimiento m
 JOIN 
@@ -142,14 +136,14 @@ SELECT
     pr.fecha_salida AS fecha_inicio, 
     pr.fecha_devolucion AS fecha_final, 
     pr.notas, 
-    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable
+    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable,
+    p.edificio_id
 FROM 
     prestamos pr
 JOIN 
     personales p ON pr.personal_id = p.personal_id;
 
-
-SELECT * FROM historial_operaciones
+select * from historial_operaciones
 
 
 ------------------------ VISTA HISTORIAL PRESTAMOS ----------------------
@@ -157,40 +151,36 @@ SELECT * FROM historial_prestamos;
 
 DROP VIEW historial_prestamos;
 
-CREATE VIEW historial_prestamos AS
+CREATE OR REPLACE VIEW historial_prestamos AS
 SELECT 
-    tm.nombre AS material, -- Nombre del material
-    ip.cantidad AS cantidad, -- Cantidad asociada al material
-    pr.fecha_salida,
-    pr.fecha_devolucion,
-    pr.estatus,
-    pr.notas,
+    pr.notas,  -- Notas del préstamo
+    u.nombre AS Solicitado_Por,  -- Solicitado por
+    pr.estatus,  -- Estatus del préstamo
     CASE 
         WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
         WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
         ELSE CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido)
-    END AS Responsable,
-    u.nombre AS Solicitado_Por
+    END AS Responsable,  -- Responsable del préstamo
+    pr.fecha_salida,  -- Fecha de salida
+    pr.fecha_devolucion,  -- Fecha de devolución
+    p.edificio_id  -- ID del edificio, ahora en la vista
 FROM 
     prestamos pr
 LEFT JOIN 
     personales p ON pr.personal_id = p.personal_id
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id
-LEFT JOIN 
-    inventario_prestamos ip ON pr.prestamo_id = ip.prestamo_id
-LEFT JOIN 
-    inventario i ON ip.material_id = i.material_id
-LEFT JOIN 
-    tipo_material tm ON i.tipo_material_id = tm.tipo_material_id;
+WHERE 
+    pr.estatus = 'aprobado';  -- Filtro para mostrar solo los préstamos con estatus 'aprobado'
 
+select * from historial_prestamos
 
 
 ----------- VISTA HISTORIAL MANTENIMIENTOS -----------
 SELECT * FROM historial_mantenimientos;
 DROP VIEW historial_mantenimientos;
 
-CREATE VIEW historial_mantenimientos AS
+CREATE OR REPLACE VIEW historial_mantenimientos AS
 SELECT
     tm.nombre AS tipo_material_nombre,
     tm.categoria AS tipo_material_categoria,
@@ -200,50 +190,46 @@ SELECT
     i.modelo,
     m.fecha_inicio,
     m.fecha_final,
-    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable
+    CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable,
+    p.edificio_id
 FROM
     mantenimiento m
-JOIN
+LEFT JOIN
     mantenimiento_inventario mi ON m.mantenimiento_id = mi.mantenimiento_id
-JOIN
+LEFT JOIN
     inventario i ON mi.material_id = i.material_id
-JOIN
+LEFT JOIN
     tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
-JOIN
-    personales p ON m.personal_id = p.personal_id;  
+LEFT JOIN
+    personales p ON m.personal_id = p.personal_id;
+
+
 
 
 SELECT * FROM historial_transacciones;
 DROP VIEW historial_transacciones;
 
-CREATE VIEW historial_transacciones AS
-SELECT 
+CREATE OR REPLACE VIEW historial_transacciones AS
+SELECT DISTINCT
     t.tipo_transaccion,
     t.fecha_inicio,
     t.fecha_final,
     t.notas,
-    i.modelo,
-    i.serie,
-    tm.nombre AS tipo_material_nombre, 
-    it.cantidad,
     p.nombre AS proveedor_nombre,
     p.telefono AS proveedor_telefono,
     p.correo AS proveedor_correo,
-    CONCAT(p2.nombre, ' ', p2.primer_apellido, ' ', p2.segundo_apellido) AS personal_nombre
+    CONCAT(p2.nombre, ' ', p2.primer_apellido, ' ', p2.segundo_apellido) AS personal_nombre,
+    p2.edificio_id
 FROM 
     transacciones t
 JOIN 
     inventario_transaccion it ON t.transaccion_id = it.transaccion_id
 JOIN 
-    inventario i ON it.material_id = i.material_id
+    proveedores p ON it.proveedor_id = p.proveedor_id
 JOIN 
-    ppt ppt ON t.transaccion_id = ppt.transaccion_id
-JOIN 
-    proveedores p ON ppt.proveedor_id = p.proveedor_id
-JOIN 
-    personales p2 ON ppt.personal_id = p2.personal_id
-JOIN 
-    tipo_material tm ON i.tipo_material_id = tm.tipo_material_id;
+    personales p2 ON it.personal_id = p2.personal_id;
+
+
 
 ------------------------------ INSERTS --------------------------------------
 

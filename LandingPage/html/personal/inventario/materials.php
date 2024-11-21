@@ -92,6 +92,7 @@ if (isset($_SESSION['edificio_id'])) {
                     <th>Serie</th>
                     <th>Modelo</th>
                     <th>Tipo</th>
+                    <th>Estatus</th>
                 </tr>";
                 echo "</thead>";
 
@@ -103,6 +104,7 @@ if (isset($_SESSION['edificio_id'])) {
                     echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
                     echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
                     echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
+                    echo "<td>" . htmlspecialchars($material['estatus']) . "</td>";
                     echo "</tr>";
                 }
                 echo "</tbody>";
