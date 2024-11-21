@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/users/usuario.php" 
+            "redirect" => "/WMS2/LandingPage/html/usuario/usuario.php" 
         ]);
         exit;
     } else {
