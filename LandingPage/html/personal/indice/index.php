@@ -75,9 +75,7 @@ if (isset($_SESSION['edificio_id'])) {
                 </a>
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
                 <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
                 </a>
             </div>
@@ -94,7 +92,6 @@ if (isset($_SESSION['edificio_id'])) {
 
     <!-- División para los cinco botones en forma de cartas -->
     <div id="button-cards-container">
-        <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
         <a href="../inventario/materials.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-search"></i> Materiales
@@ -111,7 +108,7 @@ if (isset($_SESSION['edificio_id'])) {
                 <i class="fas fa-user"></i> Usuarios
             </div>
         </a>
-        <a href="history.php" style="text-decoration: none; color: inherit;">
+        <a href="../history/history.php" style="text-decoration: none; color: inherit;">
             <div class="button-card">
                 <i class="fas fa-clock"></i> Historiales
             </div>

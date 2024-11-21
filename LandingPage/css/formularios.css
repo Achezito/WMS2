@@ -167,7 +167,7 @@ h2 {
 
 .left-panel {
     flex: 1;
-    background: linear-gradient(to bottom, #003f6f, #0f7ed3);
+    background: linear-gradient(to bottom, #006ebc, #458ec2);
     color: white;
     display: flex;
     justify-content: center;
@@ -187,7 +187,7 @@ h2 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 80px 20px 20px 20px;
 }
 
 #button-cards-container {

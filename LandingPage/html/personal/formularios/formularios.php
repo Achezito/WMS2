@@ -41,9 +41,7 @@ $_SESSION['ultimo_acceso'] = time();
                 </a>
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
                 <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
                 </a>
             </div>

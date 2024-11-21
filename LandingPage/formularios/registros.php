@@ -110,9 +110,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="../img/Users/User.jpg" alt="User Photo">
             </div>
             <div id="header-logos">
-                <i class="fas fa-cog"></i>
-                <i class="fas fa-globe"></i>
+                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                 <i class="fas fa-sign-out-alt" id="logout-icon"></i>
+                </a>
             </div>
         </div>
     </header>

@@ -1,3 +1,14 @@
+body {
+    margin: 0;
+    background: linear-gradient(to bottom, #006ebc, #458ec2);
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333333;
+    position: relative; 
+    overflow-x: hidden;
+    height: 100vh;
+}
+
 #users-content {
     margin: 80px 20px 0 20px;
     width: calc(100% - 40px);
@@ -38,22 +49,24 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    font-size: 16px;
+    font-size: 18px;
     text-align: left;
-    background-color: #ffffff;
+    background-color: #f9f9f9;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 
 /* Encabezado de la tabla */
 table th {
     background-color: #0861a5;
     color: #ffffff;
-    padding: 12px 20px;
+    padding: 10px 15px;
     text-transform: uppercase;
-    font-weight: bold;
-    font-size: 14px;
+    letter-spacing: 0.05em;
+    font-weight: 650;
+    font-size: 18px;
     text-align: left;
     border-bottom: 2px solid #e5e7eb;
     position: sticky;
@@ -62,41 +75,37 @@ table th {
     text-align: center;
 }
 
-/* Celdas de la tabla */
+
+/* Filas de la tabla */
 table td {
-    padding: 12px 20px;
+    padding: 10px 15px;
     border-bottom: 1px solid #ddd;
-    color: #333333;
+    color: #000000;
 }
 
-/* Filas alternadas */
-table tr:nth-child(even) {
-    background-color: #f7faff;
-}
 
-table tr:nth-child(odd) {
-    background-color: #ffffff;
-}
-
-/* Efecto hover */
+/* Estilo para las filas al pasar el cursor */
 table tr:hover {
-    background-color: #eaf4ff;
+    background-color: #f1f1f1;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
-/* Bordes redondeados */
+
+/* Estilo para la fila de encabezado fija al scroll */
 table th:first-child {
     border-top-left-radius: 8px;
 }
+
 
 table th:last-child {
     border-top-right-radius: 8px;
 }
 
+
 table tr:last-child td:first-child {
     border-bottom-left-radius: 8px;
 }
+
 
 table tr:last-child td:last-child {
     border-bottom-right-radius: 8px;
