@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
+    header('Location: /WMS2/LandingPage/html/login.php');
+    exit();
+}
+
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
     header('location: /WMS2/LandingPage/html/login.php');

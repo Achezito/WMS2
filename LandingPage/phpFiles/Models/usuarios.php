@@ -4,10 +4,11 @@ require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
 class Usuario {
     private $usuario_id;
     private $nombre;
-    private $descripcion;
     private $fecha_creacion;
     private $estado;
+    private $correo;
     private $edificio_id;
+    private $username;
 
     private static $selectAll = 
     "SELECT 
@@ -20,14 +21,24 @@ class Usuario {
     FROM usuarios
     WHERE edificio_id = ?";
 
-    public function __construct($usuario_id = null, $nombre = null, $descripcion = null, $fecha_creacion = null, $estado = null, $edificio_id = null) {
+    public function __construct($usuario_id = null, $nombre = null, $fecha_creacion = null, 
+    $estado = null,$correo = null ,$edificio_id = null, $username = null) {
         $this->usuario_id = $usuario_id;
         $this->nombre = $nombre;
-        $this->descripcion = $descripcion;
+        $this->correo = $correo;
         $this->fecha_creacion = $fecha_creacion;
         $this->estado = $estado ?? 'activo';
         $this->edificio_id = $edificio_id;
+        $this->username = $username;
     }
+    public function getUsername() {
+        return $this->username;
+    }
+
+    public function setUsername($username) {
+        $this->username = $username;
+    }
+
 
     // Getters
     public function getUsuarioId() {
@@ -38,9 +49,7 @@ class Usuario {
         return $this->nombre;
     }
 
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
+ 
 
     public function getFechaCreacion() {
         return $this->fecha_creacion;
@@ -63,20 +72,30 @@ class Usuario {
         $this->nombre = $nombre;
     }
 
-    public function setDescripcion($descripcion) {
-        $this->descripcion = $descripcion;
-    }
+ 
 
     public function setFechaCreacion($fecha_creacion) {
         $this->fecha_creacion = $fecha_creacion;
     }
 
+    public function setCorreo($correo) {
+        $this->correo = $correo;
+    }
+
+    public function getCorreo() {
+        return $this->correo;
+    }
     public function setEstado($estado) {
         $this->estado = $estado;
     }
 
     public function setEdificioId($edificio_id) {
         $this->edificio_id = $edificio_id;
+    }
+
+
+    public static function InsertNewUser(){
+
     }
 
     // Método estático para obtener los usuarios de un edificio
@@ -101,9 +120,9 @@ class Usuario {
             $usuario = new Usuario(
                 $row['Numero_de_Usuario'],
                 $row['Nombre'],
-                $row['descripcion'],
                 $row['fecha_creacion'],
                 $row['estado'],
+                $row['correo'],
                 $row['edificio_id']
             );
             // Agregar el objeto Usuario al array
@@ -128,8 +147,8 @@ class Usuario {
                     usuario_id as Numero_de_Usuario,
                     Nombre,
                     fecha_creacion,
-                    descripcion,
                     estado,
+                    correo,
                     edificio_id
                   FROM usuarios
                   WHERE usuario_id = ?";  // Utilizamos el usuario_id para filtrar
@@ -155,9 +174,9 @@ class Usuario {
         $usuario = new Usuario(
             $row['Numero_de_Usuario'],
             $row['Nombre'],
-            $row['descripcion'],
             $row['fecha_creacion'],
             $row['estado'],
+            $row['correo'],
             $row['edificio_id']
         );
         
