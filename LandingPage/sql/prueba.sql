@@ -104,9 +104,12 @@ ADD COLUMN estatus ENUM('pendiente', 'aprobado', 'rechazado') NOT NULL DEFAULT '
 
 
 ---- VISTA ACTIVIDAD PERSONAL ----
+select * from historial_operaciones
+
 CREATE OR REPLACE VIEW historial_operaciones AS
-SELECT 
+SELECT DISTINCT
     'Transacción' AS tipo_operacion,
+    t.transaccion_id AS operacion_id,  -- Agregar el ID de la operación
     t.fecha_inicio, 
     t.fecha_final, 
     t.notas, 
@@ -115,12 +118,14 @@ SELECT
 FROM 
     transacciones t
 JOIN 
-    inventario_transaccion it ON t.transaccion_id = it.transaccion_id
+    (SELECT DISTINCT transaccion_id, personal_id 
+     FROM inventario_transaccion) it ON t.transaccion_id = it.transaccion_id
 JOIN 
     personales p ON it.personal_id = p.personal_id
 UNION ALL 
 SELECT 
     'Mantenimiento' AS tipo_operacion,
+    m.mantenimiento_id AS operacion_id,  -- Agregar el ID de la operación
     m.fecha_inicio, 
     m.fecha_final, 
     m.notas, 
@@ -133,6 +138,7 @@ JOIN
 UNION ALL
 SELECT 
     'Préstamo' AS tipo_operacion,
+    pr.prestamo_id AS operacion_id,  -- Agregar el ID de la operación
     pr.fecha_salida AS fecha_inicio, 
     pr.fecha_devolucion AS fecha_final, 
     pr.notas, 
@@ -143,7 +149,58 @@ FROM
 JOIN 
     personales p ON pr.personal_id = p.personal_id;
 
-select * from historial_operaciones
+select * from historial_materiales
+
+CREATE OR REPLACE VIEW historial_materiales AS
+SELECT 
+    'Transacción' AS tipo_operacion,
+    t.transaccion_id AS operacion_id,
+    i.material_id,
+    tm.nombre AS material_nombre,
+    i.serie,
+    i.modelo
+FROM 
+    transacciones t
+JOIN 
+    inventario_transaccion it ON t.transaccion_id = it.transaccion_id
+JOIN 
+    inventario i ON it.material_id = i.material_id
+JOIN 
+    tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+UNION ALL
+SELECT 
+    'Mantenimiento' AS tipo_operacion,
+    m.mantenimiento_id AS operacion_id,
+    i.material_id,
+    tm.nombre AS material_nombre,
+    i.serie,
+    i.modelo
+FROM 
+    mantenimiento m
+JOIN 
+    mantenimiento_inventario mi ON m.mantenimiento_id = mi.mantenimiento_id
+JOIN 
+    inventario i ON mi.material_id = i.material_id
+JOIN 
+    tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+UNION ALL
+SELECT 
+    'Préstamo' AS tipo_operacion,
+    pr.prestamo_id AS operacion_id,
+    i.material_id,
+    tm.nombre AS material_nombre,
+    i.serie,
+    i.modelo
+FROM 
+    prestamos pr
+JOIN 
+    inventario_prestamos ip ON pr.prestamo_id = ip.prestamo_id
+JOIN 
+    inventario i ON ip.material_id = i.material_id
+JOIN 
+    tipo_material tm ON i.tipo_material_id = tm.tipo_material_id;
+
+
 
 
 ------------------------ VISTA HISTORIAL PRESTAMOS ----------------------
@@ -153,6 +210,7 @@ DROP VIEW historial_prestamos;
 
 CREATE OR REPLACE VIEW historial_prestamos AS
 SELECT 
+    pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
     pr.notas,  -- Notas del préstamo
     u.nombre AS Solicitado_Por,  -- Solicitado por
     pr.estatus,  -- Estatus del préstamo
@@ -163,7 +221,7 @@ SELECT
     END AS Responsable,  -- Responsable del préstamo
     pr.fecha_salida,  -- Fecha de salida
     pr.fecha_devolucion,  -- Fecha de devolución
-    p.edificio_id  -- ID del edificio, ahora en la vista
+    p.edificio_id  -- ID del edificio
 FROM 
     prestamos pr
 LEFT JOIN 
@@ -171,17 +229,16 @@ LEFT JOIN
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id
 WHERE 
-    pr.estatus = 'aprobado';  -- Filtro para mostrar solo los préstamos con estatus 'aprobado'
+    pr.estatus = 'aprobado';  -- Filtro para mostrar solo los préstamos con estatus 'aprobado';
+
 
 select * from historial_prestamos
 
 
 ----------- VISTA HISTORIAL MANTENIMIENTOS -----------
-SELECT * FROM historial_mantenimientos;
-DROP VIEW historial_mantenimientos;
-
 CREATE OR REPLACE VIEW historial_mantenimientos AS
 SELECT
+    m.mantenimiento_id AS operacion_id,  -- Identificador del mantenimiento
     tm.nombre AS tipo_material_nombre,
     tm.categoria AS tipo_material_categoria,
     m.descripcion,
@@ -191,7 +248,7 @@ SELECT
     m.fecha_inicio,
     m.fecha_final,
     CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido) AS responsable,
-    p.edificio_id
+    p.edificio_id  -- ID del edificio
 FROM
     mantenimiento m
 LEFT JOIN
@@ -206,11 +263,13 @@ LEFT JOIN
 
 
 
+
 SELECT * FROM historial_transacciones;
 DROP VIEW historial_transacciones;
 
 CREATE OR REPLACE VIEW historial_transacciones AS
 SELECT DISTINCT
+    t.transaccion_id AS operacion_id,  -- Identificador de la transacción
     t.tipo_transaccion,
     t.fecha_inicio,
     t.fecha_final,
@@ -219,7 +278,7 @@ SELECT DISTINCT
     p.telefono AS proveedor_telefono,
     p.correo AS proveedor_correo,
     CONCAT(p2.nombre, ' ', p2.primer_apellido, ' ', p2.segundo_apellido) AS personal_nombre,
-    p2.edificio_id
+    p2.edificio_id  -- ID del edificio
 FROM 
     transacciones t
 JOIN 
@@ -228,6 +287,7 @@ JOIN
     proveedores p ON it.proveedor_id = p.proveedor_id
 JOIN 
     personales p2 ON it.personal_id = p2.personal_id;
+
 
 
 
