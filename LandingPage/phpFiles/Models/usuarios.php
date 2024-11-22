@@ -15,8 +15,8 @@ class Usuario {
     usuario_id as Numero_de_Usuario,
     Nombre,
     fecha_creacion,
-    descripcion,
     estado,
+    correo,
     edificio_id
     FROM usuarios
     WHERE edificio_id = ?";
