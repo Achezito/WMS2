@@ -1,22 +1,3 @@
-
-
-// Función para mostrar/ocultar el menú
-function toggleMenu() {
-    const menu = document.getElementById("menu");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-// Cierra el menú si se hace clic fuera de él
-document.addEventListener("click", function(event) {
-    const menu = document.getElementById("menu");
-    const headerMenu = document.getElementById("header-menu");
-    if (!menu.contains(event.target) && !headerMenu.contains(event.target)) {
-        menu.style.display = "none";
-    }
-});
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
 init();
     // Selecciona el ícono de cerrar sesión
