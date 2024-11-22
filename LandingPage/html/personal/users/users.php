@@ -23,9 +23,9 @@ if (isset($_SESSION['edificio_id'])) {
 
 
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historiales</title>
@@ -36,41 +36,59 @@ if (isset($_SESSION['edificio_id'])) {
     <link href="/WMS2/LandingPage/css/fontawesome/solid.css" rel="stylesheet" />
     <script src="/WMS2/LandingPage/js/index.js"></script>
     <script src="/WMS2/LandingPage/js/usuarios.js"></script>
+    <title>Principal</title>
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
 </head>
-
 <body>
-    <header>
-        <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()">
-                <i class="fa fa-bars"></i>
-            </div>
-            <div id="header-logo">
-                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
-            </div>
-            <h1>Usuarios</h1>
-        </div>
-        <div id="header-right">
-            <div id="user-photo">
-                <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
-            </div>
-            <div id="header-logos">
-                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-                <i class="fas fa-sign-out-alt" id="logout-icon"></i>
-                </a>
-            </div>
-        </div>
-    </header>
+  <div class="container">
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <!-- Contenedor para logo y nombre -->
+            <h1 class="app-title">CISTA</h1>
+            
+          </div>
+      <div class="profile">
+      
+          <!-- Perfil del usuario -->
+          <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-    <!-- Menú lateral -->
-    <div id="menu">
+        <h3 class="titleName">John Doe</h3>
+        <p class="titleMail">emailaddress@gmail.com</p>
+      </div>
+      <nav>
         <ul>
-            <li><i class="fas fa-home"></i><a href="../indice/index.php"> Home</a></li>
-            <li><i class="fas fa-user"></i><a href="../indice/myAccount.php"> My account</a></li>
-        </ul>
-    </div>
+            
+        <li>
+            
+        <li class="dropdown">
+        <span class="dropdown-toggle">Formularios</span>
+            <ul class="dropdown-menu">
+                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+            </ul>
+        </li>
 
-    <!-- Recuadro grande para mostrar contenido -->
-    <div id="users-content">
+
+        <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+            <label class="linkLabel">
+                Usuarios</label> 
+        </a></li>
+
+          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+            <label class="linkLabel">
+                Historiales</label> 
+          </a></li>
+
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <section class="content">
+      <div id="users-content">
         <div class="content-box">
             <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
 
@@ -110,7 +128,8 @@ if (isset($_SESSION['edificio_id'])) {
 
         </div>
     </div>
-
+      </section>
+    </main>
+  </div>
 </body>
-
 </html>

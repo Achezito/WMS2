@@ -1,15 +1,4 @@
 
-body {
-    margin: 0;
-    background: linear-gradient(to bottom, #006ebc, #458ec2);
-    padding: 20px;
-    font-family: 'Roboto', sans-serif;
-    color: #333333;
-    position: relative; 
-    overflow-x: hidden;
-    height: 100vh;
-}
-
 #users-content {
     margin: 80px 20px 0 20px;
     width: calc(100% - 40px);

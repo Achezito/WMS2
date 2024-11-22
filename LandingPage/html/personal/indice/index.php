@@ -78,10 +78,15 @@ if (isset($_SESSION['edificio_id'])) {
             
         <li>
             
-        <a href="/WMS2/LandingPage/html/personal/formularios/formularios.php">
-           <label class="linkLabel">
-                Formularios</label> 
-        </a></li>
+        <li class="dropdown">
+        <span class="dropdown-toggle">Formularios</span>
+            <ul class="dropdown-menu">
+                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+            </ul>
+        </li>
+
 
         <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
             <label class="linkLabel">
