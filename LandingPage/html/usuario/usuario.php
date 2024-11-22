@@ -1,96 +1,166 @@
 <?php
 session_start();
-
-// Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
-$limite_inactividad = 100000;
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'usuario') {
+    header('Location: /WMS2/LandingPage/html/login.php');
+    exit();
+}
 
 // Verificar el tiempo de inactividad
+$limite_inactividad = 100000; // Tiempo en segundos (puedes ajustarlo)
+
 if (isset($_SESSION['ultimo_acceso'])) {
     $inactividad = time() - $_SESSION['ultimo_acceso'];
-
-    // Si el tiempo de inactividad supera el límite, cerrar sesión y redirigir
     if ($inactividad > $limite_inactividad) {
         session_unset();
         session_destroy();
-
-        // Redirigir a login.php con el mensaje de sesión expirada
         header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
         exit();
     }
 }
-
-// Actualizar el tiempo de último acceso
-$_SESSION['ultimo_acceso'] = time();
+$_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
 
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_type'])) {
     header('location: /WMS2/LandingPage/html/login.php');
     exit();
 }
 
+if (isset($_SESSION['edificio_id'])) {
+    $edificio_id = $_SESSION['edificio_id'];
+    $materiales = Inventario::obtenerMaterialesPorEdificioYEstatus($edificio_id);
+} else {
+    echo "Error: No se ha asignado un edificio al usuario actual.";
+    exit();
+}
 
 ?>
+
+        
+      
+
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="../js/index.js"></script>
+    <script src="/WMS2/LandingPage/js/index.js"></script>
+    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
 </head>
 <body>
+  <div class="container">
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <!-- Contenedor para logo y nombre -->
+            <h1 class="app-title">CISTA</h1>
+            
+          </div>
+      <div class="profile">
+      
+          <!-- Perfil del usuario -->
+          <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-    <header>
-        <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()">
-                <i class="fa fa-bars"></i>
-            </div>
-            <div id="header-logo">
-                <img src="../img/Logos/LineLogo.png" >
-            </div>
-            <h1>CISTA</h1>
-            <h1>
-                Bienvenido <?php echo htmlspecialchars($_SESSION['user_id']); ?>
-            </h1>
-        </div>
-        <div id="header-right">
-            <div id="user-photo">
-                <img src="../img/Users/User.jpg" alt="User Photo">
-            </div>
-            <div id="header-logos">
-                <i class="fas fa-cog"></i>
-                <i class="fas fa-sign-out-alt" id="logout-icon"></i>
-            </div>
-        </div>
-    </header>
+        <h3 class="titleName">
+          <?php
+          echo $_SESSION['username'];
+          ?>
+        </h3>
+        <p class="titleMail">
+        <?php 
+      echo $_SESSION['correo'];
+        ?>
 
-    <!-- Menú lateral -->
-    <div id="menu">
+        
+        </p>
+      </div>
+      <nav>
         <ul>
-            <li><i class="fas fa-home"></i><a href="#"> Home</a></li>
-            <li><i class="far fa-user"></i><a href="#"> My account</a></li>
-            <li><i class="far fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
+            
+        <li>
+            
+        <a href="/WMS2/LandingPage/html/personal/formularios/formularios.php">
+           <label class="linkLabel">
+                Solicitar</label> 
+        </a></li>
+
+        <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+            <label class="linkLabel">
+                Ver prestamos</label> 
+        </a></li>
+
+    
+
         </ul>
+      </nav>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="main-content">
+    <section class="content">
+    <h2>Formulario de Solicitud</h2>
+    <form id="solicitudForm">
+    <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" readonly>
     </div>
-    
-    <!-- División para los cinco botones en forma de cartas -->
-    <div id="button-cards-container">
-        <div class="button-card"><i class="fas fa-home"></i> Inicio</div>
-        <div class="button-card"><i class="fas fa-search"></i> Materiales</div>
-        <div class="button-card"><i class="fas fa-file-alt"></i> Formularios</div>
-        <div class="button-card"><i class="fas fa-user"></i> Usuarios</div>
-        <div class="button-card"><i class="fas fa-clock"></i> Historiales</div>
+
+    <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
+
+    <div class="form-group">
+        <label for="material">Material</label>
+        <select id="material" name="material" required>
+            <?php
+            if (!empty($materiales)) {
+                foreach ($materiales as $material) {
+                    echo '<option value="' . htmlspecialchars($material['material_id']) . '">' . htmlspecialchars($material['modelo']) . ' (' . htmlspecialchars($material['tipo_material']) . ')</option>';
+                }
+            } else {
+                echo '<option value="">No hay materiales disponibles</option>';
+            }
+            ?>
+        </select>
     </div>
-    
-    <!-- División para las cuatro cartas de contenido -->
-    <div id="cards-container">
-        <div class="card">Movimientos recientes en los materiales</div>
-        <div class="card">Materiales más solicitados en la semana</div>
-        <div class="card">Materiales críticos en el inventario</div>
-        <div class="card">Próximos equipos de recibir mantenimiento</div>
+
+    <div class="form-group">
+        <label for="comentarios">Notas</label>
+        <textarea name="comentarios" rows="4" cols="50">Escribe tu comentario aquí...</textarea>
     </div>
+
+    <div class="form-group">
+        <label for="fecha">Fecha de Solicitud</label>
+        <input type="date" id="fecha" name="fecha" readonly>
+    </div>
+
+    <button type="submit" class="submit-btn">Enviar Solicitud</button>
+</form>
+
+<div id="message"></div>
+
+    <div id="message"></div>
+
+
+</section>
+<script>
+    // Obtener la fecha actual en formato YYYY-MM-DD
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd; // Formato correcto para el input type="date"
+
+    // Establecer la fecha actual en el campo de fecha
+    document.getElementById('fecha').value = today;
+</script>
+
+    </main>
+  </div>
 </body>
 </html>
