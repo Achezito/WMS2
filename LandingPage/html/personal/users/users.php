@@ -92,7 +92,7 @@ if (isset($_SESSION['edificio_id'])) {
                     echo "<tr onclick='onClickRow(" . $usuario->getUsuarioId() . ")'>";
                     echo "<td>" . $usuario->getUsuarioId() . "</td>";  // Usar getter para obtener el ID de usuario
                     echo "<td>" . $usuario->getNombre() . "</td>";      // Usar getter para obtener el nombre
-                    echo "<td>" . $usuario->getDescripcion() . "</td>"; // Usar getter para obtener la descripción
+                   
                     echo "<td>" . $usuario->getFechaCreacion() . "</td>"; // Usar getter para obtener la fecha de creación
                     echo "<td>" . $usuario->getEstado() . "</td>";      // Usar getter para obtener el estado
                     echo "<td>" . $usuario->getEdificioId() . "</td>";  // Usar getter para obtener el ID del edificio
