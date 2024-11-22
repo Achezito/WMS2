@@ -33,13 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else if ($user instanceof Usuario) {
         $_SESSION['user_type'] = 'usuario';
         $_SESSION['user_id'] = $user->getUsuarioId();
-        $_SESSION['username'] = $user->getNombre();
+        $_SESSION['username'] = $user->getUsername();
+        $_SESSION['correo'] = $user->getCorreo();
+        $_SESSION['nombre'] = $user->getNombre();
         $_SESSION['edificio_id'] = $user->getEdificioId();
        
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/users/usuario.php" 
+            "redirect" => "/WMS2/LandingPage/html/usuario/usuario.php" 
         ]);
         exit;
     } else {

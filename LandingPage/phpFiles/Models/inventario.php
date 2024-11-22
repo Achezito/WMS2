@@ -91,6 +91,34 @@ class inventario {
 
         return $materiales;
     }
+
+    public static function obtenerMaterialesPorEdificioYEstatus($edificio_id)
+    {
+        $connection = Conexion::get_connection();
+        $sql = "
+            SELECT i.modelo, tm.nombre AS tipo_material, i.material_id
+            FROM wms.inventario i
+            JOIN wms.tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+            JOIN wms.edificios e ON i.edificio_id = e.edificio_id
+            JOIN estatus es on i.estatus_id = es.estatus_id
+            WHERE i.edificio_id = ? AND es.estatus = 'Disponible';
+        ";
+
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("i", $edificio_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $materiales = [];
+        while ($row = $result->fetch_assoc()) {
+            $materiales[] = $row;
+        }
+
+        $stmt->close();
+        $connection->close();
+
+        return $materiales;
+    }
 }
 
 

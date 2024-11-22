@@ -13,7 +13,6 @@ class Conexion {
             self::$username,
             self::$password,
             self::$dbname
-            
         );
 
         // Verificar conexión
@@ -24,4 +23,20 @@ class Conexion {
             return $connection;
         }
     }
+
+    // Iniciar una transacción
+    public static function begin_transaction($connection) {
+        mysqli_begin_transaction($connection);
+    }
+
+    // Confirmar la transacción
+    public static function commit_transaction($connection) {
+        mysqli_commit($connection);
+    }
+
+    // Revertir la transacción
+    public static function rollback_transaction($connection) {
+        mysqli_rollback($connection);
+    }
 }
+

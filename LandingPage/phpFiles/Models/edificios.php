@@ -1,4 +1,5 @@
 <?php 
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
 class Edificios {
     private $edificio_id;
     private $nombre;
@@ -39,7 +40,7 @@ class Edificios {
         $this->nombre = $nombre;
     }
 
-    public static function mostrarInformacion($edificio_id) {
+    public static function mostrarInformacionPorEdificio($edificio_id) {
         // Obtener la conexión a la base de datos
         $connection = Conexion::get_connection();
         
@@ -68,6 +69,38 @@ class Edificios {
             return null;
         }
     }
+
+    public static function mostrarTodosLosEdificios() {
+        // Obtener la conexión a la base de datos
+        $connection = Conexion::get_connection();
+    
+        // Consulta SQL para obtener todos los edificios
+        $sql = "SELECT edificio_id, nombre FROM edificios";
+        $stmt = $connection->prepare($sql);
+    
+        // Ejecutar la consulta
+        $stmt->execute();
+    
+        // Obtener los resultados
+        $result = $stmt->get_result();
+    
+        // Crear un array para almacenar los edificios
+        $edificios = [];
+    
+        while ($row = $result->fetch_assoc()) {
+            // Crear un objeto Edificios para cada fila y agregarlo al array
+            $edificios[] = new Edificios(
+                $row['edificio_id'],
+                $row['nombre']
+            );
+        }
+    
+        // Cerrar la conexión y devolver el array de edificios
+        $stmt->close();
+        $connection->close();
+        return $edificios;
+    }
+    
     
 }
 ?>

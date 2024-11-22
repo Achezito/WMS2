@@ -32,6 +32,10 @@ body {
     background-color: #f4f4f4;
 }
 
+nav{
+    width: 100%;
+}
+
 header {
     display: flex;
     justify-content: space-between;
