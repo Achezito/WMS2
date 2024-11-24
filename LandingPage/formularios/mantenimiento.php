@@ -56,7 +56,10 @@ $_SESSION['ultimo_acceso'] = time();
       <nav>
         <ul>
             
-        <li>
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
             
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
@@ -77,6 +80,10 @@ $_SESSION['ultimo_acceso'] = time();
             <label class="linkLabel">
                 Historiales</label> 
           </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
 
         </ul>
       </nav>

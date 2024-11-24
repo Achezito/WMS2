@@ -72,7 +72,10 @@ if (isset($_SESSION['edificio_id'])) {
       <nav>
         <ul>
             
-        <li>
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
             
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
@@ -93,6 +96,10 @@ if (isset($_SESSION['edificio_id'])) {
             <label class="linkLabel">
                 Historiales</label> 
           </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
 
         </ul>
       </nav>

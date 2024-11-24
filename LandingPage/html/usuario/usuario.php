@@ -93,9 +93,14 @@ if (isset($_SESSION['edificio_id'])) {
                 Solicitar</label> 
         </a></li>
 
-        <li><a href="/WMS2/LandingPage/html/usuario/usuario.php">
+        <li><a href="/WMS2/LandingPage/html/usuario/prestamosUser.php">
             <label class="linkLabel">
                 Ver prestamos</label> 
+        </a></li>
+
+        <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
         </a></li>
 
     
