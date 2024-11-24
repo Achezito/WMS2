@@ -37,8 +37,21 @@ $_SESSION['ultimo_acceso'] = time();
           <!-- Perfil del usuario -->
           <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-        <h3 class="titleName">John Doe</h3>
-        <p class="titleMail">emailaddress@gmail.com</p>
+        <h3 class="titleName">
+
+        <?php 
+        echo $_SESSION['fullname'];
+
+        ?>
+
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
+        </p>
       </div>
       <nav>
         <ul>
@@ -68,7 +81,6 @@ $_SESSION['ultimo_acceso'] = time();
         </ul>
       </nav>
     </aside>
-
     <!-- Contenido principal -->
     <main class="main-content">
       <section class="content">

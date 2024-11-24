@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($user instanceof Personal) {
         $_SESSION['user_type'] = 'personal';
+
         $_SESSION['user_id'] = $user->getPersonalId();
         $_SESSION['edificio_id'] = $user->getEdificioId();
         $_SESSION['fullname'] = $user->getFullname();

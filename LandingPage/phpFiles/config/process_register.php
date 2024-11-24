@@ -1,5 +1,7 @@
 <?php
+
 require_once('conexion.php'); // Tu conexión a la base de datos
+header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['fullName'];
@@ -13,6 +15,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Obtener la conexión a la base de datos
         $connection = Conexion::get_connection();
+
+        // Verificar si el correo ya existe
+        $stmt = mysqli_prepare($connection, "SELECT COUNT(*) FROM usuarios WHERE correo = ?");
+        if ($stmt === false) {
+            throw new Exception("Error al preparar la consulta para verificar el correo.");
+        }
+        mysqli_stmt_bind_param($stmt, "s", $correo);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $correo_count);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        if ($correo_count > 0) {
+            throw new Exception("El correo ya está registrado.");
+        }
+
+        // Verificar si el nombre de usuario ya existe
+        $stmt = mysqli_prepare($connection, "SELECT COUNT(*) FROM cuentas WHERE nombre_usuario = ?");
+        if ($stmt === false) {
+            throw new Exception("Error al preparar la consulta para verificar el nombre de usuario.");
+        }
+        mysqli_stmt_bind_param($stmt, "s", $nombre_usuario);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $username_count);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        if ($username_count > 0) {
+            throw new Exception("El nombre de usuario ya está registrado.");
+        }
 
         // Iniciar la transacción
         Conexion::begin_transaction($connection);
@@ -48,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Conexion::commit_transaction($connection);
 
         // Respuesta JSON para la redirección
-        echo json_encode(['success' => true, 'redirect' => '/WMS2/LandingPage/phpFiles/config/register.php']);
+        echo json_encode(['success' => true, 'redirect' => '/WMS2/LandingPage/html/usuario/register.php']);
     } catch (Exception $e) {
         // Si ocurre un error, revertir la transacción
         Conexion::rollback_transaction($connection);

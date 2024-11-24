@@ -74,7 +74,7 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
 
     // Si todo es válido, envía el formulario
     alert('Formulario enviado con éxito.');
-    this.submit(); // Envía el formulario
+   
 });
 
 });

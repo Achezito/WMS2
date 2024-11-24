@@ -18,7 +18,10 @@ if (isset($_SESSION['ultimo_acceso'])) {
         exit();
     }
 }
+
 $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
+
+
 
 
 // Verificar si el usuario ha iniciado sesión
@@ -85,12 +88,12 @@ if (isset($_SESSION['edificio_id'])) {
             
         <li>
             
-        <a href="/WMS2/LandingPage/html/personal/formularios/formularios.php">
+        <a href="/WMS2/LandingPage/html/usuario/usuario.php">
            <label class="linkLabel">
                 Solicitar</label> 
         </a></li>
 
-        <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+        <li><a href="/WMS2/LandingPage/html/usuario/usuario.php">
             <label class="linkLabel">
                 Ver prestamos</label> 
         </a></li>

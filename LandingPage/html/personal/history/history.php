@@ -139,16 +139,19 @@ if (isset($_SESSION['edificio_id'])) {
           <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
         <h3 class="titleName">
-          <?php
-          echo $_SESSION['username'];
-          ?>
-        </h3>
-        <p class="titleMail">
+
         <?php 
-      echo $_SESSION['correo'];
+        echo $_SESSION['fullname'];
+
         ?>
 
-        
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
         </p>
       </div>
       <nav>
@@ -156,17 +159,25 @@ if (isset($_SESSION['edificio_id'])) {
             
         <li>
             
-        <a href="/WMS2/LandingPage/html/personal/formularios/formularios.php">
-           <label class="linkLabel">
-                Solicitar</label> 
-        </a></li>
+        <li class="dropdown">
+        <span class="dropdown-toggle">Formularios</span>
+            <ul class="dropdown-menu">
+                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+            </ul>
+        </li>
+
 
         <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
             <label class="linkLabel">
-                Ver prestamos</label> 
+                Usuarios</label> 
         </a></li>
 
-    
+          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+            <label class="linkLabel">
+                Historiales</label> 
+          </a></li>
 
         </ul>
       </nav>
@@ -193,7 +204,7 @@ if (isset($_SESSION['edificio_id'])) {
         </div>
     
         <!-- Recuadro grande para mostrar contenido -->
-        <div id="historial-content">
+        
             <div class="content-box">
     
                 <!-- Historial 0: Actividad Personal -->
@@ -226,7 +237,7 @@ if (isset($_SESSION['edificio_id'])) {
     
     
             </div>
-        </div>
+        
         <div id="modal-overlay" style="display: none;">
             <div id="modal-content">
                 <span id="close-modal">&times;</span>
