@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/usuarios.php');
+require_once __DIR__ . '/../../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/inventario.php';
+require_once BASE_PATH . '/phpFiles/Models/usuarios.php';
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
     header('location: /WMS2/LandingPage/html/login.php');

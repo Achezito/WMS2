@@ -1,7 +1,8 @@
 <?php
 session_start();
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/edificios.php');
+require_once __DIR__ . '/../../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/personal.php';
+require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 
 // Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
@@ -34,7 +35,7 @@ if (!isset($_SESSION['user_type'])) {
 
 if (isset($_SESSION['edificio_id'])) {
   $edificio_id = $_SESSION['edificio_id'];
-  $edificios = Edificios::mostrarInformacion($edificio_id);
+  $edificios = Edificios::mostrarInformacionPorEdificio($edificio_id);
 } else {
   echo "Error: No se ha asignado un edificio al usuario actual.";
   exit();

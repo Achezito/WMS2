@@ -1,5 +1,6 @@
 <?php 
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/config/conexion.php';
 class Edificios {
     private $edificio_id;
     private $nombre;

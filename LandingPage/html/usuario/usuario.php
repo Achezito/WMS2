@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'usuario') {
     header('Location: /WMS2/LandingPage/html/login.php');
     exit();
@@ -72,6 +73,7 @@ if (isset($_SESSION['edificio_id'])) {
 
         <h3 class="titleName">
           <?php
+       
           echo $_SESSION['username'];
           ?>
         </h3>
@@ -138,7 +140,7 @@ if (isset($_SESSION['edificio_id'])) {
 
     <div class="form-group">
         <label for="comentarios">Notas</label>
-        <textarea name="comentarios" rows="4" cols="50">Escribe tu comentario aquí...</textarea>
+        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none;" required></textarea>
     </div>
 
     <div class="form-group">

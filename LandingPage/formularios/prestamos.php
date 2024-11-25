@@ -1,8 +1,7 @@
 <?php
 session_start();
-
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
-
+require_once __DIR__ . '/../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 // Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
 $limite_inactividad = 100000;
 

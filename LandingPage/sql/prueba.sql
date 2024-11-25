@@ -235,7 +235,60 @@ WHERE
 select * from historial_prestamos
 
 
+----------- VISTA HISTORIAL-PRESTAMOS POR USUARIOS -----------
+CREATE OR REPLACE VIEW prestamos_usuarios AS
+SELECT 
+    pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
+    pr.notas,  -- Notas del préstamo
+    pr.estatus,  -- Estatus del préstamo
+    i.modelo,
+    pr.usuario_id,  -- ID del usuario solicitante (necesario para filtrar después)
+    CASE 
+        WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
+        WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
+        ELSE CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido)
+    END AS Responsable,  -- Responsable del préstamo
+    pr.fecha_salida,  -- Fecha de salida
+    pr.fecha_devolucion -- Fecha de devolución
+FROM 
+    prestamos pr
+LEFT JOIN 
+    personales p ON pr.personal_id = p.personal_id
+LEFT JOIN 
+    usuarios u ON pr.usuario_id = u.usuario_id
+LEFT JOIN 
+    inventario_prestamos as ip on pr.prestamo_id = ip.prestamo_id
+LEFT JOIN 
+    inventario as i on ip.material_id = i.material_id
+WHERE 
+    pr.estatus IN ('pendiente', 'aprobado', 'rechazado');  -- Incluye múltiples estados
+
+SELECT * 
+FROM prestamos_usuarios 
+WHERE operacion_id = 28; -- Reemplaza con el ID que estés probando
+
+SELECT * FROM prestamos WHERE prestamo_id = 30
+
+
+SELECT p.prestamo_id, i.modelo AS modelo_material, tp.nombre AS tipo_material, p.notas, i.material_id 
+              FROM prestamos AS p
+              INNER JOIN inventario_prestamos AS ip ON p.prestamo_id = ip.prestamo_id
+              INNER JOIN inventario AS i ON ip.material_id = i.material_id
+              INNER JOIN tipo_material AS tp ON i.tipo_material_id = tp.tipo_material_id
+              WHERE p.prestamo_id = 30;
+
 ----------- VISTA HISTORIAL MANTENIMIENTOS -----------
+SELECT p.prestamo_id, i.modelo,tp.nombre ,p.notas 
+FROM prestamos as p
+INNER JOIN inventario_prestamos as ip on p.prestamo_id = ip.prestamo_id
+INNER JOIN inventario as i on ip.material_id = i.material_id
+INNER JOIN tipo_material as tp on i.material_id = tp.tipo_material_id
+WHERE p.prestamo_id = 16;
+
+
+
+
+
 CREATE OR REPLACE VIEW historial_mantenimientos AS
 SELECT
     m.mantenimiento_id AS operacion_id,  -- Identificador del mantenimiento

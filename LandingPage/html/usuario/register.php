@@ -1,5 +1,6 @@
 <?php
- require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/edificios.php');
+require_once __DIR__ . '/../../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 
  $edificios = Edificios::mostrarTodosLosEdificios();
