@@ -31,7 +31,6 @@
                 <a href="/WMS2/LandingPage/html/login.php">
                     <button id="signInTab" class="tab-button active">Iniciar Sesión</button>
                 </a>
-                <button id="signUpTab" class="tab-button">Registrarse</button>
             </div>
         </div>
 

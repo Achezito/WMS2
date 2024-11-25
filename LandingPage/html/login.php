@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html lang="es">
 
+<html lang="es">
+<div transition-style="in:square:center">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,9 +31,15 @@
                 </div>
 
                 <div id="error" class="error-message"></div> <!-- Mensaje de error con clase dedicada -->
+                <div>
+                    <button class="sign-in" type="submit">Iniciar Sesión</button>
+                </div>
 
-                <button class="sign-in" type="submit">Iniciar Sesión</button>
-                <a href="/WMS2/LandingPage/html/usuario/register.php">No te has registrado?</a>
+                <div id="transition-container"></div>
+
+                <div class="register-link">
+                    <a id="register-link" href="/WMS2/LandingPage/html/usuario/register.php">No te has registrado?</a>
+                </div>
             </form>
 
         </div>
@@ -49,5 +56,5 @@
     <!-- Incluir el archivo JavaScript externo -->
     <script src="../js/login.js" defer></script>
 </body>
-
+</div>
 </html>
