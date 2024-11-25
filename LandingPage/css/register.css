@@ -27,7 +27,7 @@ body {
     background: linear-gradient(135deg, #4a7fb5, #003a73);
     color: white;
     padding: 30px;
-    flex: 1;
+    flex: 1.2;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -70,7 +70,7 @@ body {
 
 /* Panel derecho */
 .right-panel {
-    flex: 1.2;
+    flex: 1;
     background-color: #fff;
     padding: 40px;
     display: flex;
@@ -92,7 +92,7 @@ h2 {
 
 .form-group label {
     display: block;
-    font-size: 0.9em;
+    font-size: 1.2em;
     color: #666;
     margin-bottom: 5px;
 }
@@ -140,7 +140,7 @@ form {
 }
 
 .form-group input, .form-group select {
-    font-size: 0.9em;
+    font-size: 1.2em;
 }
 
 @media (max-width: 768px) {

@@ -15,7 +15,7 @@ body {
 /* Barra lateral */
 .sidebar {
     width: 280px;
-    background:#6200EA ;
+    background: linear-gradient(to top , #AEDBFF, #1D4E89, #0D1F33);
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -44,10 +44,10 @@ body {
 }
  
 
-  .linkLabel{
-    font-size: 12pt;
-    color: #fFF;
-   cursor: pointer;
+  .linkLabel{ 
+    color: #ffffffb4;
+    font-size: 18px;
+    cursor: pointer;
   }
   
   .sidebar nav ul {
@@ -72,10 +72,6 @@ body {
     box-sizing: border-box; /* Considera el padding dentro del ancho */
 }
 
-.sidebar nav ul li a:hover {
-   
-}
-  
 
   /* Estilo del contenido principal */
   .main-content {
@@ -98,7 +94,7 @@ body {
   }
   
   .add-site {
-    background-color: #4269f5;
+    background-color: #00366f;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -108,7 +104,7 @@ body {
   }
   
   .add-site:hover {
-    background-color: #3156d4;
+    background-color: #00366f;
   }
   
   .content {
@@ -190,7 +186,7 @@ body {
 }
 
 .dropdown-toggle:hover {
-    background: #4269f5;
+    background: #0b3a6c;
     color: #fff;
 }
 
@@ -200,7 +196,7 @@ body {
     position: absolute;
     top: 100%;
     left: 0;
-    background-color: #1976D2;
+    background-color: #194b81;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     list-style: none;
     border-radius: 5px;
@@ -220,7 +216,7 @@ body {
 }
 
 .dropdown-menu li a:hover {
-    background-color: #4269f5;
+    background-color: #306297;
     color: #fff;
 }
 
@@ -265,7 +261,7 @@ input, select {
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; /* Elimina los estilos predeterminados de los campos numéricos en algunos navegadores */
+  -moz-appearance: textfield; 
 }
 
 input:focus, select:focus {

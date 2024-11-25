@@ -78,7 +78,7 @@ body {
 /* Estilos para el panel izquierdo */
 .left-panel {
     position: relative;
-    background: linear-gradient(135deg, #4a7fb5, #003a73);
+    background: linear-gradient(135deg, #4a7fb5,#1D4E89, #003a73);
     color: white;
     padding: 110px;
     flex: 1;
@@ -387,3 +387,24 @@ body {
     background-color: #ddd;
     transform: translateY(-2px);
 }
+
+a:-webkit-any-link, .register-link{
+    color:#4a7fb5 ;
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 15px;
+}
+
+@keyframes square-in-center {
+    from {
+      clip-path: inset(100% 100% 100% 100%);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  [transition-style="in:square:center"] {
+    animation: 2.5s cubic-bezier(.25, 1, .30, 1) square-in-center both;
+  }
+
+    
