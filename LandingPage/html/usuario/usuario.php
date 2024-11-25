@@ -51,7 +51,7 @@ if (isset($_SESSION['edificio_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
+   
     <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
@@ -73,6 +73,7 @@ if (isset($_SESSION['edificio_id'])) {
 
         <h3 class="titleName">
           <?php
+       
           echo $_SESSION['username'];
           ?>
         </h3>
@@ -139,7 +140,7 @@ if (isset($_SESSION['edificio_id'])) {
 
     <div class="form-group">
         <label for="comentarios">Notas</label>
-        <textarea name="comentarios" rows="4" cols="50">Escribe tu comentario aquí...</textarea>
+        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none;" required></textarea>
     </div>
 
     <div class="form-group">
