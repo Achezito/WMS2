@@ -73,6 +73,9 @@
                     <button class="sign-in" type="submit">Registrarse</button>
                     <div id="error"></div>
                 </form>
+                <div id="message"></div>
+
+    <div id="message"></div>
             </div>
         </div>
     </div>
