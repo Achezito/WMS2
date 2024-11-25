@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Error al preparar la consulta para insertar en 'prestamos'.");
         }
 
-        $stmt->bind_param("sssii", $fecha_devolucion, $estado, $notas, $personalID, $inventarioID);
+        $stmt->bind_param("sssii", $fecha_devolucion, $estado, $notas, $personalID, $idUsuario);
         if (!$stmt->execute()) {
             throw new Exception("Error al insertar datos en la tabla 'prestamos'.");
         }

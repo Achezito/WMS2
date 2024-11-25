@@ -1,53 +1,76 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Obtén el formulario de registro y el área de mensajes de error
     const registerForm = document.getElementById("registerForm");
     const errorDiv = document.getElementById("error");
 
-    // Escucha el evento submit del formulario
     registerForm.addEventListener("submit", function (event) {
         event.preventDefault(); // Evita el envío normal del formulario
 
-        // Limpiar cualquier mensaje de error previo
+        // Limpiar mensajes de error previos
         errorDiv.innerText = "";
-        errorDiv.classList.remove("error-message", "success-message"); // Elimina clases de estilos previos
+        errorDiv.classList.remove("error-message", "success-message");
 
-        // Crear un objeto FormData con los datos del formulario
+        // Validar los campos del formulario
+        let isValid = true;
+        let errorMessages = [];
+
+        const fullName = document.getElementById('fullName');
+        const nameRegex = /^[A-Za-záéíóúÁÉÍÓÚñÑ\s]+$/;
+
+        if (fullName.value.trim().length < 3) {
+            isValid = false;
+            errorMessages.push('El nombre completo debe tener al menos 3 caracteres.');
+        } else if (!nameRegex.test(fullName.value.trim())) {
+            isValid = false;
+            errorMessages.push('El nombre completo no debe contener caracteres especiales o números.');
+        }
+
+        const password = document.getElementById('newPassword');
+        const confirmPassword = document.getElementById('confirmPassword');
+        if (password.value.trim().length < 6) {
+            isValid = false;
+            errorMessages.push('La contraseña debe tener al menos 6 caracteres.');
+        }
+        if (password.value.trim() !== confirmPassword.value.trim()) {
+            isValid = false;
+            errorMessages.push('Las contraseñas no coinciden.');
+        }
+
+        // Mostrar errores si no es válido
+        if (!isValid) {
+            errorDiv.innerText = errorMessages.join('\n');
+            errorDiv.classList.add("error-message");
+            return; // Detén cualquier procesamiento adicional
+        }
+
+        // Si todo es válido, enviar con fetch
         const formData = new FormData(registerForm);
 
-        // Enviar la solicitud AJAX con fetch
         fetch("/WMS2/LandingPage/phpFiles/config/process_register.php", {
             method: "POST",
             body: formData,
         })
             .then((response) => {
-                // Verificar si la respuesta es JSON válida
                 if (!response.ok) {
                     throw new Error(`Error HTTP: ${response.status}`);
                 }
                 return response.json();
             })
             .then((data) => {
-                console.log(data); // Para depurar y ver lo que llega del servidor
                 if (data.success) {
-                    // Mostrar el mensaje de éxito en el div
                     errorDiv.innerText = "Registro exitoso. Redirigiendo...";
-                    errorDiv.classList.add("success-message"); // Aplica estilo de éxito
+                    errorDiv.classList.add("success-message");
 
-                    // Redirigir después de 2 segundos
                     setTimeout(() => {
                         window.location.href = data.redirect;
                     }, 2000);
                 } else {
-                    // Mostrar el mensaje de error en el div
                     errorDiv.innerText = data.message || "Error desconocido en el servidor.";
-                    errorDiv.classList.add("error-message"); // Aplica estilo de error
+                    errorDiv.classList.add("error-message");
                 }
             })
             .catch((error) => {
-                console.error("Error en la solicitud:", error);
-                errorDiv.innerText = `Error en el servidor: ${error.message}`; // Mensaje en caso de error en la solicitud
-                errorDiv.classList.add("error-message"); // Aplica estilo de error
+                errorDiv.innerText = `Error en el servidor: ${error.message}`;
+                errorDiv.classList.add("error-message");
             });
     });
 });
-

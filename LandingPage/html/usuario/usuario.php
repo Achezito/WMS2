@@ -72,6 +72,7 @@ if (isset($_SESSION['edificio_id'])) {
 
         <h3 class="titleName">
           <?php
+       
           echo $_SESSION['username'];
           ?>
         </h3>
@@ -138,7 +139,7 @@ if (isset($_SESSION['edificio_id'])) {
 
     <div class="form-group">
         <label for="comentarios">Notas</label>
-        <textarea name="comentarios" rows="4" cols="50">Escribe tu comentario aquí...</textarea>
+        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none;" required></textarea>
     </div>
 
     <div class="form-group">
