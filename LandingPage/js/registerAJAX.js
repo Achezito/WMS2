@@ -1,37 +1,40 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Obtén el formulario de registro y el área de mensajes de error
     const registerForm = document.getElementById("registerForm");
     const errorDiv = document.getElementById("error");
 
-    // Escucha el evento submit del formulario
     registerForm.addEventListener("submit", function(event) {
-        event.preventDefault(); // Evita el envío normal del formulario
+        event.preventDefault(); // Evitar envío normal del formulario
 
-        // Limpiar cualquier mensaje de error previo
-        errorDiv.innerText = "";
+        errorDiv.innerText = ""; // Limpiar mensajes de error
 
-        // Crear un objeto FormData con los datos del formulario
-        const formData = new FormData(registerForm);
+        const formData = new FormData(registerForm); // Crear FormData con datos del formulario
 
-        // Enviar la solicitud AJAX con fetch
         fetch("/WMS2/LandingPage/phpFiles/config/process_register.php", {
             method: "POST",
             body: formData
         })
-        .then(response => response.json()) // Convierte la respuesta en formato JSON
+        .then(response => response.json())
         .then(data => {
-            console.log(data);  // Para depurar y ver lo que llega del servidor
+            const messageDiv = document.getElementById('message');
+
             if (data.success) {
-                // Redirigir a la página proporcionada por el servidor si el registro es exitoso
-                window.location.href = data.redirect;
+                messageDiv.style.color = 'green';
+                messageDiv.textContent = data.message; // Mostrar mensaje de éxito
+
+                // Redirigir a la URL proporcionada después de 2 segundos
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 2000); // Ajusta el tiempo de espera si es necesario
             } else {
-                // Mostrar el mensaje de error en el div con id="error"
-                errorDiv.innerText = data.message;
+                messageDiv.style.color = 'red';
+                messageDiv.textContent = data.message; // Mostrar mensaje de error
             }
         })
         .catch(error => {
-            console.error("Error en la solicitud:", error);
-            errorDiv.innerText = "Error en el servidor. Inténtalo más tarde."; // Mensaje en caso de error en la solicitud
+            console.error('Error:', error);
+            const messageDiv = document.getElementById('message');
+            messageDiv.style.color = 'red';
+            messageDiv.textContent = 'Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo.';
         });
     });
 });

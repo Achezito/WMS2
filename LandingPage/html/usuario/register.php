@@ -89,6 +89,9 @@
                     </div>
                     <button class="sign-in" type="submit">Registrarse</button>
                 </form>
+                <div id="message"></div>
+
+    <div id="message"></div>
             </div>
         </div>
         <div class="left-panel">
