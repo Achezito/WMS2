@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Conexion::commit_transaction($connection);
 
         // Respuesta JSON para la redirección
-        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => '/WMS2/LandingPage/phpFiles/config/register.php']);
+        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => '/WMS2/LandingPage/html/usuario/register.php']);
 
     } catch (Exception $e) {
         // Si ocurre un error, revertir la transacción
