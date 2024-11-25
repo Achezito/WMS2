@@ -1,6 +1,7 @@
 <?php
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/personal.php');
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/usuarios.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/personal.php';
+require_once BASE_PATH . '/phpFiles/Models/usuarios.php';
 
 class Cuenta
 {

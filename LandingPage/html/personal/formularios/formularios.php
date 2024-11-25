@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+require_once __DIR__ . '/../../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
     header('Location: /WMS2/LandingPage/html/login.php');
     exit();

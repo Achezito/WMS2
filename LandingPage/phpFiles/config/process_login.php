@@ -5,7 +5,8 @@ ini_set('display_errors', 1);
 session_start();
 header('Content-Type: application/json');
 
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/cuentas.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/Models/cuentas.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = htmlspecialchars($_POST['username'], ENT_QUOTES, 'UTF-8');
