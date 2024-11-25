@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 require_once BASE_PATH . '/phpFiles/Models/historiales.php';
 require_once BASE_PATH . '/phpFiles/Models/prestamos.php';

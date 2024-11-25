@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'usuario') {
     header('Location: /WMS2/LandingPage/html/login.php');
