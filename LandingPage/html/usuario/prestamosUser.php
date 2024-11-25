@@ -50,7 +50,7 @@ if (isset($_SESSION['edificio_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-   
+ 
     <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
@@ -93,11 +93,10 @@ if (isset($_SESSION['edificio_id'])) {
                 Solicitar</label> 
         </a></li>
 
-        <li><a href="/WMS2/LandingPage/html/usuario/prestamosUser.php">
+        <li><a href="/WMS2/LandingPage/html/usuario/PrestamosUser.php">
             <label class="linkLabel">
                 Ver prestamos</label> 
         </a></li>
-
         <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
             <label class="linkLabel">
                 Logout</label> 
@@ -112,61 +111,7 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Contenido principal -->
     <main class="main-content">
     <section class="content">
-    <h2>Formulario de Solicitud</h2>
-    <form id="solicitudForm">
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-    </div>
-
-    <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
-
-    <div class="form-group">
-        <label for="material">Material</label>
-        <select id="material" name="material" required>
-            <?php
-            if (!empty($materiales)) {
-                foreach ($materiales as $material) {
-                    echo '<option value="' . htmlspecialchars($material['material_id']) . '">' . htmlspecialchars($material['modelo']) . ' (' . htmlspecialchars($material['tipo_material']) . ')</option>';
-                }
-            } else {
-                echo '<option value="">No hay materiales disponibles</option>';
-            }
-            ?>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="comentarios">Notas</label>
-        <textarea name="comentarios" rows="4" cols="50">Escribe tu comentario aquí...</textarea>
-    </div>
-
-    <div class="form-group">
-        <label for="fecha">Fecha de Solicitud</label>
-        <input type="date" id="fecha" name="fecha" readonly>
-    </div>
-
-    <button type="submit" class="submit-btn">Enviar Solicitud</button>
-</form>
-
-<div id="message"></div>
-
-    <div id="message"></div>
-
-
-</section>
-<script>
-    // Obtener la fecha actual en formato YYYY-MM-DD
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
-    var yyyy = today.getFullYear();
-
-    today = yyyy + '-' + mm + '-' + dd; // Formato correcto para el input type="date"
-
-    // Establecer la fecha actual en el campo de fecha
-    document.getElementById('fecha').value = today;
-</script>
+   
 
     </main>
   </div>

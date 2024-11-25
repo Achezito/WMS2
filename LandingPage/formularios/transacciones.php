@@ -37,13 +37,29 @@ $_SESSION['ultimo_acceso'] = time();
           <!-- Perfil del usuario -->
           <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-        <h3 class="titleName">John Doe</h3>
-        <p class="titleMail">emailaddress@gmail.com</p>
+        <h3 class="titleName">
+
+        <?php 
+        echo $_SESSION['fullname'];
+
+        ?>
+
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
+        </p>
       </div>
       <nav>
         <ul>
             
-        <li>
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
             
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
@@ -53,6 +69,7 @@ $_SESSION['ultimo_acceso'] = time();
                 <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
             </ul>
         </li>
+        
 
 
         <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
@@ -64,11 +81,14 @@ $_SESSION['ultimo_acceso'] = time();
             <label class="linkLabel">
                 Historiales</label> 
           </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
 
         </ul>
       </nav>
     </aside>
-
     <!-- Contenido principal -->
     <main class="main-content">
       <section class="content">

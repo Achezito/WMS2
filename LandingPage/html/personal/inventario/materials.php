@@ -76,45 +76,7 @@ if (isset($_SESSION['edificio_id'])) {
 
     <div id="users-content">
     <div class="content-box">
-        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
-        <div class="scrollable-table">
-
-            
-            <?php
-            if (!empty($materiales)) {
-                echo "<table border='1'>";
-
-                // Encabezado del edificio
-                echo "<thead>";
-                echo "<tr><th colspan='5'>" . htmlspecialchars($materiales[0]['edificio']) . "</th></tr>";
-                echo "<tr>
-                    <th>ID Material</th>
-                    <th>Serie</th>
-                    <th>Modelo</th>
-                    <th>Tipo</th>
-                    <th>Estatus</th>
-                </tr>";
-                echo "</thead>";
-
-                // Cuerpo de la tabla
-                echo "<tbody>";
-                foreach ($materiales as $material) {
-                    echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
-                    echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
-                    echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
-                    echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
-                    echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
-                    echo "<td>" . htmlspecialchars($material['estatus']) . "</td>";
-                    echo "</tr>";
-                }
-                echo "</tbody>";
-
-                echo "</table>";
-            } else {
-                echo "No hay materiales vinculados a tu edificio.";
-            }
-            ?>
-        </div>
+       
     </div>
 </div>
 

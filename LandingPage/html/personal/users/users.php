@@ -53,13 +53,29 @@ if (isset($_SESSION['edificio_id'])) {
           <!-- Perfil del usuario -->
           <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-        <h3 class="titleName">John Doe</h3>
-        <p class="titleMail">emailaddress@gmail.com</p>
+        <h3 class="titleName">
+
+        <?php 
+        echo $_SESSION['fullname'];
+
+        ?>
+
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
+        </p>
       </div>
       <nav>
         <ul>
             
-        <li>
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
             
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
@@ -80,16 +96,19 @@ if (isset($_SESSION['edificio_id'])) {
             <label class="linkLabel">
                 Historiales</label> 
           </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
 
         </ul>
       </nav>
     </aside>
-
     <!-- Contenido principal -->
     <main class="main-content">
       <section class="content">
-      <div id="users-content">
-        <div class="content-box">
+  
+       
             <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
 
             <?php
@@ -126,8 +145,8 @@ if (isset($_SESSION['edificio_id'])) {
 
 
 
-        </div>
-    </div>
+     
+
       </section>
     </main>
   </div>

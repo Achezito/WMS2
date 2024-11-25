@@ -1,22 +1,3 @@
-
-
-// Función para mostrar/ocultar el menú
-function toggleMenu() {
-    const menu = document.getElementById("menu");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
-
-// Cierra el menú si se hace clic fuera de él
-document.addEventListener("click", function(event) {
-    const menu = document.getElementById("menu");
-    const headerMenu = document.getElementById("header-menu");
-    if (!menu.contains(event.target) && !headerMenu.contains(event.target)) {
-        menu.style.display = "none";
-    }
-});
-
-
-
 document.addEventListener('DOMContentLoaded', function () {
 init();
     // Selecciona el ícono de cerrar sesión
@@ -32,4 +13,34 @@ init();
         console.log('No se encontró el ícono de cerrar sesión');
     }
 });
+
+function filterTable() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase(); // Convertir el valor del input a minúsculas
+    const table = document.querySelector('table');
+    const tbody = table.querySelector('tbody'); // Seleccionar solo las filas del cuerpo de la tabla
+    const rows = tbody.getElementsByTagName('tr');
+
+    // Recorrer las filas del cuerpo de la tabla
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        let rowContainsFilterText = false;
+
+        // Recorrer las celdas de la fila
+        for (let j = 0; j < cells.length; j++) {
+            if (cells[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                rowContainsFilterText = true;
+                break;
+            }
+        }
+
+        // Mostrar u ocultar la fila según el filtro
+        rows[i].style.display = rowContainsFilterText ? '' : 'none';
+    }
+}
+
+function onClickRow(materialId) {
+    console.log('Fila clicada con ID:', materialId);
+}
+
 

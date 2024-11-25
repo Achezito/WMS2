@@ -29,6 +29,7 @@ if (isset($_SESSION['edificio_id'])) {
     <link href="../../../css/fontawesome/fontawesome.css" rel="stylesheet" />
     <link href="../../../css/fontawesome/solid.css" rel="stylesheet" />
     <script src="../../../js/index.js"></script>
+    <link rel="stylesheet" href="../../../css/hom2.css">
     <link rel="stylesheet" href="../../../css/historiales.css">
     <script>
         function cambiarHistorial(index) {
@@ -119,106 +120,146 @@ if (isset($_SESSION['edificio_id'])) {
 </head>
 
 <body>
-    <header>
-        <div id="header-left">
-            <div id="header-menu" onclick="toggleMenu()">
-                <i class="fa fa-bars"></i>
-            </div>
-            <div id="header-logo">
-                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png">
-            </div>
-            <h1>CISTA</h1>
-            <h1>
+    <div class="container">
 
-            </h1>
-        </div>
-        <div id="header-right">
-            <div id="user-photo">
-                <a href="/WMS2/LandingPage/html/personal/indice/myAccount.php">
-                    <img src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Photo">
-                </a>
-            </div>
-            <div id="header-logos">
-                <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-                    <i class="fas fa-sign-out-alt" id="logout-icon"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-    <!-- Menú lateral -->
-    <div id="menu">
+
+
+
+    <div class="container">
+    <!-- Barra lateral -->
+    <aside class="sidebar">
+        <div class="logo-container">
+            <!-- Contenedor para logo y nombre -->
+            <h1 class="app-title">CISTA</h1>
+            
+          </div>
+      <div class="profile">
+      
+          <!-- Perfil del usuario -->
+          <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+
+        <h3 class="titleName">
+
+        <?php 
+        echo $_SESSION['fullname'];
+
+        ?>
+
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
+        </p>
+      </div>
+      <nav>
         <ul>
-            <li><i class="fas fa-home"></i><a href="../html/index.php"> Home</a></li>
-            <li><i class="fas fa-user"></i><a href="#"> My account</a></li>
-            <li><i class="fas fa-clipboard"></i><a href="#" id="prestamos-link"> Préstamos </a></li>
+            
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
+            
+        <li class="dropdown">
+        <span class="dropdown-toggle">Formularios</span>
+            <ul class="dropdown-menu">
+                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+            </ul>
+        </li>
+
+        
+
+        <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+            <label class="linkLabel">
+                Usuarios</label> 
+        </a></li>
+
+          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+            <label class="linkLabel">
+                Historiales</label> 
+          </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
+
         </ul>
+      </nav>
+    </aside>
     </div>
 
-    <!-- Botones para diferentes tipos de historial -->
-    <div id="button-cards-container">
-        <a href="../../../html/personal/indice/index.php" style="text-decoration: none; color: inherit;">
-            <div class="button-card">
-                <i class="fas fa-home"></i> Inicio
+    <main class="main-content">
+    <section class="content">
+
+        <!-- Botones para diferentes tipos de historial -->
+        <div id="button-cards-container">
+            <div class="button-card" data-index="0" onclick="cambiarHistorial(0)">
+                <i class="fas fa-user-clock"></i> Actividad Personal
             </div>
-        </a>
-        <div class="button-card" data-index="0" onclick="cambiarHistorial(0)">
-            <i class="fas fa-user-clock"></i> Actividad Personal
-        </div>
-        <div class="button-card" data-index="1" onclick="cambiarHistorial(1)">
-            <i class="fas fa-clipboard-list"></i> Préstamos
-        </div>
-        <div class="button-card" data-index="2" onclick="cambiarHistorial(2)">
-            <i class="fas fa-tools"></i> Mantenimientos
-        </div>
-        <div class="button-card" data-index="3" onclick="cambiarHistorial(3)">
-            <i class="fas fa-truck"></i> Transacciones
-        </div>
-    </div>
-
-    <!-- Recuadro grande para mostrar contenido -->
-    <div id="historial-content">
-        <div class="content-box">
-
-            <!-- Historial 0: Actividad Personal -->
-            <div id="historial-0" class="historial" style="display:none;">
-                <?php
-                dibujar_historial_operaciones($edificio_id);
-                ?>
+            <div class="button-card" data-index="1" onclick="cambiarHistorial(1)">
+                <i class="fas fa-clipboard-list"></i> Préstamos
             </div>
-
-            <!-- Historial 1: Préstamos -->
-            <div id="historial-1" class="historial" style="display:none;">
-                <?php
-                dibujar_historial_prestamos($edificio_id);
-                ?>
+            <div class="button-card" data-index="2" onclick="cambiarHistorial(2)">
+                <i class="fas fa-tools"></i> Mantenimientos
             </div>
-
-            <!-- Historial 2: Mantenimientos -->
-            <div id="historial-2" class="historial" style="display:none;">
-                <?php
-                dibujar_historial_mantenimientos($edificio_id);
-                ?>
-            </div>
-
-            <!-- Historial 3: Transacciones -->
-            <div id="historial-3" class="historial" style="display:none;">
-                <?php
-                dibujar_historial_transacciones($edificio_id);
-                ?>
-            </div>
-
-
-        </div>
-    </div>
-    <div id="modal-overlay" style="display: none;">
-        <div id="modal-content">
-            <span id="close-modal">&times;</span>
-            <div id="modal-body">
-                <!-- Contenido dinámico del modal irá aquí -->
-                <p>El contenido de "Ver Más" aparecerá aquí.</p>
+            <div class="button-card" data-index="3" onclick="cambiarHistorial(3)">
+                <i class="fas fa-truck"></i> Transacciones
             </div>
         </div>
-    </div>
+    
+        <!-- Recuadro grande para mostrar contenido -->
+        
+            <div class="content-box">
+    
+                <!-- Historial 0: Actividad Personal -->
+                <div id="historial-0" class="historial" style="display:none;">
+                    <?php
+                    dibujar_historial_operaciones($edificio_id);
+                    ?>
+                </div>
+    
+                <!-- Historial 1: Préstamos -->
+                <div id="historial-1" class="historial" style="display:none;">
+                    <?php
+                    dibujar_historial_prestamos($edificio_id);
+                    ?>
+                </div>
+    
+                <!-- Historial 2: Mantenimientos -->
+                <div id="historial-2" class="historial" style="display:none;">
+                    <?php
+                    dibujar_historial_mantenimientos($edificio_id);
+                    ?>
+                </div>
+    
+                <!-- Historial 3: Transacciones -->
+                <div id="historial-3" class="historial" style="display:none;">
+                    <?php
+                    dibujar_historial_transacciones($edificio_id);
+                    ?>
+                </div>
+    
+    
+            </div>
+        
+        <div id="modal-overlay" style="display: none;">
+            <div id="modal-content">
+                <span id="close-modal">&times;</span>
+                <div id="modal-body">
+                    <!-- Contenido dinámico del modal irá aquí -->
+                    <p>El contenido de "Ver Más" aparecerá aquí.</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    </main>
+
+    
 </body>
 
 </html>

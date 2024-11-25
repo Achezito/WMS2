@@ -1,14 +1,35 @@
 <?php
 session_start();
 
-// Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_id'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
-    exit();
+require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php');
+
+// Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
+$limite_inactividad = 100000;
+
+// Verificar el tiempo de inactividad
+if (isset($_SESSION['ultimo_acceso'])) {
+    $inactividad = time() - $_SESSION['ultimo_acceso'];
+
+    // Si el tiempo de inactividad supera el límite, cerrar sesión y redirigir
+    if ($inactividad > $limite_inactividad) {
+        session_unset();
+        session_destroy();
+
+        // Redirigir a login.php con el mensaje de sesión expirada
+        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        exit();
+    }
 }
 
 // Actualizar el tiempo de último acceso
 $_SESSION['ultimo_acceso'] = time();
+
+
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['user_type'])) {
+    header('location: /WMS2/LandingPage/html/login.php');
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,13 +58,29 @@ $_SESSION['ultimo_acceso'] = time();
           <!-- Perfil del usuario -->
           <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
 
-        <h3 class="titleName">John Doe</h3>
-        <p class="titleMail">emailaddress@gmail.com</p>
+        <h3 class="titleName">
+
+        <?php 
+        echo $_SESSION['fullname'];
+
+        ?>
+
+        </h3>
+        <p class="titleMail">
+
+        <?php 
+        echo $_SESSION['correo'];
+
+        ?>
+        </p>
       </div>
       <nav>
         <ul>
             
-        <li>
+        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+              <label class="linkLabel">
+                Home</label>
+            </a></li>
             
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
@@ -64,6 +101,10 @@ $_SESSION['ultimo_acceso'] = time();
             <label class="linkLabel">
                 Historiales</label> 
           </a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+            <label class="linkLabel">
+                Logout</label> 
+        </a></li>
 
         </ul>
       </nav>

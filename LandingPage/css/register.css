@@ -5,385 +5,158 @@
     box-sizing: border-box;
     font-family: Arial, sans-serif;
 }
+
 body {
     margin: 0;
     background: linear-gradient(to bottom, #004d9a, #2b74bc);
     font-family: 'Roboto', sans-serif;
-    color: #333333;
-    position: relative; /* Necesario para los círculos absolutos */
-    overflow-x: hidden; /* Para evitar desplazamiento horizontal causado por los círculos */
+    color: #333;
+    position: relative;
 }
 
-/* Círculos decorativos en el fondo */
-.body-circle {
-    position: absolute;
-    border-radius: 50%;
-    z-index: 0;
-    opacity: 0.4;
-    pointer-events: none; /* Para que no interfieran con los clics */
-}
-
-.body-circle.circle1 {
-    width: 200px;
-    height: 200px;
-    background: rgba(73, 179, 255, 0.3);
-    top: 10%;
-    left: 15%;
-}
-
-.body-circle.circle2 {
-    width: 300px;
-    height: 300px;
-    background: rgba(255, 255, 255, 0.2);
-    top: 50%;
-    left: 60%;
-}
-
-.body-circle.circle3 {
-    width: 150px;
-    height: 150px;
-    background: rgba(255, 255, 255, 0.1);
-    top: 80%;
-    left: 30%;
-}
-
-.body-circle.circle4 {
-    width: 250px;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.15);
-    bottom: 10%;
-    right: 10%;
-}
-
-.body-circle.circle5 {
-    width: 180px;
-    height: 180px;
-    background: rgba(255, 255, 255, 0.1);
-    top: 25%;
-    right: 20%;
-}
-
-
+/* Contenedor principal */
 .container {
     display: flex;
-    width: 100%;
-   
     height: 100vh;
     overflow: hidden;
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-    background-color: #ffffff;
+    background-color: #fff;
 }
 
-/* Left Panel */
-/* Estilos para el panel izquierdo */
+/* Panel izquierdo */
 .left-panel {
-    position: relative;
     background: linear-gradient(135deg, #4a7fb5, #003a73);
     color: white;
-    padding: 110px;
+    padding: 30px;
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    transition: all 0.3s;
-    overflow: hidden;
-}
-
-/* Logotipo y texto dentro del panel izquierdo */
-.left-panel .branding {
-    margin-bottom: 40px;
 }
 
 .left-panel .logo {
-    width: 400px;
+    width: 200px;
     margin-bottom: 20px;
-    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
 .left-panel h1 {
-    font-size: 2.5em;
-    margin-bottom: 15px;
-    font-weight: bold;
+    font-size: 1.8em;
+    margin-bottom: 10px;
 }
 
 .left-panel p {
-    font-size: 1.1em;
-    line-height: 1.6;
+    font-size: 1em;
+    line-height: 1.5;
 }
 
-.footer-links {
-    margin-top: auto;
-    font-size: 0.9em;
+.left-panel .tabs {
+    margin-top: 30px;
 }
 
-.footer-links a {
-    color: #e1e8f0;
-    text-decoration: none;
-    transition: color 0.3s;
+.left-panel .tab-button {
+    padding: 10px 20px;
+    background-color: #003a73;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
 }
 
-.footer-links a:hover {
-    color: #ffffff;
+.left-panel .tab-button:hover {
+    background-color: #2f679f;
 }
 
-/* Circulos decorativos */
-.left-panel::before,
-.left-panel::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.5;
-}
-
-/* Círculos grandes */
-.left-panel::before {
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle at center, rgba(111, 195, 255, 0.5), rgba(34, 148, 255, 0));
-    top: -50px;
-    left: -150px;
-    z-index: 0;
-}
-
-.left-panel::after {
-    width: 500px;
-    height: 500px;
-    background: radial-gradient(circle at center, rgba(173, 216, 230, 0.5), rgba(25, 118, 210, 0));
-    bottom: -100px;
-    right: -200px;
-    z-index: 0;
-}
-
-/* Círculos adicionales */
-.left-panel .circle1,
-.left-panel .circle2,
-.left-panel .circle3,
-.left-panel .circle4,
-.left-panel .circle5  {
-    position: absolute;
-    border-radius: 50%;
-    z-index: 0;
-    opacity: 0.4;
-}
-
-/* Estilos individuales para los círculos adicionales */
-.left-panel .circle1 {
-    width: 150px;
-    height: 150px;
-    background: rgba(73, 179, 255, 0.33);
-    top: 20%;
-    left: 20%;
-}
-
-.left-panel .circle2 {
-    width: 200px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.248);
-    top: 60%;
-    left: 40%;
-}
-
-.left-panel .circle3 {
-    width: 100px;
-    height: 100px;
-    background: rgba(255, 255, 255, 0.1);
-    top: 40%;
-    left: 70%;
-}
-
-.left-panel .circle4 {
-    width: 250px;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.115);
-    bottom: 4%;
-    left: 2%;
-}
-
-.left-panel .circle5 {
-    width: 250px;
-    height: 250px;
-    background: rgba(255, 255, 255, 0.08);
-    bottom: 80%;
-    left: 70%;
-}
-.left-panel .branding,
-.left-panel .logo,
-.left-panel h1,
-.left-panel p,
-.footer-links {
-    position: relative;
-    z-index: 1;
-}
-
-/* Estilos para el panel derecho */
+/* Panel derecho */
 .right-panel {
     flex: 1.2;
-    background-color: #ffffff;
+    background-color: #fff;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.line{
-    margin: 50px;
-    width: calc(100% - 100px);
-    height: 1.5px;
-    background-color: #6666667d;
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #025373;
+    font-size: 2em;
+}
+
+.form-group {
     margin-bottom: 15px;
 }
 
-.right-panel h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #025373;
-    font-size: 3.1em;
-    font-weight: bold;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
 .form-group label {
     display: block;
     font-size: 0.9em;
     color: #666;
     margin-bottom: 5px;
-    font-weight: bold;
 }
 
-.form-group input {
+.form-group input, .form-group select {
     width: 100%;
-    padding: 12px;
-    font-size: 1em;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-.form-group input:focus {
+.form-group input:focus, .form-group select:focus {
     border-color: #0378A6;
     box-shadow: 0 0 5px rgba(3, 120, 166, 0.5);
     outline: none;
 }
 
-.terms {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 15px;
-}
-
-.terms a {
-    color: #03588C;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.terms a:hover {
-    text-decoration: underline;
-}
-
-
-/* Right Panel */
-.right-panel {
-    flex: 1.2;
-    padding: 100px;
-    background-color: #ffffff;
-    display: flex;
- 
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-
-
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 1.1em;
-    color: #6666667d;
-    margin-bottom: 5px;
-    font-weight: bold;
-}
-
-.form-group input {
+button.sign-in {
     width: 100%;
-    padding: 12px;
-    font-size: 1em;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.form-group input:focus {
-    border-color: #0378A6;
-    box-shadow: 0 0 5px rgba(3, 120, 166, 0.5);
-    outline: none;
-}
-
-.terms {
-    font-size: 0.9em;
-    color: #666;
-    margin-top: 15px;
-}
-
-.terms a {
-    color: #03588C;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.terms a:hover {
-    text-decoration: underline;
-}
-
-/* Buttons */
-.buttons {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
-}
-
-.sign-up {
-    flex: 1;
     padding: 12px;
     font-size: 1em;
     background-color: #003a73;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 20px;
 }
 
-.sign-up:hover {
+button.sign-in:hover {
     background-color: #2f679f;
-    transform: translateY(-2px);
 }
 
-.sign-in {
-    flex: 1;
-    padding: 20px;
-    font-size: 1em;
-    background-color: #4a7fb5;
-    color: #FFF;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
+/* Ajustes de espaciado */
+body {
+    font-size: 14px;
 }
 
-.sign-in:hover {
-    background-color: #ddd;
-    transform: translateY(-2px);
+form {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.form-group input, .form-group select {
+    font-size: 0.9em;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        padding: 20px;
+    }
+
+    .right-panel {
+        padding: 20px;
+    }
+
+    .left-panel h1 {
+        font-size: 1.5em;
+    }
 }

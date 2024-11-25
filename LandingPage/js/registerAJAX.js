@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         fetch("/WMS2/LandingPage/phpFiles/config/process_register.php", {
             method: "POST",
-            body: formData
+            body: formData,
         })
         .then(response => response.json())
         .then(data => {
@@ -38,3 +38,4 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
         e.preventDefault(); // Evitar el envío tradicional del formulario
 
         var formData = new FormData(this); // Obtener los datos del formulario
+        const errorDiv = document.getElementById("error");
 
         fetch('/WMS2/LandingPage/phpFiles/Models/inventario_prestamo.php', {
             method: 'POST',
