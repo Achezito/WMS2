@@ -35,6 +35,7 @@ try {
         $_SESSION['fullname'] = $user->getFullname();
         $_SESSION['telefono'] = $user->getTelefono();
         $_SESSION['correo'] = $user->getCorreo();
+        $_SESSION['personal_id'] = $user->getPersonalId();
 
         echo json_encode([
             "success" => true,

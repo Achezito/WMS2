@@ -3,7 +3,7 @@ session_start();
 require_once __DIR__ . '/../../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 
-// Límite de inactividad en segundos (por ejemplo, 10 minutos = 600 segundos)
+// Límite de inactividad en segundos
 $limite_inactividad = 100000;
 
 // Verificar el tiempo de inactividad
@@ -14,8 +14,6 @@ if (isset($_SESSION['ultimo_acceso'])) {
   if ($inactividad > $limite_inactividad) {
     session_unset();
     session_destroy();
-
-    // Redirigir a login.php con el mensaje de sesión expirada
     header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
     exit();
   }
@@ -23,7 +21,6 @@ if (isset($_SESSION['ultimo_acceso'])) {
 
 // Actualizar el tiempo de último acceso
 $_SESSION['ultimo_acceso'] = time();
-
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type'])) {
@@ -40,10 +37,6 @@ if (isset($_SESSION['edificio_id'])) {
 }
 
 ?>
-
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -64,123 +57,101 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Barra lateral -->
     <aside class="sidebar">
       <div class="logo-container">
-        <!-- Contenedor para logo y nombre -->
         <h1 class="app-title">CISTA</h1>
-
       </div>
       <div class="profile">
-
-        <!-- Perfil del usuario -->
         <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
-
-        <h3 class="titleName">
-
-          <?php
-          echo $_SESSION['fullname'];
-
-          ?>
-
-        </h3>
-        <p class="titleMail">
-
-          <?php
-          echo $_SESSION['correo'];
-
-          ?>
-        </p>
+        <h3 class="titleName"><?php echo $_SESSION['fullname']; ?></h3>
+        <p class="titleMail"><?php echo $_SESSION['correo']; ?></p>
       </div>
       <nav>
         <ul>
-        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
-              <label class="linkLabel">
-                Home</label>
-            </a></li>
-          
-
+          <li><a href="/WMS2/LandingPage/html/personal/indice/index.php"><label class="linkLabel">Home</label></a></li>
           <li class="dropdown">
             <span class="dropdown-toggle">Formularios</span>
             <ul class="dropdown-menu">
-              <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+              <li><a href="/WMS2/LandingPage/formularios/personal_prestamos.php">Préstamos</a></li>
               <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
               <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
             </ul>
           </li>
-
-
-          <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
-              <label class="linkLabel">
-                Usuarios</label>
-            </a></li>
-
-          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
-              <label class="linkLabel">
-                Historiales</label>
-            </a></li>
-            <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-            <label class="linkLabel">
-                Logout</label> 
-        </a></li>
-
+          <li><a href="/WMS2/LandingPage/html/personal/users/users.php"><label class="linkLabel">Usuarios</label></a></li>
+          <li><a href="/WMS2/LandingPage/html/personal/history/history.php"><label class="linkLabel">Historiales</label></a></li>
+          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
         </ul>
       </nav>
     </aside>
 
     <!-- Contenido principal -->
     <main class="main-content">
-  <section class="content">
-    <div class="header-container">
-      <h2><?php echo htmlspecialchars($materiales[0]['edificio']); ?></h2>
-      <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
-    </div>
-    <div class="scrollable-table">
-      <?php
-        if (!empty($materiales)) {
-          echo "<table border='1'>";
-          // Encabezado del edificio
-          echo "<thead>";
-          echo "<tr>
-                  <th>ID Material</th>
-                  <th>Serie</th>
-                  <th>Modelo</th>
-                  <th>Tipo</th>
-                  <th>Estatus</th>
-              </tr>";
-          echo "</thead>";
+      <section class="content">
+        <div class="header-container">
+          <h2><?php echo htmlspecialchars($materiales[0]['edificio']); ?></h2>
+          <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+        </div>
+        <div class="scrollable-table">
+          <?php
+          if (!empty($materiales)) {
+            echo "<table border='1'>";
+            // Encabezado del edificio
+            echo "<thead>";
+            echo "<tr>
+                    <th>ID Material</th>
+                    <th>Serie</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Estatus</th>
+                </tr>";
+            echo "</thead>";
 
-          // Cuerpo de la tabla
-          echo "<tbody>";
-          foreach ($materiales as $material) {
-            echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
-            echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
-            echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
-            echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
-            echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
-            echo "<td class='estatus'>" . htmlspecialchars($material['estatus']) . "</td>";
-            echo "</tr>";
+            // Cuerpo de la tabla
+            echo "<tbody>";
+            foreach ($materiales as $material) {
+              // Determinar la clase CSS según el estatus
+              $estatus_class = '';
+              switch (trim($material['estatus'])) {
+                case 'Disponible':
+                  $estatus_class = 'disponible';
+                  break;
+                case 'En uso':
+                  $estatus_class = 'enUso';
+                  break;
+                case 'En mantenimiento':
+                  $estatus_class = 'enMantenimiento';
+                  break;
+                case 'Fuera de servicio':
+                  $estatus_class = 'fueraDeServicio';
+                  break;
+              }
+
+              echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
+              echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
+              echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
+              echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
+              echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
+              echo "<td class='estatus'><span class='$estatus_class'>" . htmlspecialchars($material['estatus']) . "</span></td>";
+              echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+          } else {
+            echo "No hay materiales vinculados a tu edificio.";
           }
-          echo "</tbody>";
-          echo "</table>";
-        } else {
-          echo "No hay materiales vinculados a tu edificio.";
-        }
-      ?>
-    </div>
-  </section>
-</main>
-
+          ?>
+        </div>
+      </section>
+    </main>
   </div>
   <script>
-    // Selecciona todas las celdas con la clase "estatus"
-    document.querySelectorAll('td.estatus').forEach(cell => {
-      if (cell.textContent.trim() === 'Disponible') {
-        cell.classList.add('disponible');
-      }
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll("table tbody tr");
+      rows.forEach(row => {
+        const cells = Array.from(row.children);
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? "" : "none";
+      });
     });
-
-    function onClickRow(materialId) {
-      console.log('Fila clicada con ID:', materialId);
-      // Aquí puedes agregar cualquier acción al hacer clic en una fila
-    }
   </script>
 </body>
 

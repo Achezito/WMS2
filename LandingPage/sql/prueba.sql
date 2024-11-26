@@ -247,8 +247,6 @@ LEFT JOIN
     personales p ON pr.personal_id = p.personal_id
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id
-WHERE 
-    pr.estatus = 'aprobado';  -- Filtro para mostrar solo los préstamos con estatus 'aprobado';
 
 
 select * from historial_prestamos

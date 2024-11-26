@@ -117,41 +117,39 @@
 /* Estilo de las tablas */
 table {
     width: 100%;
-    max-width: 100%; /* Asegurarse de que no exceda el ancho de la pantalla */
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: var(--card-background);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px var(--card-shadow-color);
-    overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Encabezados de las tablas */
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
 table th {
-    background-color: var(--header-background);
-    color: var(--header-text-color);
-    padding: 12px 15px;
-    text-align: left;
+    background-color: #f4f4f4;
     font-weight: bold;
-    border-bottom: 3px solid var(--color-hover);
 }
 
-/* Celdas */
-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid var(--card-border-color);
-    color: var(--card-text-color);
-}
-
-/* Filas alternas */
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-/* Hover sobre filas */
 table tr:hover {
-    background-color: var(--button-card-hover-bg);
+    background-color: #f1f1f1;
+}
+
+/* Estilo para mensajes cuando no hay usuarios */
+.no-users-message {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilo de la tabla cuando está vacía */
+.empty-table {
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
 }
 
 /* Texto centrado para mensajes */
@@ -197,6 +195,13 @@ table tr:hover {
     right: 10px;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: #aaa;
+    cursor: pointer;
+}
+
+#close-modal:hover,
+#close-modal:focus {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
 }
