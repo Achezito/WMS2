@@ -71,7 +71,7 @@ class Edificios {
         }
     }
 
-    public static function mostrarTodosLosEdificios() {
+    public static function mostrarTodosLosEdificios() { 
         // Obtener la conexión a la base de datos
         $connection = Conexion::get_connection();
     
@@ -82,25 +82,17 @@ class Edificios {
         // Ejecutar la consulta
         $stmt->execute();
     
-        // Obtener los resultados
+        // Obtener todas las filas como un array asociativo
         $result = $stmt->get_result();
+        $edificios = $result->fetch_all(MYSQLI_ASSOC);
     
-        // Crear un array para almacenar los edificios
-        $edificios = [];
-    
-        while ($row = $result->fetch_assoc()) {
-            // Crear un objeto Edificios para cada fila y agregarlo al array
-            $edificios[] = new Edificios(
-                $row['edificio_id'],
-                $row['nombre']
-            );
-        }
-    
-        // Cerrar la conexión y devolver el array de edificios
+        // Cerrar la conexión y devolver el array
         $stmt->close();
         $connection->close();
+    
         return $edificios;
     }
+    
     
     
 }
