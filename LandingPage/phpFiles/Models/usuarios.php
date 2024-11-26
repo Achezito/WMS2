@@ -221,7 +221,53 @@ class Usuario {
     }
 }
 
+public static function cambiarEstadoUsuario($usuario_id, $nuevo_estado)
+{
+    // Obtener la conexión a la base de datos
+    $connection = Conexion::get_connection();
     
+    // Consulta SQL para actualizar el estado del usuario
+    $query = "UPDATE usuarios SET estado = ? WHERE usuario_id = ?";
+    
+    try {
+        // Preparar la consulta
+        $stmt = $connection->prepare($query);
+        
+        if (!$stmt) {
+            throw new Exception('Error al preparar la consulta: ' . $connection->error);
+        }
+
+        // Vincular los parámetros: el estado (string) y el id del usuario (entero)
+        $stmt->bind_param("si", $nuevo_estado, $usuario_id); // 's' para string, 'i' para entero
+        
+        // Ejecutar la consulta
+        if (!$stmt->execute()) {
+            throw new Exception('Error al ejecutar la consulta: ' . $stmt->error);
+        }
+        
+        // Verificar si se actualizó correctamente
+        if ($stmt->affected_rows > 0) {
+            echo "Estado del usuario actualizado correctamente.";
+        } else {
+            echo "No se realizó ninguna actualización. El usuario puede no existir o el estado no ha cambiado.";
+        }
+
+        // Cerrar la consulta
+        $stmt->close();
+        
+    } catch (Exception $e) {
+        // Manejo de excepciones: mostrar un mensaje de error o loguearlo
+        error_log("Error al cambiar el estado del usuario: " . $e->getMessage());
+        return false; // Devolver falso en caso de error
+    } finally {
+        // Cerrar la conexión
+        $connection->close();
+    }
+
+    // Devolver verdadero si la actualización fue exitosa
+    return true;
+}
+
 
     // Este es un ejemplo de cómo podría ser la clase Usuario
 

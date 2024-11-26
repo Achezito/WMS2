@@ -26,16 +26,21 @@ if (!isset($_SESSION['user_type'])) {
 }
 
 $personal_id = $_SESSION['personal_id'];
+$edificio_id = $_SESSION['edificio_id'];
 
-function obtenerPrestamos($estado) {
+function obtenerPrestamos($estado, $edificio_id) {
     $conn = Conexion::get_connection();
-    $query = "SELECT * FROM prestamos WHERE estatus = ?";
+    $query = "SELECT p.* 
+              FROM prestamos p
+              JOIN usuarios u ON p.usuario_id = u.usuario_id
+              WHERE p.estatus = ? AND u.edificio_id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $estado);
+    $stmt->bind_param("si", $estado, $edificio_id);
     $stmt->execute();
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
+
 
 function actualizarPrestamo($prestamo_id, $estado, $personal_id, $fecha_devolucion = null, $notas = null) {
     $conn = Conexion::get_connection();
@@ -125,8 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-$prestamosPendientes = obtenerPrestamos('pendiente');
-$prestamosAprobados = obtenerPrestamos('aprobado');
+$prestamosPendientes = obtenerPrestamos('pendiente', $edificio_id);
+$prestamosAprobados = obtenerPrestamos('aprobado', $edificio_id);
 
 function dibujar_historial_materiales($prestamo_id) {
     $connection = Conexion::get_connection();

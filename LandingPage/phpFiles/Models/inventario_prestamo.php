@@ -3,14 +3,13 @@ require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/config/conexion.php';
 header('Content-Type: application/json');
 
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $idUsuario = $_POST['id'];
     $fecha_devolucion = null;
     $estado = 'pendiente'; // Tipo de cuenta predeterminado
     $notas = $_POST['comentarios'];
     $personalID = null;
-    $inventarioID = $_POST['material'];
+    $materiales = $_POST['material']; // Recibimos los materiales como un arreglo
 
     try {
         // Obtener la conexión a la base de datos
@@ -36,18 +35,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Obtener el ID del préstamo insertado
         $prestamo_id = $connection->insert_id;
 
-        // Insertar en la tabla `inventario_prestamos`
-        $stmt = $connection->prepare("
-            INSERT INTO inventario_prestamos (prestamo_id, material_id) 
-            VALUES (?, ?)
-        ");
-        if ($stmt === false) {
-            throw new Exception("Error al preparar la consulta para insertar en 'inventario_prestamos'.");
-        }
+        // Insertar en la tabla `inventario_prestamos` para cada material seleccionado
+        foreach ($materiales as $inventarioID) {
+            $stmt = $connection->prepare("
+                INSERT INTO inventario_prestamos (prestamo_id, material_id) 
+                VALUES (?, ?)
+            ");
+            if ($stmt === false) {
+                throw new Exception("Error al preparar la consulta para insertar en 'inventario_prestamos'.");
+            }
 
-        $stmt->bind_param("ii", $prestamo_id, $inventarioID);
-        if (!$stmt->execute()) {
-            throw new Exception("Error al insertar datos en la tabla 'inventario_prestamos'.");
+            $stmt->bind_param("ii", $prestamo_id, $inventarioID);
+            if (!$stmt->execute()) {
+                throw new Exception("Error al insertar datos en la tabla 'inventario_prestamos'.");
+            }
         }
 
         // Confirmar la transacción
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
         // Si ocurre un error, revertir la transacción
         $connection->rollback();
-        
+
         // Enviar respuesta JSON de error
         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     } finally {
@@ -68,3 +69,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
