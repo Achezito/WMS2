@@ -173,20 +173,17 @@ require_once BASE_PATH . '/phpFiles/config/conexion.php';
         return ["error" => "Préstamo no encontrado"];
     }
 
-
-    public static function actualizarPrestamo($datos)
+    public static function actualizarPrestamo($datos) 
     {
         $conn = Conexion::get_connection();
-
-        // Verificar que la conexión sea exitosa
+    
         if ($conn === false) {
             error_log("Error al conectar con la base de datos.");
             return ["success" => false, "error" => "Error de conexión a la base de datos"];
         }
-
-        // Iniciar la transacción
+    
         $conn->begin_transaction();
-
+    
         try {
             // Actualizar las notas del préstamo
             $queryNotas = "UPDATE prestamos SET notas = ? WHERE prestamo_id = ?";
@@ -196,39 +193,55 @@ require_once BASE_PATH . '/phpFiles/config/conexion.php';
             }
             $stmtNotas->bind_param("si", $datos['notas'], $datos['prestamo_id']);
             $stmtNotas->execute();
-
+    
             if ($stmtNotas->affected_rows === 0) {
                 throw new Exception("No se actualizaron las notas para prestamo_id: " . $datos['prestamo_id']);
             }
-
-            // Actualizar la clave foránea en inventario_prestamos
-            $queryInventario = "UPDATE inventario_prestamos SET material_id = ? WHERE prestamo_id = ?";
-            $stmtInventario = $conn->prepare($queryInventario);
-            if ($stmtInventario === false) {
-                throw new Exception("Error al preparar la consulta para actualizar la relación en inventario_prestamos.");
+    
+            // Primero eliminamos los materiales antiguos del préstamo
+            $queryEliminarMateriales = "DELETE FROM inventario_prestamos WHERE prestamo_id = ?";
+            $stmtEliminar = $conn->prepare($queryEliminarMateriales);
+            if ($stmtEliminar === false) {
+                throw new Exception("Error al preparar la consulta para eliminar los materiales antiguos.");
             }
-            $stmtInventario->bind_param("ii", $datos['material_id'], $datos['prestamo_id']);
-            $stmtInventario->execute();
-
-            if ($stmtInventario->affected_rows === 0) {
-                throw new Exception("No se actualizó la relación en inventario_prestamos para prestamo_id: " . $datos['prestamo_id']);
+            $stmtEliminar->bind_param("i", $datos['prestamo_id']);
+            $stmtEliminar->execute();
+    
+            if ($stmtEliminar->affected_rows === 0) {
+                error_log("No se eliminaron los materiales antiguos para prestamo_id: " . $datos['prestamo_id']);
             }
-
+    
+            // Ahora agregamos los nuevos materiales
+            $queryInventario = "INSERT INTO inventario_prestamos (prestamo_id, material_id) VALUES (?, ?)";
+            foreach ($datos['material_ids'] as $material_id) {
+                $stmtInventario = $conn->prepare($queryInventario);
+                if ($stmtInventario === false) {
+                    throw new Exception("Error al preparar la consulta para agregar materiales a inventario_prestamos.");
+                }
+                $stmtInventario->bind_param("ii", $datos['prestamo_id'], $material_id);
+                $stmtInventario->execute();
+    
+                if ($stmtInventario->affected_rows === 0) {
+                    throw new Exception("No se actualizó la relación para material_id: $material_id en prestamo_id: " . $datos['prestamo_id']);
+                }
+            }
+    
             // Confirmar la transacción
             $conn->commit();
-            return ["success" => true];
+            return ["success" => true, "message" => "Préstamo actualizado correctamente con materiales asignados."];
         } catch (Exception $e) {
-            // Revertir cambios en caso de error
+            // Revertir en caso de error
             $conn->rollback();
             error_log("Error en la transacción: " . $e->getMessage());
             return ["success" => false, "error" => $e->getMessage()];
         } finally {
-            // Cerrar recursos
             if (isset($stmtNotas)) $stmtNotas->close();
+            if (isset($stmtEliminar)) $stmtEliminar->close();
             if (isset($stmtInventario)) $stmtInventario->close();
             $conn->close();
         }
     }
+    
     public static function eliminarPrestamo($prestamo_id)
 {
     $conn = Conexion::get_connection();

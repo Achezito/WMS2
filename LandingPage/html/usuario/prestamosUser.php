@@ -126,53 +126,54 @@ if (isset($_SESSION['edificio_id'])) {
 
                     </div>
                     <?php
-                    $usuario_id = $_SESSION['user_id'];
+$usuario_id = $_SESSION['user_id'];
 
-                    // Capturar el estatus de la búsqueda
-                    $estatus = isset($_GET['estatus']) ? $_GET['estatus'] : '';
+// Capturar el estatus de la búsqueda
+$estatus = isset($_GET['estatus']) ? $_GET['estatus'] : '';
 
-                    // Llamar al método con los parámetros adecuados
-                    $historial = Prestamo::obtenerHistorialDeUsuario($usuario_id, $estatus);
-                    echo "<form method='get' action=''>";
-                    echo "<label for='estatus'>Filtrar por Estatus:</label>";
-                    echo "<select name='estatus' id='estatus'>";
-                    echo "<option value=''>--Seleccionar Estatus--</option>";
-                    echo "<option value='pendiente'" . ($estatus == 'pendiente' ? ' selected' : '') . ">Pendiente</option>";
-                    echo "<option value='aprobado'" . ($estatus == 'aprobado' ? ' selected' : '') . ">Aprobado</option>";
-                    echo "<option value='rechazado'" . ($estatus == 'rechazado' ? ' selected' : '') . ">Rechazado</option>";
-                    echo "</select>";
-                    echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
-                    echo "</form>";
+// Llamar al método con los parámetros adecuados
+$historial = Prestamo::obtenerHistorialDeUsuario($usuario_id, $estatus);
+echo "<form method='get' action=''>";
+echo "<label for='estatus'>Filtrar por Estatus:</label>";
+echo "<select name='estatus' id='estatus'>";
+echo "<option value=''>--Seleccionar Estatus--</option>";
+echo "<option value='pendiente'" . ($estatus == 'pendiente' ? ' selected' : '') . ">Pendiente</option>";
+echo "<option value='aprobado'" . ($estatus == 'aprobado' ? ' selected' : '') . ">Aprobado</option>";
+echo "<option value='rechazado'" . ($estatus == 'rechazado' ? ' selected' : '') . ">Rechazado</option>";
+echo "</select>";
+echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
+echo "</form>";
 
-                    if (!empty($historial)) {
-                        echo '<h2 class="titulo-historial">Historial de Préstamos</h2>';
-                        echo '<div class="lista-prestamos">';
+if (!empty($historial)) {
+    echo '<h2 class="titulo-historial">Historial de Préstamos</h2>';
+    echo '<div class="lista-prestamos">';
 
-                        foreach ($historial as $prestamo) {
-                            // Verificamos si el estatus del préstamo es "pendiente"
-                            if ($prestamo['estatus'] === 'pendiente') {
-                                echo '<div class="tarjeta-prestamo pendiente" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
-                            } else {
-                                echo '<div class="tarjeta-prestamo" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
-                            }
-                            echo '<h3>Prestamo: ' . htmlspecialchars($prestamo['operacion_id']) . '</h3>';
-                            echo '<p><strong>Notas:</strong> ' . htmlspecialchars($prestamo['notas']) . '</p>';
-                            echo '<p><strong>Estatus:</strong> ' . htmlspecialchars($prestamo['estatus']) . '</p>';
-                            echo '<p><strong>Material:</strong> ' . htmlspecialchars($prestamo['modelo']) . '</p>';
-                            echo '<p><strong>Responsable:</strong> ' . htmlspecialchars($prestamo['Responsable']) . '</p>';
-                            echo '<p><strong>Fecha de salida:</strong> ' . htmlspecialchars($prestamo['fecha_salida']) . '</p>';
-                            echo '<p><strong>Fecha de devolución:</strong> ' . htmlspecialchars($prestamo['fecha_devolucion']) . '</p>';
-                            echo '</div>';
-                        }
-                        
+    foreach ($historial as $prestamo) {
+        // Verificamos si el estatus del préstamo es "pendiente"
+        if ($prestamo['estatus'] === 'pendiente') {
+            echo '<div class="tarjeta-prestamo pendiente" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
+        } else {
+            echo '<div class="tarjeta-prestamo" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
+        }
+        echo '<h3>Préstamo: ' . htmlspecialchars($prestamo['operacion_id']) . '</h3>';
+        echo '<p><strong>Notas:</strong> ' . htmlspecialchars($prestamo['notas']) . '</p>';
+        echo '<p><strong>Estatus:</strong> ' . htmlspecialchars($prestamo['estatus']) . '</p>';
+        // Mostrar todos los materiales asociados
+        echo '<p><strong>Material(es):</strong> ' . htmlspecialchars($prestamo['materiales']) . '</p>';
+        echo '<p><strong>Responsable:</strong> ' . htmlspecialchars($prestamo['Responsable']) . '</p>';
+        echo '<p><strong>Fecha de salida:</strong> ' . htmlspecialchars($prestamo['fecha_salida']) . '</p>';
+        echo '<p><strong>Fecha de devolución:</strong> ' . htmlspecialchars($prestamo['fecha_devolucion']) . '</p>';
+        echo '</div>';
+    }
 
-                        echo '</div>';
-                    } else {
-                        echo '<div class="mensaje-sin-prestamos">';
-                        echo '<h3>No se encontraron préstamos para este usuario.</h3>';
-                        echo '</div>';
-                    }
-                    ?>
+    echo '</div>';
+} else {
+    echo '<div class="mensaje-sin-prestamos">';
+    echo '<h3>No se encontraron préstamos para este usuario.</h3>';
+    echo '</div>';
+}
+?>
+
 
                 </div>
                 <div id="popup" class="popup" style="display: none;">

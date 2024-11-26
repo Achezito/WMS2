@@ -92,355 +92,293 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
         </aside>
 
         <main class="main-content">
-            <section class="content">
-                <h2>Gestión de Usuarios</h2>
-                <p>Agrega, modifica o elimina usuarios desde esta sección.</p>
+    <section class="content">
+        <h2>Gestión de Usuarios</h2>
+        <p>Agrega, modifica o elimina usuarios desde esta sección.</p>
 
-                <!-- Botón flotante para agregar usuario -->
-                <button class="btn btn-add" id="addUserBtn">+ Añadir Usuario</button>
+        <!-- Botón flotante para agregar usuario -->
+        <button class="btn btn-add" id="addUserBtn">+ Añadir Usuario</button>
 
-                <!-- Contenedor con scroll para la tabla de usuarios -->
-                <div class="table-container">
-                    <!-- Tabla de usuarios -->
-                    <table class="user-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Usuario</th>
-                                <th>Cuenta</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($cuentas as $c): ?>
-                                <tr class="user-row" data-id="<?php echo $c['cuenta_id']; ?>" data-usuario="<?php echo $c['nombre_usuario']; ?>" data-cuenta="<?php echo $c['tipo_cuenta']; ?>">
-                                    <td><?php echo $c['cuenta_id']; ?></td>
-                                    <td><?php echo $c['nombre_usuario']; ?></td>
-                                    <td><?php echo $c['tipo_cuenta']; ?></td>
-                                    <td>
-                                        <button class="btn btn-actions" onclick="openActionsModal()">Acciones</button>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
-        </main>
-
-    </div>
-    <!-- Modal para Editar Usuario -->
-    <div id="editUserModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Editar Usuario</h2>
-            <!-- Aquí puedes agregar el formulario de edición -->
-            <form id="editUserForm">
-                <label for="editUsername">Nuevo Nombre de Usuario</label>
-                <input type="text" id="editUsername" name="editUsername" required>
-
-                <label for="editPassword">Nueva Contraseña</label>
-                <input type="password" id="editPassword" name="editPassword">
-
-                <label for="editEmail">Nuevo Correo Electrónico</label>
-                <input type="email" id="editEmail" name="editEmail">
-
-                <button type="submit">Guardar Cambios</button>
-            </form>
-            <button id="closeEditUserModal">Cerrar</button>
+        <!-- Contenedor con scroll para la tabla de usuarios -->
+        <div class="table-container">
+            <!-- Tabla de usuarios -->
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Cuenta</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($cuentas as $c): ?>
+                        <tr class="user-row" data-id="<?php echo $c['cuenta_id']; ?>" data-usuario="<?php echo $c['nombre_usuario']; ?>" data-cuenta="<?php echo $c['tipo_cuenta']; ?>">
+                            <td><?php echo $c['cuenta_id']; ?></td>
+                            <td><?php echo $c['nombre_usuario']; ?></td>
+                            <td><?php echo $c['tipo_cuenta']; ?></td>
+                            <td>
+                                <button class="btn btn-actions">Acciones</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
+    </section>
+</main>
+
     </div>
 
-    <!-- Modal de Confirmación para Eliminar Usuario -->
-    <div id="confirmDeleteModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Confirmación de Eliminación</h2>
-            <p>¿Estás seguro de que deseas eliminar este usuario?</p>
-            <button id="confirmDeleteBtn">Eliminar</button>
-            <button id="cancelDeleteBtn">Cancelar</button>
-        </div>
-    </div>
-
-
-    <div id="modalOverlay" class="modal-overlay" style="display: none;"></div>
-    <div id="actionsModal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <h2>Acciones para el Usuario</h2>
-            <button id="editUserBtn">Modificar</button>
-            <button id="deleteUserBtn">Cambiar</button>
-            <button id="closeModalBtn">Cerrar</button>
-        </div>
-    </div>
- 
-    <div id="addUserModal" class="modal">
-        <div class="modal-content">
-            <h2>Agregar Nuevo Usuario</h2>
-            <!-- Formulario para añadir un nuevo usuario -->
-            <form id="addUserForm" method="POST">
-
-                <!-- Campo de Edificio -->
-                <label for="edificio">Edificio</label>
-                <select id="edificio" name="edificio">
-                    <?php
-                    if (!empty($Edificios)) {
-                        foreach ($Edificios as $e) {
-                            echo '<option value="' . htmlspecialchars($e['edificio_id']) . '">' . htmlspecialchars($e['nombre']) . '</option>';
-                        }
-                    } else {
-                        echo '<option value="">No hay edificios</option>';
+    <!-- Modal para añadir usuario -->
+    <!-- Modal para añadir usuario -->
+   <!-- Modal de agregar usuario -->
+   <div id="addUserModal" class="modal">
+    <div class="modal-content">
+        <h2>Agregar Nuevo Usuario</h2>
+        <!-- Formulario para añadir un nuevo usuario -->
+        <form id="addUserForm" method="POST">
+            
+            <!-- Campo de Edificio -->
+            <label for="edificio">Edificio</label>
+            <select id="edificio" name="edificio">
+                <?php
+                if (!empty($Edificios)) {
+                    foreach ($Edificios as $e) {
+                        echo '<option value="' . htmlspecialchars($e['edificio_id']) . '">' . htmlspecialchars($e['nombre']) . '</option>';
                     }
-                    ?>
+                } else {
+                    echo '<option value="">No hay edificios</option>';
+                }
+                ?>
+            </select>
+
+            <!-- Tipo de Cuenta -->
+            <label for="tipoCuenta">Tipo de cuenta</label>
+            <select id="tipoCuenta" name="tipoCuenta">
+                <option value="personal">Personal</option>
+                <option value="usuario">Usuario</option>
+            </select>
+            <label for="username">Nombre de Usuario</label>
+            <input type="text" id="username" name="username" required>
+
+            <!-- Contraseña y Confirmar Contraseña -->
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="confirmPassword">Confirmar Contraseña</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+
+            <!-- Campos específicos para "Personal" -->
+            <div id="personalFields" class="personal-input" style="display: none;">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required>
+                
+                <label for="firstName">Primer Apellido</label>
+                <input type="text" id="firstName" name="firstName" required>
+                
+                <label for="lastName">Segundo Apellido</label>
+                <input type="text" id="lastName" name="lastName" required>
+                
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" required>
+                
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" name="email" required>
+
+            </div>
+
+            <!-- Campos específicos para "Usuario" -->
+            <div id="usuarioFields" class="usuario-input" style="display: none;">
+                <label for="usuarioNombre">Nombre</label>
+                <input type="text" id="usuarioNombre" name="usuarioNombre" required>
+                
+                <label for="estado">Estado</label>
+                <select id="estado" name="estado">
+                    <option value="alta">Alta</option>
+                    <option value="baja">Baja</option>
                 </select>
 
-                <!-- Tipo de Cuenta -->
-                <label for="tipoCuenta">Tipo de cuenta</label>
-                <select id="tipoCuenta" name="tipoCuenta">
-                    <option value="personal">Personal</option>
-                    <option value="usuario">Usuario</option>
-                </select>
-                <label for="username">Nombre de Usuario</label>
-                <input type="text" id="username" name="username" required>
+                <label for="usuarioEmail">Correo Electrónico</label>
+                <input type="email" id="usuarioEmail" name="usuarioEmail" required>
+            </div>
 
-                <!-- Contraseña y Confirmar Contraseña -->
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="password" required>
+            <button type="submit">Registrar Usuario</button>
+            <div id="message" style="display:none;"></div>
+        </form>
 
-                <label for="confirmPassword">Confirmar Contraseña</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
-
-                <!-- Campos específicos para "Personal" -->
-                <div id="personalFields" class="personal-input" style="display: none;">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" required>
-
-                    <label for="firstName">Primer Apellido</label>
-                    <input type="text" id="firstName" name="firstName" required>
-
-                    <label for="lastName">Segundo Apellido</label>
-                    <input type="text" id="lastName" name="lastName" required>
-
-                    <label for="telefono">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" required>
-
-                    <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" required>
-
-                </div>
-
-                <!-- Campos específicos para "Usuario" -->
-                <div id="usuarioFields" class="usuario-input" style="display: none;">
-                    <label for="usuarioNombre">Nombre</label>
-                    <input type="text" id="usuarioNombre" name="usuarioNombre" required>
-
-                    <label for="estado">Estado</label>
-                    <select id="estado" name="estado">
-                        <option value="alta">Alta</option>
-                        <option value="baja">Baja</option>
-                    </select>
-
-                    <label for="usuarioEmail">Correo Electrónico</label>
-                    <input type="email" id="usuarioEmail" name="usuarioEmail" required>
-                </div>
-
-                <button type="submit">Registrar Usuario</button>
-                <div id="message" style="display:none;"></div>
-            </form>
-
-        </div>
     </div>
-    <!-- Script para modal de acciones -->
-    <script>
-        // Obtener los elementos del DOM
-        const actionsModal = document.getElementById('actionsModal');
-        const modalOverlay = document.getElementById('modalOverlay');
-        const confirmDeleteModal = document.getElementById('confirmDeleteModal');
-        const editUserModal = document.getElementById('editUserModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const closeEditUserModal = document.getElementById('closeEditUserModal');
-        const deleteUserBtn = document.getElementById('deleteUserBtn');
-        const editUserBtn = document.getElementById('editUserBtn');
-        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
-        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+</div>
 
-        // Función para abrir el modal de acciones
-        function openActionsModal() {
-            actionsModal.style.display = 'block';
-            modalOverlay.style.display = 'block';
-        }
+<script>
+// Obtener elementos del DOM
+document.getElementById('tipoCuenta').addEventListener('change', function() {
+    var tipoCuenta = this.value;
 
-        // Función para cerrar el modal de acciones
-        closeModalBtn.addEventListener('click', function() {
-            actionsModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
+    // Primero deshabilitamos todos los campos para ambos tipos
+    var personalInputs = document.querySelectorAll('#personalFields input, #personalFields select');
+    var usuarioInputs = document.querySelectorAll('#usuarioFields input, #usuarioFields select');
+    
+    // Deshabilitar todos los campos
+    personalInputs.forEach(function(input) {
+        input.disabled = true;
+    });
+    usuarioInputs.forEach(function(input) {
+        input.disabled = true;
+    });
+
+    // Ocultar ambos conjuntos de campos
+    document.getElementById('personalFields').style.display = 'none';
+    document.getElementById('usuarioFields').style.display = 'none';
+
+    // Mostrar solo los campos correspondientes dependiendo del tipo de cuenta
+    if (tipoCuenta === 'personal') {
+        document.getElementById('personalFields').style.display = 'block';
+        personalInputs.forEach(function(input) {
+            input.disabled = false;
         });
-
-        // Cerrar el modal de acciones si se hace clic en el overlay
-        modalOverlay.addEventListener('click', function() {
-            actionsModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
-            // Cerrar los otros modales si están abiertos
-            confirmDeleteModal.style.display = 'none';
-            editUserModal.style.display = 'none';
+    } else if (tipoCuenta === 'usuario') {
+        document.getElementById('usuarioFields').style.display = 'block';
+        usuarioInputs.forEach(function(input) {
+            input.disabled = false;
         });
-
-        // Función para abrir el modal de eliminación
-        deleteUserBtn.addEventListener('click', function() {
-            actionsModal.style.display = 'none'; // Cerrar el modal de acciones
-            confirmDeleteModal.style.display = 'block';
-        });
-
-        // Confirmar la eliminación del usuario
-        confirmDeleteBtn.addEventListener('click', function() {
-            // Aquí puedes agregar la lógica de eliminación del usuario
-            alert('Usuario eliminado');
-            confirmDeleteModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
-        });
-
-        // Cancelar la eliminación y cerrar el modal
-        cancelDeleteBtn.addEventListener('click', function() {
-            confirmDeleteModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
-        });
-
-        // Función para abrir el modal de edición
-        editUserBtn.addEventListener('click', function() {
-            actionsModal.style.display = 'none'; // Cerrar el modal de acciones
-            editUserModal.style.display = 'block';
-        });
-
-        // Cerrar el modal de edición
-        closeEditUserModal.addEventListener('click', function() {
-            editUserModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
-        });
-    </script>
-  <!-- Script para modal de añadir -->
-    <script>
-        // Obtener el botón y el modal
-        const addUserBtn = document.getElementById('addUserBtn');
-        const addUserModal = document.getElementById('addUserModal');
-
-        // Función para abrir el modal
-        addUserBtn.addEventListener('click', function() {
-            addUserModal.style.display = 'block'; // Mostrar el modal
-            document.getElementById('modalOverlay').style.display = 'block'; // Mostrar el overlay
-        });
-
-        // Función para cerrar el modal
-        const closeModal = () => {
-            addUserModal.style.display = 'none';
-            document.getElementById('modalOverlay').style.display = 'none'; // Cerrar el overlay
-        };
-
-        // Cerrar el modal si se hace clic en el overlay
-        document.getElementById('modalOverlay').addEventListener('click', closeModal);
-
-        // Si quieres añadir un botón de "Cerrar" dentro del modal:
-        // const closeModalBtn = document.getElementById('closeModalBtn');
-        // closeModalBtn.addEventListener('click', closeModal);
-    </script>
-
-<!-- Script tipo de cuenta -->
-    <script>
-        // Obtener elementos del DOM
-        document.getElementById('tipoCuenta').addEventListener('change', function() {
-            var tipoCuenta = this.value;
-
-            // Primero deshabilitamos todos los campos para ambos tipos
-            var personalInputs = document.querySelectorAll('#personalFields input, #personalFields select');
-            var usuarioInputs = document.querySelectorAll('#usuarioFields input, #usuarioFields select');
-
-            // Deshabilitar todos los campos
-            personalInputs.forEach(function(input) {
-                input.disabled = true;
-            });
-            usuarioInputs.forEach(function(input) {
-                input.disabled = true;
-            });
-
-            // Ocultar ambos conjuntos de campos
-            document.getElementById('personalFields').style.display = 'none';
-            document.getElementById('usuarioFields').style.display = 'none';
-
-            // Mostrar solo los campos correspondientes dependiendo del tipo de cuenta
-            if (tipoCuenta === 'personal') {
-                document.getElementById('personalFields').style.display = 'block';
-                personalInputs.forEach(function(input) {
-                    input.disabled = false;
-                });
-            } else if (tipoCuenta === 'usuario') {
-                document.getElementById('usuarioFields').style.display = 'block';
-                usuarioInputs.forEach(function(input) {
-                    input.disabled = false;
-                });
-            }
-        });
-    </script>
+    }
+});
+</script>
 
 
 
-    <!-- Estilos para los modales -->
-    <style>
-        /* Estilos para el modal */
+
+<!-- Modal de confirmación de eliminación -->
+
+<script>
+    // Obtener elementos del DOM
+    const addUserBtn = document.getElementById("addUserBtn");
+    const addUserModal = document.getElementById("addUserModal");
+    const closeAddUserModal = document.getElementById("closeAddUserModal");
+    
+    const actionModal = document.getElementById("actionModal");
+    const closeActionModal = document.getElementById("closeActionModal");
+    
+    const deleteConfirmModal = document.getElementById("deleteConfirmModal");
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+
+const editActionBtn = document.getElementById("editActionBtn");
+const deleteActionBtn = document.getElementById("deleteActionBtn");
+
+let selectedUserId = null;
+
+// Obtener los elementos relacionados con el formulario
+
+
+// Función para mostrar los inputs correspondientes según el tipo de cuenta
+function toggleAccountTypeFields() {
+    const tipoCuenta = tipoCuentaSelect.value;
+    
+    if (tipoCuenta === "personal") {
+        // Mostrar campos de personal y ocultar los de usuario
+        personalInputs.forEach(input => input.style.display = "block");
+        usuarioInputs.forEach(input => input.style.display = "none");
+    } else {
+        // Mostrar campos de usuario y ocultar los de personal
+        usuarioInputs.forEach(input => input.style.display = "block");
+        personalInputs.forEach(input => input.style.display = "none");
+    }
+}
+
+// Mostrar modal de agregar usuario
+addUserBtn.addEventListener('click', function () {
+    addUserModal.style.display = "flex";
+    toggleAccountTypeFields(); // Al abrir el modal, ajustamos los campos visibles según el tipo de cuenta
+});
+
+// Cerrar modal de agregar usuario
+closeAddUserModal.addEventListener('click', function () {
+    addUserModal.style.display = "none";
+});
+
+// Mostrar modal de acciones al hacer clic en el botón "Acciones"
+const actionButtons = document.querySelectorAll('.btn-actions');
+actionButtons.forEach(btn => {
+    btn.addEventListener('click', function (e) {
+        // Obtener datos del usuario desde la fila
+        const row = e.target.closest('tr');
+        selectedUserId = row.getAttribute('data-id');
+        actionModal.style.display = "flex";
+    });
+});
+
+// Cerrar modal de acciones
+closeActionModal.addEventListener('click', function () {
+    actionModal.style.display = "none";
+});
+
+// Acciones para editar o eliminar
+editActionBtn.addEventListener('click', function () {
+    window.location.href = `/editar_usuario.php?id=${selectedUserId}`;
+    actionModal.style.display = "none";
+});
+
+deleteActionBtn.addEventListener('click', function () {
+    actionModal.style.display = "none";
+    deleteConfirmModal.style.display = "flex";
+});
+
+// Confirmar eliminación
+confirmDeleteBtn.addEventListener('click', function () {
+    window.location.href = `/eliminar_usuario.php?id=${selectedUserId}`;
+});
+
+// Cancelar eliminación
+cancelDeleteBtn.addEventListener('click', function () {
+    deleteConfirmModal.style.display = "none";
+});
+
+// Event listener para cambiar el tipo de cuenta
+tipoCuentaSelect.addEventListener('change', toggleAccountTypeFields);
+
+</script>
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+        <h2>¿Estás seguro de eliminar este usuario?</h2>
+        <button id="confirmDeleteBtn">Sí, Eliminar</button>
+        <button id="cancelDeleteBtn">Cancelar</button>
+    </div>
+</div>
+<!-- Estilos para los modales -->
+<style>
+    /* Modal general */
         .modal {
             display: none;
-            /* Ocultar el modal por defecto */
-            position: fixed;
-            /* Fija el modal en la pantalla */
-            top: 50%;
-            /* Posiciona el modal en el centro vertical */
-            left: 50%;
-            /* Posiciona el modal en el centro horizontal */
-            transform: translate(-50%, -50%);
-            /* Ajusta el modal para centrarlo correctamente */
-            background-color: rgba(0, 0, 0, 0.5);
-            /* Fondo semi-transparente */
-            width: 300px;
-            /* Ancho del modal */
-            padding: 20px;
-            /* Espaciado dentro del modal */
-            border-radius: 10px;
-            /* Bordes redondeados */
-            z-index: 1000;
-            /* Asegura que el modal esté por encima de otros elementos */
-        }
-
-        .modal-content {
-            background-color: #fff;
-            /* Fondo blanco para el contenido del modal */
-            padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            /* Centrar el texto */
-        }
-
-        button {
-            background-color: #007bff;
-            /* Fondo azul para los botones */
-            color: white;
-            /* Texto blanco */
-            border: none;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-            /* Fondo más oscuro al pasar el mouse */
-        }
-
-        /* Fondo oscuro fuera del modal */
-        .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-            /* Justo debajo del modal */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenido del modal */
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            max-height: 80vh;
+            /* Limita la altura máxima al 80% de la ventana */
+            overflow-y: auto;
+            /* Habilita el desplazamiento vertical */
+        }
+
+        /* Botones del modal */
+        .modal button {
+            margin: 10px;
         }
     </style>
 

@@ -33,6 +33,7 @@ if (isset($_GET['id'])) {
     if (isset($_SESSION['edificio_id'])) {
         $edificio_id = $_SESSION['edificio_id'];
         $edificios = Inventario::obtenerMaterialesPorEdificioYEstatus($edificio_id);
+        $materiales = Inventario::obtenerMaterialesPorEdificio($edificio_id);
     } else {
         echo "Error: No se ha asignado un edificio al usuario actual.";
         exit();
@@ -43,18 +44,24 @@ if (isset($_GET['id'])) {
 
 ?>
 
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador - CISTA</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/admin.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principal</title>
+  <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
+  <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
+  <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+  <link rel="stylesheet" href="/WMS2/LandingPage/css/materials.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="/WMS2/LandingPage/js/index.js"></script>
 </head>
+
 <body>
   <div class="container">
     <!-- Barra lateral -->
@@ -74,7 +81,7 @@ if (isset($_GET['id'])) {
             <li><a href="/WMS2/LandingPage/html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
                 <li><a href="/WMS2/LandingPage/html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
                 <li><a href="/WMS2/LandingPage/html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
-                <li><a href="/WMS2/LandingPage/html/admin/gestionar_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
+                <li><a href="/WMS2/LandingPage/html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
                 <li><a href="/WMS2/LandingPage/html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
                 <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
             </ul>
@@ -83,53 +90,61 @@ if (isset($_GET['id'])) {
 
     <!-- Contenido principal -->
     <main class="main-content">
-    <section class="content">
-        <div class="welcome-section">
-            <h2>Panel de Control - Administrador</h2>
-            <p>Accede rápidamente a las funcionalidades principales del sistema.</p>
-        </div>
+  <section class="content">
+    <div class="header-container">
+      <h2><?php echo htmlspecialchars($materiales[0]['edificio']); ?></h2>
+      <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+    </div>
+    <div class="scrollable-table">
+      <?php
+        if (!empty($materiales)) {
+          echo "<table border='1'>";
+          // Encabezado del edificio
+          echo "<thead>";
+          echo "<tr>
+                  <th>ID Material</th>
+                  <th>Serie</th>
+                  <th>Modelo</th>
+                  <th>Tipo</th>
+                  <th>Estatus</th>
+              </tr>";
+          echo "</thead>";
 
-        <!-- Tarjetas de opciones -->
-        <div class="cards-container">
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-box"></i>
-                </div>
-                <h3>Gestión de Inventario</h3>
-                <p>Visualiza, organiza y actualiza el inventario de materiales.</p>
-                <a href="/WMS2/LandingPage/html/admin/gestion_inventario.php" class="card-btn">Gestionar</a>
-            </div>
-
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <h3>Gestión de Usuarios</h3>
-                <p>Administra las cuentas y permisos de los usuarios.</p>
-                <a href="/WMS2/LandingPage/html/admin/gestionar_usuarios.php" class="card-btn">Administrar</a>
-            </div>
-
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Gestión de Préstamos</h3>
-                <p>Revisa y administra las solicitudes de préstamos.</p>
-                <a href="/WMS2/LandingPage/html/admin/gestionar_prestamos.php" class="card-btn">Revisar</a>
-            </div>
-
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Reportes</h3>
-                <p>Genera reportes detallados sobre el uso del sistema.</p>
-                <a href="/WMS2/LandingPage/html/admin/reportes.php" class="card-btn">Ver Reportes</a>
-            </div>
-        </div>
-    </section>
+          // Cuerpo de la tabla
+          echo "<tbody>";
+          foreach ($materiales as $material) {
+            echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
+            echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
+            echo "<td class='estatus'>" . htmlspecialchars($material['estatus']) . "</td>";
+            echo "</tr>";
+          }
+          echo "</tbody>";
+          echo "</table>";
+        } else {
+          echo "No hay materiales vinculados a tu edificio.";
+        }
+      ?>
+    </div>
+  </section>
 </main>
 
   </div>
+  <script>
+    // Selecciona todas las celdas con la clase "estatus"
+    document.querySelectorAll('td.estatus').forEach(cell => {
+      if (cell.textContent.trim() === 'Disponible') {
+        cell.classList.add('disponible');
+      }
+    });
+
+    function onClickRow(materialId) {
+      console.log('Fila clicada con ID:', materialId);
+      // Aquí puedes agregar cualquier acción al hacer clic en una fila
+    }
+  </script>
 </body>
+
 </html>
