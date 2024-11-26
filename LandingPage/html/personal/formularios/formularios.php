@@ -62,7 +62,7 @@ $_SESSION['ultimo_acceso'] = time();
     </div>
     <div class="right-panel">
         <div id="button-cards-container">
-            <a href="/WMS2/LandingPage/formularios/prestamos.php" style="text-decoration: none; color: inherit;">
+            <a href="/WMS2/LandingPage/formularios/personal_prestamos.php" style="text-decoration: none; color: inherit;">
                 <div class="button-card">
                     <i class="fas fa-hand-holding"></i> Préstamos
                 </div>

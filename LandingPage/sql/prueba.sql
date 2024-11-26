@@ -228,8 +228,6 @@ LEFT JOIN
     personales p ON pr.personal_id = p.personal_id
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id
-WHERE 
-    pr.estatus = 'aprobado';  -- Filtro para mostrar solo los préstamos con estatus 'aprobado';
 
 
 select * from historial_prestamos
@@ -445,3 +443,13 @@ INSERT INTO inventario_transaccion (transaccion_id, material_id, cantidad) VALUE
 (2, 3, 2),
 (3, 6, 7),
 (4, 10, 4);
+
+
+ALTER TABLE cuentas MODIFY tipo_cuenta ENUM('usuario', 'personal', 'administrador');
+INSERT INTO cuentas (nombre_usuario, contraseña, tipo_cuenta) 
+VALUES ('admin', SHA1('admin'), 'administrador');
+
+
+INSERT INTO cuentas (tipo_cuenta, nombre_usuario, contraseña, personal_id, usuario_id) 
+VALUES ('administrador', 'admin', SHA1('admin'), NULL, NULL);
+
