@@ -106,7 +106,7 @@ class Usuario {
         $connection = Conexion::get_connection();
         
         // Consulta SQL para obtener los usuarios
-        $query = "SELECT usuario_id, nombre, fecha_creacion, estado, telefono,correo, edificio_id FROM usuarios WHERE edificio_id = ?";
+        $query = "SELECT usuario_id, nombre, fecha_creacion, estado ,correo, edificio_id FROM usuarios WHERE edificio_id = ?";
         
         try {
             // Preparar la consulta
@@ -137,7 +137,7 @@ class Usuario {
                         $row['nombre'],
                         $row['fecha_creacion'],
                         $row['estado'],
-                        $row['telefono'],
+                   
                         $row['correo'],
                         $row['edificio_id']
                     );
