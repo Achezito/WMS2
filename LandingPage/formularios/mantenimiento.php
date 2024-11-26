@@ -64,7 +64,7 @@ $_SESSION['ultimo_acceso'] = time();
         <li class="dropdown">
         <span class="dropdown-toggle">Formularios</span>
             <ul class="dropdown-menu">
-                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
+                <li><a href="/WMS2/LandingPage/formularios/personal_prestamos.php">Préstamos</a></li>
                 <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
                 <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
             </ul>
