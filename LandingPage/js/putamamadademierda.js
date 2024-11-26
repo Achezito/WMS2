@@ -68,26 +68,31 @@ function modificar(operacion_id) {
         } else {
             const prestamo = data.prestamo;
             const materiales = data.materiales;
+           // Asegúrate de que prestamo.material_id sea un arreglo
+const materialIds = Array.isArray(prestamo.material_id) ? prestamo.material_id : [];
 
-            popupModify.innerHTML = `
+// Mapeo de los materiales
+popupModify.innerHTML = `
 <h3>Modificar Préstamo: ${operacion_id}</h3>
 <form id="formModificar">
-<label for="notas">Notas:</label>
-<textarea placeholder="Escribe tu comentario aquí" rows="4" cols="50" style="resize: none;" id="notas" name="notas" required>${prestamo.notas}</textarea>
+    <label for="notas">Notas:</label>
+    <textarea placeholder="Escribe tu comentario aquí" rows="4" cols="50" style="resize: none;" id="notas" name="notas" required>${prestamo.notas}</textarea>
 
-<label for="material">Selecciona Material:</label>
-<select id="material" name="material" required>
-    <option value="">Selecciona un material</option>
-    ${materiales.map(material => {
-        return `<option value="${material.material_id}" ${prestamo.material_id === material.material_id ? 'selected' : ''}>
-                    ${material.modelo} (${material.tipo_material})
-                </option>`;
-    }).join('')}
-</select>
+    <label for="material">Selecciona Material(es):</label>
+    <select id="material" name="material[]" multiple required>
+        <option value="">Selecciona uno o más materiales</option>
+        ${materiales.map(material => {
+            const selected = materialIds.includes(material.material_id) ? 'selected' : '';  // Ahora siempre hay un array de material_id
+            return `<option value="${material.material_id}" ${selected}>
+                        ${material.modelo} (${material.tipo_material})
+                    </option>`;
+        }).join('')}
+    </select>
 
-<button type="button" onclick="guardarDatos(${prestamo.prestamo_id})">Guardar Cambios</button>
+    <button type="button" onclick="guardarDatos(${prestamo.prestamo_id})">Guardar Cambios</button>
 </form>
 `;
+
             popupModify.style.display = 'flex';
             document.getElementById("popup").scrollTo(0, 0);
         }
@@ -99,24 +104,17 @@ function modificar(operacion_id) {
 }
 
 // Función para guardar los datos modificados
-function guardarDatos(operacion_id) {
+function guardarDatos(prestamoId) {
     const notas = document.getElementById("notas").value;
-    const material_id = document.getElementById("material").value;
-
-    if (!notas || !material_id) {
-        alert("Por favor completa todos los campos.");
-        return;
-    }
+    const materialesSeleccionados = Array.from(document.getElementById("material").selectedOptions).map(option => option.value);
 
     const data = {
-        prestamo_id: operacion_id,
+        prestamo_id: prestamoId,
         notas: notas,
-        material_id: material_id
+        material_ids: materialesSeleccionados
     };
 
-    console.log("Enviando datos al servidor:", data);
-
-    fetch('/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=update', {
+    fetch(`/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=update`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -125,17 +123,31 @@ function guardarDatos(operacion_id) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log("Respuesta del servidor:", data);
         if (data.success) {
-            alert("Préstamo actualizado exitosamente");
-            cerrarPopup(); // Cerrar el popup después de una actualización exitosa
+            // Si la respuesta es exitosa, actualiza la interfaz de usuario
+            alert('Préstamo actualizado correctamente');
+            actualizarInterfaz(prestamoId, data.prestamo);
+            popupModify.style.display = 'none';  // Cerrar el popup
         } else {
-            console.error("Error en el servidor:", data.error);
-            alert("Error al actualizar el préstamo: " + data.error);
+            alert('Error al actualizar el préstamo: ' + data.error);
         }
     })
     .catch(error => {
-        console.error("Error en la solicitud Fetch:", error);
-        alert("Error al procesar la solicitud.");
+        console.error("Error al guardar los cambios:", error);
+        alert("Hubo un error al guardar los cambios. Inténtalo nuevamente.");
     });
+}
+
+function actualizarInterfaz(prestamoId, prestamoActualizado) {
+    // Aquí actualizas el área de la UI donde se muestran los datos del préstamo.
+    // Por ejemplo, si tienes una lista de préstamos, puedes actualizar la entrada de ese préstamo.
+    const prestamoElemento = document.getElementById(`prestamo-${prestamoId}`);
+    if (prestamoElemento) {
+        prestamoElemento.querySelector('.notas').textContent = prestamoActualizado.notas;
+
+        const materialesSelect = prestamoElemento.querySelector('.materiales');
+        materialesSelect.innerHTML = prestamoActualizado.materiales.map(material => {
+            return `<li>${material.modelo} (${material.tipo_material})</li>`;
+        }).join('');
+    }
 }

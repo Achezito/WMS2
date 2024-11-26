@@ -112,51 +112,51 @@ if (isset($_SESSION['edificio_id'])) {
     </aside>
 
     <!-- Contenido principal -->
+
     <main class="main-content">
     <section class="content">
-    <h2>Formulario de Solicitud</h2>
-    <form id="solicitudForm">
-    <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-    </div>
+        <h2>Formulario de Solicitud</h2>
+        <form id="solicitudForm">
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+            </div>
 
-    <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
+            <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
 
-    <div class="form-group">
-        <label for="material">Material</label>
-        <select id="material" name="material" required>
-            <?php
-            if (!empty($materiales)) {
-                foreach ($materiales as $material) {
-                    echo '<option value="' . htmlspecialchars($material['material_id']) . '">' . htmlspecialchars($material['modelo']) . ' (' . htmlspecialchars($material['tipo_material']) . ')</option>';
-                }
-            } else {
-                echo '<option value="">No hay materiales disponibles</option>';
-            }
-            ?>
-        </select>
-    </div>
+            <div class="form-group">
+                <label for="material">Material(es)</label>
+                <select id="material" name="material[]" multiple required>
+                    <?php
+                    if (!empty($materiales)) {
+                        foreach ($materiales as $material) {
+                            echo '<option value="' . htmlspecialchars($material['material_id']) . '">' . htmlspecialchars($material['modelo']) . ' (' . htmlspecialchars($material['tipo_material']) . ')</option>';
+                        }
+                    } else {
+                        echo '<option value="">No hay materiales disponibles</option>';
+                    }
+                    ?>
+                </select>
+                <small style="color: #000;">Ctrl + Click para seleccionar múltiples materiales</small>
+            </div>
 
-    <div class="form-group">
-        <label for="comentarios">Notas</label>
-        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none; outline:none;" required></textarea>
-    </div>
+            <div class="form-group">
+                <label for="comentarios">Notas</label>
+                <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none; outline:none;" required></textarea>
+            </div>
 
-    <div class="form-group">
-        <label for="fecha">Fecha de Solicitud</label>
-        <input type="date" id="fecha" name="fecha" readonly>
-    </div>
-f
-    <button type="submit" class="submit-btn">Enviar Solicitud</button>
-</form>
+            <div class="form-group">
+                <label for="fecha">Fecha de Solicitud</label>
+                <input type="date" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" readonly>
+            </div>
 
-<div id="message"></div>
+            <button type="submit" class="submit-btn">Enviar Solicitud</button>
+            <div id="message"></div>
 
-    <div id="message"></div>
+        </form>
+    </section>
+</main>
 
-
-</section>
 <script>
     // Obtener la fecha actual en formato YYYY-MM-DD
     var today = new Date();

@@ -202,6 +202,25 @@ JOIN
 
 
 
+SELECT 
+    pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
+    pr.notas,  -- Notas del préstamo
+    u.nombre AS Solicitado_Por,  -- Solicitado por
+    pr.estatus,  -- Estatus del préstamo
+    CASE 
+        WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
+        WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
+        ELSE CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido)
+    END AS Responsable,  -- Responsable del préstamo
+    pr.fecha_salida,  -- Fecha de salida
+    pr.fecha_devolucion,  -- Fecha de devolución
+    p.edificio_id  -- ID del edificio
+FROM 
+    prestamos pr
+LEFT JOIN 
+    personales p ON pr.personal_id = p.personal_id
+LEFT JOIN 
+    usuarios u ON pr.usuario_id = u.usuario_id
 
 ------------------------ VISTA HISTORIAL PRESTAMOS ----------------------
 SELECT * FROM historial_prestamos;
@@ -241,8 +260,8 @@ SELECT
     pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
     pr.notas,  -- Notas del préstamo
     pr.estatus,  -- Estatus del préstamo
-    i.modelo,
-    pr.usuario_id,  -- ID del usuario solicitante (necesario para filtrar después)
+    GROUP_CONCAT(i.modelo SEPARATOR ', ') AS materiales,  -- Concatenación de los materiales asignados
+    pr.usuario_id,  -- ID del usuario solicitante
     CASE 
         WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
         WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
@@ -257,11 +276,14 @@ LEFT JOIN
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id
 LEFT JOIN 
-    inventario_prestamos as ip on pr.prestamo_id = ip.prestamo_id
+    inventario_prestamos as ip ON pr.prestamo_id = ip.prestamo_id
 LEFT JOIN 
-    inventario as i on ip.material_id = i.material_id
+    inventario as i ON ip.material_id = i.material_id
 WHERE 
-    pr.estatus IN ('pendiente', 'aprobado', 'rechazado');  -- Incluye múltiples estados
+    pr.estatus IN ('pendiente', 'aprobado', 'rechazado') 
+GROUP BY 
+    pr.prestamo_id, pr.notas, pr.estatus, pr.usuario_id, pr.fecha_salida, pr.fecha_devolucion, Responsable;
+
 
 SELECT * 
 FROM prestamos_usuarios 
@@ -455,3 +477,35 @@ VALUES ('admin', SHA1('admin'), 'administrador');
 INSERT INTO cuentas (tipo_cuenta, nombre_usuario, contraseña, personal_id, usuario_id) 
 VALUES ('administrador', 'admin', SHA1('admin'), NULL, NULL);
 
+CREATE OR REPLACE VIEW prestamos_usuarios_edificio AS
+SELECT 
+    e.edificio_id,
+    pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
+    pr.notas,  -- Notas del préstamo
+    pr.estatus,  -- Estatus del préstamo
+    i.modelo,
+    pr.usuario_id,  -- ID del usuario solicitante (necesario para filtrar después)
+    CASE 
+        WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
+        WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
+        ELSE CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido)
+    END AS Responsable,  -- Responsable del préstamo
+    pr.fecha_salida,  -- Fecha de salida
+    pr.fecha_devolucion -- Fecha de devolución
+FROM 
+    prestamos pr
+LEFT JOIN 
+    personales p ON pr.personal_id = p.personal_id
+LEFT JOIN 
+    usuarios u ON pr.usuario_id = u.usuario_id
+LEFT JOIN 
+    inventario_prestamos as ip on pr.prestamo_id = ip.prestamo_id
+LEFT JOIN 
+    inventario as i on ip.material_id = i.material_id
+LEFT JOIN
+    edificios as e on e.edificio_id = i.edificio_id
+WHERE 
+    pr.estatus IN ('pendiente', 'aprobado', 'rechazado'); 
+
+
+SELECT * FROM prestamos_usuarios_edificio WHERE edificio_id = 1;
