@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../../config/config.php';
+require_once __DIR__ . '/../../../config/process_register.php';
 require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 

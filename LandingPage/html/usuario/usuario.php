@@ -140,14 +140,14 @@ if (isset($_SESSION['edificio_id'])) {
 
     <div class="form-group">
         <label for="comentarios">Notas</label>
-        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none;" required></textarea>
+        <textarea name="comentarios" placeholder="Escribe tu comentario aqui" rows="4" cols="50" style="resize: none; outline:none;" required></textarea>
     </div>
 
     <div class="form-group">
         <label for="fecha">Fecha de Solicitud</label>
         <input type="date" id="fecha" name="fecha" readonly>
     </div>
-
+f
     <button type="submit" class="submit-btn">Enviar Solicitud</button>
 </form>
 
