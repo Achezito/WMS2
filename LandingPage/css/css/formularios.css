@@ -8,17 +8,16 @@
     --header-height: 60px;
     --font-size-h1: 16pt;
     --icon-size: 18px;
-    --icon-size: 24px;
     --user-photo-size: 35px;
     --menu-background: #333333;
     --menu-text-color: #ffffff;
     --menu-hover: #444444;
     --shadow-color: rgba(0, 0, 0, 0.2);
-    --card-background: #ffffff;
-    --card-text-color: #333333;
-    --card-shadow-color: rgba(0, 0, 0, 0.1);
-    --button-card-bg: #f8f9fa;
-    --button-card-hover-bg: #e2e6ea;
+    --form-background: #8aadca; 
+    --button-color: #01579B;
+    --button-hover: #01579B;
+    --input-border-color: #ccc;
+    --input-focus-color: #003a73;
 }
 
 * {
@@ -31,6 +30,10 @@
 body {
     margin: 0;
     background-color: #f4f4f4;
+}
+
+nav{
+    width: 100%;
 }
 
 header {
@@ -56,6 +59,13 @@ h1 {
     margin-left: 15px;
     text-transform: uppercase;
     letter-spacing: 1px;
+}
+
+h2 {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-text);
+    font-weight: 600;
 }
 
 #header-left, #header-right {
@@ -152,71 +162,67 @@ h1 {
 #menu li:hover {
     background-color: var(--menu-hover);
 }
-/* Nuevas clases para contenedores de tarjetas y botones */
-#button-cards-container {
+
+/* Nuevo diseño */
+.layout-container {
     display: flex;
-    justify-content: space-around;
-    margin-top: 80px;
-    padding: 20px;
-    gap: 20px;
+    height: 100vh;
 }
-.button-card {
+
+.left-panel {
+    flex: 1;
+    background: linear-gradient(to bottom, #006ebc, #458ec2);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+.branding .logo {
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.right-panel {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 80px 20px 20px 20px;
+}
+
+#button-cards-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
+}
+
+.button-card {
+    width: 740px;
+    height: 210px;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    width: 250px;
-    height: 100px;
-    background-color: var(--button-card-bg);
-    color: var(--header-background);
-    border-radius: 10px;
+    background-color: var(--button-color);
+    color: var(--color-text);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px var(--shadow-color);
     text-align: center;
-    box-shadow: 0 4px 8px var(--card-shadow-color);
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-    font-size: 14px;
-}
-.button-card i {
-    font-size: var(--icon-size);
-    margin-bottom: 8px;
-}
-.button-card:hover {
-    background-color: var(--button-card-hover-bg);
-}
-#cards-container {
-    
-    margin-top: 10px;
-    padding: 20px;
-    width: 100%;
-    float: left;
-    position: relative;
-}
-
-.card::-webkit-scrollbar {
-    width: 10px; /* Ancho de la barra vertical */
-    height: 10px; /* Alto de la barra horizontal */
-  }
-   /* Color del track (fondo de la barra) */
-   .card::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-    border-radius: 5px; /* Bordes redondeados */
-  }
-
-  .card::-webkit-scrollbar-thumb {
-    background: #888; 
-    border-radius: 5px; /* Bordes redondeados */
-  }
-  .card::-webkit-scrollbar-thumb:hover {
-    background: #555; 
-  }
-  .header {
-    position: sticky; /* Fijo dentro del contenedor */
-    top: 0; /* Se adhiere al tope del div */
-    background-color: #f9f9f9; /* Fondo para distinguirlo */
-    padding: 10px;
-    z-index: 1; /* Asegura que esté sobre otros elementos */
-    border-bottom: 1px solid #ddd; /* Línea para separar del contenido */
+    font-size: 35px;
     font-weight: bold;
-  }
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
 
+.button-card i {
+    margin-right: 10px;
+}
 
+.button-card:hover {
+    background-color: var(--button-hover);
+    transform: scale(1.05);
+}
