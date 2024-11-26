@@ -15,7 +15,7 @@ body {
 /* Barra lateral */
 .sidebar {
     width: 280px;
-    background: linear-gradient(to top , #AEDBFF, #1D4E89, #0D1F33);
+    background: linear-gradient(to top , #1D4E89, #0D1F33, #0D1F33);
     color: #fff;
     display: flex;
     flex-direction: column;
