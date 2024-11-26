@@ -104,40 +104,67 @@ class Usuario {
     {
         // Obtener la conexión a la base de datos
         $connection = Conexion::get_connection();
+        
+        // Consulta SQL para obtener los usuarios
+        $query = "SELECT usuario_id, nombre, fecha_creacion, estado, telefono,correo, edificio_id FROM usuarios WHERE edificio_id = ?";
+        
+        try {
+            // Preparar la consulta
+            $stmt = $connection->prepare($query);
+            
+            if (!$stmt) {
+                throw new Exception('Error al preparar la consulta: ' . $connection->error);
+            }
     
-        // Preparar la consulta
-        $stmt = $connection->prepare(self::$selectAll);
-        // Vincular el parámetro para el id del edificio
-        $stmt->bind_param("i", $edificio_id);  // 'i' para entero
-        $stmt->execute();
-        
-        // Obtener los resultados
-        $result = $stmt->get_result();
-        
-        // Inicializar un array para almacenar los usuarios
-        $usuarios = [];
-        while ($row = $result->fetch_assoc()) {
-            // Crear un objeto Usuario con los datos obtenidos
-            $usuario = new Usuario(
-                $row['Numero_de_Usuario'],
-                $row['Nombre'],
-                $row['fecha_creacion'],
-                $row['estado'],
-                $row['correo'],
-                $row['edificio_id']
-            );
-            // Agregar el objeto Usuario al array
-            $usuarios[] = $usuario;
+            // Vincular el parámetro para el id del edificio
+            $stmt->bind_param("i", $edificio_id);  // 'i' para entero
+    
+            // Ejecutar la consulta
+            $stmt->execute();
+    
+            // Obtener los resultados
+            $result = $stmt->get_result();
+    
+            // Inicializar un array para almacenar los usuarios
+            $usuarios = [];
+            
+            // Verificar si hay resultados
+            if ($result->num_rows > 0) {
+                // Recorrer los resultados y crear los objetos Usuario
+                while ($row = $result->fetch_assoc()) {
+                    $usuario = new Usuario(
+                        $row['usuario_id'],
+                        $row['nombre'],
+                        $row['fecha_creacion'],
+                        $row['estado'],
+                        $row['telefono'],
+                        $row['correo'],
+                        $row['edificio_id']
+                    );
+                    $usuarios[] = $usuario; // Agregar usuario al array
+                }
+            } else {
+                // Si no hay usuarios, imprimir mensaje de depuración
+                echo "No se encontraron usuarios para este edificio.";
+            }
+    
+            // Cerrar la consulta
+            $stmt->close();
+            
+        } catch (Exception $e) {
+            // Manejo de excepciones: mostrar un mensaje de error o loguearlo
+            error_log("Error al obtener usuarios: " . $e->getMessage());
+            return []; // Devolver un array vacío en caso de error
+        } finally {
+            // Cerrar la conexión
+            $connection->close();
         }
-        
-        // Cerrar la consulta y la conexión
-        $stmt->close();
-        $connection->close();
-        
+    
         // Devolver el array de objetos Usuario
         return $usuarios;
     }
-
+    
+    
     public static function get_one($usuario_id)
 {
     // Obtener la conexión a la base de datos

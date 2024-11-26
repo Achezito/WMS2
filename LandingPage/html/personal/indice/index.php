@@ -127,55 +127,47 @@ if (isset($_SESSION['edificio_id'])) {
 
     <!-- Contenido principal -->
     <main class="main-content">
-      <section class="content">
-        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
-        <div class="scrollable-table">
+  <section class="content">
+    <div class="header-container">
+      <h2><?php echo htmlspecialchars($materiales[0]['edificio']); ?></h2>
+      <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+    </div>
+    <div class="scrollable-table">
+      <?php
+        if (!empty($materiales)) {
+          echo "<table border='1'>";
+          // Encabezado del edificio
+          echo "<thead>";
+          echo "<tr>
+                  <th>ID Material</th>
+                  <th>Serie</th>
+                  <th>Modelo</th>
+                  <th>Tipo</th>
+                  <th>Estatus</th>
+              </tr>";
+          echo "</thead>";
 
-
-          <?php
-          if (!empty($materiales)) {
-            echo "<table border='1'>";
-
-            // Encabezado del edificio
-            echo "<thead>";
-            echo "<tr><th colspan='5'>" . htmlspecialchars($materiales[0]['edificio']) . "</th></tr>";
-            echo "<tr>
-                    <th>ID Material</th>
-                    <th>Serie</th>
-                    <th>Modelo</th>
-                    <th>Tipo</th>
-                    <th>Estatus</th>
-                </tr>";
-            echo "</thead>";
-
-            // Cuerpo de la tabla
-            echo "<tbody>";
-            foreach ($materiales as $material) {
-              echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
-              echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
-              echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
-              echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
-              echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
-        
-              echo "<td class='estatus'>" .
-              
-            
-              
-              
-              
-              htmlspecialchars($material['estatus']) . "</td>";
-              echo "</tr>";
-            }
-            echo "</tbody>";
-
-            echo "</table>";
-          } else {
-            echo "No hay materiales vinculados a tu edificio.";
+          // Cuerpo de la tabla
+          echo "<tbody>";
+          foreach ($materiales as $material) {
+            echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
+            echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
+            echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
+            echo "<td class='estatus'>" . htmlspecialchars($material['estatus']) . "</td>";
+            echo "</tr>";
           }
-          ?>
-        </div>
-      </section>
-    </main>
+          echo "</tbody>";
+          echo "</table>";
+        } else {
+          echo "No hay materiales vinculados a tu edificio.";
+        }
+      ?>
+    </div>
+  </section>
+</main>
+
   </div>
   <script>
     // Selecciona todas las celdas con la clase "estatus"
