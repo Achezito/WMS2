@@ -2,6 +2,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    color: #ebeff2;
+    
   }
 
   
@@ -36,9 +38,10 @@ body {
     font-size: 14pt;
     padding: 10px 0px;
  }
-.titleMail{
-    font-size: 9pt;
-    opacity: 0.5;
+ .titleMail {
+  font-size: 9pt;
+  opacity: 0.5;
+  COLOR: #FFFFFF;
 }
  
 
@@ -225,22 +228,11 @@ body {
 
 
 /* Estilos del formulario */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-}
 
 h2 {
   font-size: 18px;
   color: #333;
   margin-bottom: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
 }
 
 label {

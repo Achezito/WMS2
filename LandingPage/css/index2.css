@@ -1,26 +1,110 @@
-  /* Estilos generales de la tabla */
-  table {
+h4 {
+    display: block;
+    font-size: 1.17em;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    unicode-bidi: isolate;
+    color: #000000;
+}
+/* Estilos generales de la tabla */
+table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-table th, table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  
-}
-
+/* Encabezado de la tabla */
 table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
+    background-color: #f0f4f8;
+    color: #333;
+    text-align: left;
+    font-size: 16px;
+    padding: 12px;
+    border-bottom: 2px solid #e6e8eb;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
-table tr:hover {
-    background-color: #f1f1f1;
+/* Celdas de la tabla */
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 14px;
+    background: #f9fafc;
+}
+
+/* Estatus */
+td.estatus {
+    text-align: center;
+}
+
+td.estatus span {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 8px;
+    text-transform: capitalize;
+}
+
+/* Colores específicos */
+.disponible {
+    border-color: #27ae60;
+    color: #27ae60;
+    background-color: rgba(39, 174, 96, 0.1);
+}
+
+.enUso {
+    border-color: #f1c40f;
+    color: #f1a20f;
+    background-color: rgba(241, 135, 15, 0.1);
+}
+
+.enMantenimiento {
+    border-color: #3498db;
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.fueraDeServicio {
+    border-color: #c77384;
+    color: #c77384;
+    background-color: #f2e6e7;
+}
+
+/* Hover en las filas */
+table tr:hover td {
+    background-color: #eaf1f8;
+    cursor: pointer;
+}
+
+/* Bordes redondeados */
+table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
 }
 
 /* Estilo para mensajes cuando no hay usuarios */
@@ -38,7 +122,57 @@ table tr:hover {
     color: #ccc;
 }
 
-
-.content-box{
+/* Contenedor de la caja de contenido */
+.content-box {
     height: 100%;
+}
+
+/* Estilo del encabezado principal */
+h2 {
+    font-size: 24px;
+    color: #003a73;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Buscador */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header-container h2 {
+    font-size: 24px;
+    color: #0861a5;
+    margin: 0;
+    font-weight: bold;
+}
+
+#searchInput {
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+#searchInput:focus {
+    border-color: #0861a5;
+    box-shadow: 0 0 8px rgba(8, 97, 165, 0.3);
+}
+/* Estilo para los botones */
+button {
+    font-size: 14px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
 }

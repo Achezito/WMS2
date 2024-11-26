@@ -163,15 +163,14 @@ if (isset($_SESSION['edificio_id'])) {
     
             </div>
         
-        <div id="modal-overlay" style="display: none;">
-            <div id="modal-content">
-                <span id="close-modal">&times;</span>
-                <div id="modal-body">
-                    <!-- Contenido dinámico del modal irá aquí -->
-                    <p>El contenido de "Ver Más" aparecerá aquí.</p>
-                </div>
-            </div>
+            <div id="modal-overlay" style="display: none;">
+    <div id="modal-content">
+        <span id="close-modal">&times;</span>
+        <div id="modal-body">
+            <a href="#" class="ver-mas-btn">Ver más</a>
         </div>
+    </div>
+</div>
 
     </section>
     </main>

@@ -3,27 +3,30 @@ h2 {
     font-size: 24px;
     color: #003a73;
     margin-bottom: 20px;
+    justify-content: flex-start;
     font-weight: bold;
 }
 
-/* Buscador */
-/* Contenedor del título y el buscador */
-.header-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-/* Estilo del título */
 .header-container h2 {
     font-size: 24px;
     color: #0861a5;
     margin: 0;
     font-weight: bold;
+    /* Alinea el h2 a la izquierda */
+    align-self: flex-start;
 }
 
-/* Estilo del buscador */
+/* Contenedor del encabezado */
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos a los extremos */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+
+/* Estilo del campo de búsqueda */
 #searchInput {
     width: 300px;
     padding: 10px 15px;
@@ -35,6 +38,7 @@ h2 {
     background-color: #f9f9f9;
 }
 
+/* Efecto cuando el campo de búsqueda está enfocado */
 #searchInput:focus {
     border-color: #0861a5;
     box-shadow: 0 0 8px rgba(8, 97, 165, 0.3);
@@ -82,11 +86,11 @@ td.estatus {
 
 td.estatus span {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 10px 16px;
     font-size: 13px;
     font-weight: bold;
-    border: 2px solid; /* Borde */
-    border-radius: 8px;
+    border: 2px solid;
+    border-radius: 16px;
     text-transform: capitalize;
 }
 

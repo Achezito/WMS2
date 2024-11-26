@@ -58,7 +58,7 @@ function dibujar_historial($tabla, $columnas, $campos, $edificio_id, $historialC
                 $operacionId = htmlspecialchars($registro['operacion_id']);
                 echo "<td>
                         <button 
-                            class='modal-button' 
+                            class='ver-mas-btn'
                             data-tipo-operacion='$tipoOperacion' 
                             data-operacion-id='$operacionId' 
                             data-index='$operacionId' 
@@ -75,7 +75,7 @@ function dibujar_historial($tabla, $columnas, $campos, $edificio_id, $historialC
         echo "</tbody>
             </table>";
     } else {
-        echo "<p>No se encontraron registros para este edificio.</p>";
+        echo "< class='p1'>No se encontraron registros para este edificio.</p>";
     }
 }
 

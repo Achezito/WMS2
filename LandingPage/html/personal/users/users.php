@@ -110,9 +110,11 @@ if (isset($_SESSION['edificio_id'])) {
     <!-- Contenido principal -->
     <main class="main-content">
       <section class="content">
-
-
-        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+  
+       
+          <div class="header-container">
+        <input type="text" id="searchInput" placeholder="Buscar...">
+    </div>
 
         <?php
         if (!empty($usuarios)) {
