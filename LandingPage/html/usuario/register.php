@@ -46,8 +46,12 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
                         <select id="edificio" name="edificio" required>
                             <option value="">Seleccione un edificio</option>
                             <?php
-                            foreach ($edificios as $edificio) {
-                                echo "<option value='" . $edificio->getEdificioId() . "'>" . $edificio->getNombre() . "</option>";
+                             if (!empty($Edificios)) {
+                                foreach ($Edificios as $e) {
+                                    echo '<option value="' . htmlspecialchars($e['edificio_id']) . '">' . htmlspecialchars($e['nombre']) . '</option>';
+                                }
+                            } else {
+                                echo '<option value="">No hay edificios</option>';
                             }
                             ?>
                         </select>
