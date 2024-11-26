@@ -143,3 +143,24 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
     border-bottom-right-radius: 12px;
 }
+
+.scrollable-table {
+    max-height: 600px; /* Ajusta este valor según tu diseño */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+/* Asegura que la tabla ocupe el ancho completo */
+.scrollable-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Opcional: Ajuste para evitar que el encabezado se mueva al hacer scroll */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f0f4f8;
+    z-index: 2;
+}
