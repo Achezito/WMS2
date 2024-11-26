@@ -412,12 +412,8 @@ INSERT INTO usuarios (usuario_id, nombre, descripcion, fecha_creacion, estado) V
 (6, 'Alejandro Ruiz', 'Usuario frecuente', '2024-10-01 12:00:00', 'alta');
 
 INSERT INTO cuentas (cuenta_id, nombre_usuario, contraseña, tipo_cuenta, usuario_id, personal_id) VALUES
-(2, 'ana_lopez', SHA1('securePass'), 'personal', NULL, 2),
-(4, 'm_torres', SHA1('pass456'), 'usuario', 2, NULL),
-(5, 'l_mendez', SHA1('secureUser'), 'usuario', 1, NULL),
-(6, 'r_castillo', SHA1('tempPass'), 'usuario', 4, NULL),
-(7, 's_ramirez', SHA1('newUserPass'), 'usuario', 5, NULL),
-(8, 'a_ruiz', SHA1('frequent123'), 'usuario', 6, NULL);
+(11, 'holamundo', SHA1('holamundo'), 'usuario', 8, NULL)
+
 
 INSERT INTO transacciones (transaccion_id, tipo_transaccion, fecha_inicio, fecha_final, notas) VALUES 
 (1, 'Compra', '2024-11-01 10:00:00', '2024-11-01 12:00:00', 'Compra inicial de materiales'),
