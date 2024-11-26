@@ -110,7 +110,9 @@ if (isset($_SESSION['edificio_id'])) {
       <section class="content">
   
        
-            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+          <div class="header-container">
+        <input type="text" id="searchInput" placeholder="Buscar...">
+    </div>
 
             <?php
             if (!empty($usuarios)) {
@@ -119,7 +121,6 @@ if (isset($_SESSION['edificio_id'])) {
                 echo "<tr>
             <th>ID Usuario</th>
             <th>Nombre</th>
-            <th>Descripción</th>
             <th>Fecha de Creación</th>
             <th>Estado</th>
             <th>ID Edificio</th>

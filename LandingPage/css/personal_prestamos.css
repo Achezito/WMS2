@@ -38,19 +38,32 @@
 }
 
 /* Botones generales */
-button {
+button{
     padding: 12px 25px;
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+.button2 {
     background: linear-gradient(to right, #0066af, #259bfc);
+}
+button{
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
     border: none;
     border-radius: 25px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
-button:hover {
+
+.button2:hover {
     background: linear-gradient(to right, #259bfc, #0066af);
     transform: translateY(-2px);
 }
@@ -98,4 +111,30 @@ table td button {
     border-color: #0066af;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
     outline: none;
+}
+
+button.aprobar {
+    background: #71a873; /* Gradiente verde pastel */
+}
+
+button.aprobar:hover {
+    background: #81c784; /* Gradiente más intenso */
+    transform: translateY(-2px);
+}
+
+/* Botón de rechazar */
+button.rechazar {
+    background: #d06e6e; /* Gradiente rosa pastel */
+}
+
+button.rechazar:hover {
+    background: #f8bbd0; /* Gradiente más intenso */
+    transform: translateY(-2px);
+}
+
+/* Efecto cuando el botón está deshabilitado */
+button:disabled {
+    background-color: #e0e0e0;
+    color: #bdbdbd;
+    cursor: not-allowed;
 }

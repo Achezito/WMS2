@@ -20,6 +20,7 @@ $_SESSION['ultimo_acceso'] = time();
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/forms.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
 </head>

@@ -194,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
     <script src="/WMS2/LandingPage/js/pp_modal.js"></script>
+    
 </head>
 <body>
   <div class="container">
@@ -232,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
         <section class="content">
             <h2>Gestión de Préstamos</h2>
 
-            <h3>Préstamos Pendientes</h3>
+            <h4>Préstamos Pendientes</h4>
             <table>
                 <thead>
                     <tr>
@@ -253,19 +254,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                 <form method="POST" action="personal_prestamos.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="aprobado">
-                                    <button type="submit">Aprobar</button>
+                                    <button class="aprobar" type="submit">Aprobar</button>
                                 </form>
-                                <button class="rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="rechazar" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                
                             </td>
                             <td>
-                                <button class="ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
-            <h3>Préstamos Aprobados</h3>
+            <h4>Préstamos Aprobados</h4>
             <table>
                 <thead>
                     <tr>
@@ -286,11 +288,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                 <form method="POST" action="personal_prestamos.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="finalizado">
-                                    <button type="submit">Finalizar</button>
+                                    <button class="button2" type="submit">Finalizar</button>
                                 </form>
                             </td>
                             <td>
-                                <button class="ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -304,7 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
   <div id="rechazoModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>Rechazar Préstamo</h3>
+        <h4>Rechazar Préstamo</h4>
         <form method="POST" action="personal_prestamos.php">
             <input type="hidden" name="prestamo_id" id="rechazoPrestamoId">
             <input type="hidden" name="estado" value="rechazado">
@@ -321,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
   <div id="materialesModal" class="modal">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h3>Materiales del Préstamo</h3>
+        <h4>Materiales del Préstamo</h4>
         <div id="materialesContent"></div>
     </div>
   </div>
