@@ -150,7 +150,6 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/personal_mantenimiento.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
     <script src="/WMS2/LandingPage/js/pm_modal.js"></script>
 </head>
@@ -204,11 +203,11 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
                             </option>
                         <?php endforeach; ?>
                     </select>
-                </div>
-                <button type="submit">Registrar Mantenimiento</button>
+                  </div>
+                  <button type="submit">Registrar Mantenimiento</button>
             </form>
 
-            <h3>Mantenimientos Pendientes</h3>
+            <h2>Mantenimientos Pendientes</h2>
             <table>
                 <thead>
                     <tr>

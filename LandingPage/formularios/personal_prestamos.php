@@ -259,9 +259,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                 <form method="POST" action="personal_prestamos.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="aprobado">
-                                    <button class="aprobar" type="submit">Aprobar</button>
+                                    <button class="button2" type="submit">Aprobar</button>
                                 </form>
-                                <button class="rechazar rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="button2 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
                                 
                             </td>
                             <td>

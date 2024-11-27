@@ -130,8 +130,8 @@ if (isset($_SESSION['edificio_id'])) {
     
         <!-- Recuadro grande para mostrar contenido -->
         
+        <div class="scrollable-table">
             <div class="content-box">
-    
                 <!-- Historial 0: Actividad Personal -->
                 <div id="historial-0" class="historial" style="display:none;">
                     <?php
@@ -163,11 +163,12 @@ if (isset($_SESSION['edificio_id'])) {
     
             </div>
         
-            <div id="modal-overlay" style="display: none;">
-    <div id="modal-content">
-        <span id="close-modal">&times;</span>
-        <div id="modal-body">
-            <a href="#" class="ver-mas-btn">Ver más</a>
+                        <div id="modal-overlay" style="display: none;">
+                <div id="modal-content">
+                    <span id="close-modal">&times;</span>
+                    <div id="modal-body">
+                        <a href="#" class="ver-mas-btn">Ver más</a>
+            </div>
         </div>
     </div>
 </div>
