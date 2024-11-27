@@ -38,7 +38,7 @@
                 <div id="transition-container"></div>
 
                 <div class="register-link">
-                    <a id="register-link" href="/WMS2/LandingPage/html/usuario/register.php">No te has registrado?</a>
+                    <a id="register-link" href="html/usuario/register.php">No te has registrado?</a>
                 </div>
             </form>
 
@@ -46,7 +46,7 @@
 
         <div class="left-panel">
             <div class="branding">
-                <img src="../LandingPage/img/Logos/LineLogo.png" alt="Logo" class="logo">
+                <img src="img/Logos/LineLogo.png" alt="Logo" class="logo">
                 <h1>Bienvenido a CISTA</h1>
             </div>
         </div>
@@ -54,7 +54,7 @@
     </div>
 
     <!-- Incluir el archivo JavaScript externo -->
-    <script src="../LandingPage/js/login.js" defer></script>
+    <script src="js/login.js" defer></script>
 </body>
 </div>
 </html>

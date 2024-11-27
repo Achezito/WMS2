@@ -33,117 +33,116 @@ if (!isset($_SESSION['user_type'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="../css/forms.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index2.css">
+    <link rel="stylesheet" href="../css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
+    <script src="../js/index.js"></script>
 </head>
+
 <body>
-  <div class="container">
-    <!-- Barra lateral -->
-    <aside class="sidebar">
-        <div class="logo-container">
-            <!-- Contenedor para logo y nombre -->
-            <h1 class="app-title">CISTA</h1>
-            
-          </div>
-      <div class="profile">
-      
-          <!-- Perfil del usuario -->
-          <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+    <div class="container">
+        <!-- Barra lateral -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <!-- Contenedor para logo y nombre -->
+                <h1 class="app-title">CISTA</h1>
 
-        <h3 class="titleName">
-
-        <?php 
-        echo $_SESSION['fullname'];
-
-        ?>
-
-        </h3>
-        <p class="titleMail">
-
-        <?php 
-        echo $_SESSION['correo'];
-
-        ?>
-        </p>
-      </div>
-      <nav>
-        <ul>
-            
-        <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
-              <label class="linkLabel">
-                Home</label>
-            </a></li>
-            
-        <li class="dropdown">
-        <span class="dropdown-toggle">Formularios</span>
-            <ul class="dropdown-menu">
-                <li><a href="/WMS2/LandingPage/formularios/prestamos.php">Préstamos</a></li>
-                <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
-                <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
-            </ul>
-        </li>
-
-
-        <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
-            <label class="linkLabel">
-                Usuarios</label> 
-        </a></li>
-
-          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
-            <label class="linkLabel">
-                Historiales</label> 
-          </a></li>
-          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
-            <label class="linkLabel">
-                Logout</label> 
-        </a></li>
-
-        </ul>
-      </nav>
-    </aside>
-
-    <!-- Contenido principal -->
-    <main class="main-content">
-      <section class="content">
-        <h2>Registro de Préstamo de Equipos</h2>
-        <form action="/formularios/registrar.php" method="POST">
-            <div class="form-group">
-                <label for="personasID">ID del Usuario:</label>
-                <input type="text" id="personasID" name="personasID" required>
             </div>
+            <div class="profile">
 
-            <div class="form-group">
-                <label for="personalesID">ID del Personal:</label>
-                <input type="text" id="personalesID" name="personalesID" required>
+                <!-- Perfil del usuario -->
+                <img class="user-avatar" src="/img/Users/User.jpg" alt="User Avatar">
+
+                <h3 class="titleName">
+
+                    <?php
+                    echo $_SESSION['fullname'];
+
+                    ?>
+
+                </h3>
+                <p class="titleMail">
+
+                    <?php
+                    echo $_SESSION['correo'];
+
+                    ?>
+                </p>
             </div>
+            <nav>
+                <ul>
 
-            <div class="form-group">
-                <label for="fechaSalida">Fecha de Salida:</label>
-                <input type="date" id="fechaSalida" name="fechaSalida" required>
-            </div>
+                    <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+                            <label class="linkLabel">
+                                Home</label>
+                        </a></li>
 
-            <div class="form-group">
-                <label for="fechaDevolucion">Fecha de Devolución:</label>
-                <input type="date" id="fechaDevolucion" name="fechaDevolucion">
-            </div>
+                    <li class="dropdown">
+                        <span class="dropdown-toggle">Formularios</span>
+                        <ul class="dropdown-menu">
+                            <li><a href="../formularios/prestamos.php">Préstamos</a></li>
+                            <li><a href="../formularios/transacciones.php">Transacciones</a></li>
+                            <li><a href="../formularios/mantenimiento.php">Mantenimiento</a></li>
+                        </ul>
+                    </li>
 
-            <div class="form-group">
-                <label for="notas">Notas:</label>
-                <textarea id="notas" name="notas" rows="4"></textarea>
-            </div>
 
-            <button type="submit">Registrar Préstamo</button>
-        </form>
-      </section>
-    </main>
+                    <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+                            <label class="linkLabel">
+                                Usuarios</label>
+                        </a></li>
+
+                    <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+                            <label class="linkLabel">
+                                Historiales</label>
+                        </a></li>
+                    <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+                        <label class="linkLabel">
+                            Logout</label>
+                            </ul>
+            </nav>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <section class="content">
+                <h2>Registro de Préstamo de Equipos</h2>
+                <form action="/formularios/registrar.php" method="POST">
+                    <div class="form-group">
+                        <label for="personasID">ID del Usuario:</label>
+                        <input type="text" id="personasID" name="personasID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="personalesID">ID del Personal:</label>
+                        <input type="text" id="personalesID" name="personalesID" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaSalida">Fecha de Salida:</label>
+                        <input type="date" id="fechaSalida" name="fechaSalida" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fechaDevolucion">Fecha de Devolución:</label>
+                        <input type="date" id="fechaDevolucion" name="fechaDevolucion">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notas">Notas:</label>
+                        <textarea id="notas" name="notas" rows="4"></textarea>
+                    </div>
+
+                    <button type="submit">Registrar Préstamo</button>
+                </form>
+            </section>
+        </main>
 </body>
+
 </html>
-
-

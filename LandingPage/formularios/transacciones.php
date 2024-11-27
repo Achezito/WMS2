@@ -149,13 +149,13 @@ function insertarTipoMaterial($nombre, $categoria, $descripcion) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transacciones</title>
     <link rel="stylesheet" href="../css/forms.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/inventario_transaccion.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index2.css">
+    <link rel="stylesheet" href="../css/hom2.css">
+    <link rel="stylesheet" href="../css/inventario_transaccion.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_transaccion.js"></script>
+    <script src="../js/index.js"></script>
+    <script src="../js/inventario_transaccion.js"></script>
 </head>
 <body>
   <div class="container">
@@ -165,24 +165,24 @@ function insertarTipoMaterial($nombre, $categoria, $descripcion) {
             <h1 class="app-title">CISTA</h1>
         </div>
         <div class="profile">
-            <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+            <img class="user-avatar" src="../img/Users/User.jpg" alt="User Avatar">
             <h3 class="titleName"><?php echo $_SESSION['fullname']; ?></h3>
             <p class="titleMail"><?php echo $_SESSION['correo']; ?></p>
         </div>
         <nav>
             <ul>
-                <li><a href="/WMS2/LandingPage/html/personal/indice/index.php"><label class="linkLabel">Home</label></a></li>
+                <li><a href="../html/personal/indice/index.php"><label class="linkLabel">Home</label></a></li>
                 <li class="dropdown">
                     <span class="dropdown-toggle">Formularios</span>
                     <ul class="dropdown-menu">
-                        <li><a href="/WMS2/LandingPage/formularios/personal_prestamos.php">Préstamos</a></li>
-                        <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
-                        <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+                        <li><a href="../formularios/personal_prestamos.php">Préstamos</a></li>
+                        <li><a href="../formularios/transacciones.php">Transacciones</a></li>
+                        <li><a href="../formularios/mantenimiento.php">Mantenimiento</a></li>
                     </ul>
                 </li>
-                <li><a href="/WMS2/LandingPage/html/personal/users/users.php"><label class="linkLabel">Usuarios</label></a></li>
-                <li><a href="/WMS2/LandingPage/html/personal/history/history.php"><label class="linkLabel">Historiales</label></a></li>
-                <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
+                <li><a href="../html/personal/users/users.php"><label class="linkLabel">Usuarios</label></a></li>
+                <li><a href="../html/personal/history/history.php"><label class="linkLabel">Historiales</label></a></li>
+                <li><a href="../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
             </ul>
         </nav>
     </aside>
