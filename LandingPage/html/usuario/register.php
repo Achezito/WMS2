@@ -31,7 +31,7 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
                 <p>Plataforma de Gestión de Materiales</p>
             </div>
             <div class="tabs">
-                <a href="/WMS2/LandingPage/html/login.php">
+                <a href="/WMS2/LandingPage/index.php">
                     <button id="signInTab" class="tab-button active">Iniciar Sesión</button>
                 </a>
             </div>
