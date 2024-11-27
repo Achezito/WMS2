@@ -197,6 +197,7 @@
     margin: 0;
 }
 
+
 .btn-filtrar {
     background-color: #007BFF;
     color: white;
@@ -207,6 +208,8 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: calc(100% - 40px);
+    margin: 20;
 }
 
 .btn-filtrar:hover {

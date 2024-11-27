@@ -500,6 +500,32 @@ LEFT JOIN
     edificios as e on e.edificio_id = i.edificio_id
 WHERE 
     pr.estatus IN ('pendiente', 'aprobado', 'rechazado'); 
-
+SELECT edificio_id, nombre FROM edificios
 
 SELECT * FROM prestamos_usuarios_edificio WHERE edificio_id = 1;
+
+
+
+DROP VIEW IF EXISTS historial_prestamos_usuario;
+
+CREATE OR REPLACE VIEW historial_prestamos_usuario AS
+SELECT 
+    pr.prestamo_id AS operacion_id,  -- Identificador del préstamo
+    pr.notas,                        -- Notas del préstamo
+    u.usuario_id,                    -- ID del usuario
+    u.nombre AS solicitado_por,      -- Nombre del solicitante
+    pr.estatus,                      -- Estatus del préstamo
+    CASE 
+        WHEN pr.estatus = 'pendiente' THEN 'Pendiente'
+        WHEN pr.estatus = 'rechazado' THEN 'Rechazado'
+        ELSE CONCAT(p.nombre, ' ', p.primer_apellido, ' ', p.segundo_apellido)
+    END AS responsable,              -- Responsable del préstamo
+    pr.fecha_salida,                 -- Fecha de salida
+    pr.fecha_devolucion,             -- Fecha de devolución
+    p.edificio_id                    -- ID del edificio asociado
+FROM 
+    prestamos pr
+LEFT JOIN 
+    personales p ON pr.personal_id = p.personal_id
+LEFT JOIN 
+    usuarios u ON pr.usuario_id = u.usuario_id;

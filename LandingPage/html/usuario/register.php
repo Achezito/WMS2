@@ -2,10 +2,10 @@
 
 require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/edificios.php';
-require_once BASE_PATH . '/phpFiles/config/process_register.php';
 
 
- $edificios = Edificios::mostrarTodosLosEdificios();
+
+ $Edificios = Edificios::mostrarTodosLosEdificios();
 ?>
 
 

@@ -2,6 +2,8 @@
 session_start();
 require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/inventario.php';
+require_once BASE_PATH . '/phpFiles/Models/historiales.php';
+require_once BASE_PATH . '/phpFiles/Models/prestamos.php';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'usuario') {
     header('Location: /WMS2/LandingPage/html/login.php');
     exit();
@@ -52,11 +54,12 @@ if (isset($_SESSION['edificio_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/solicitud.css">
+    <link rel="stylesheet" href="/WMS2/LandingPage/css/prestamo.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/WMS2/LandingPage/js/index.js"></script>
     <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
+    <script src="/WMS2/LandingPage/js/putamamadademierda.js"></script>
 </head>
 
 <body>
@@ -75,7 +78,6 @@ if (isset($_SESSION['edificio_id'])) {
 
                 <h3 class="titleName">
                     <?php
-
                     echo $_SESSION['username'];
                     ?>
                 </h3>
@@ -98,7 +100,7 @@ if (isset($_SESSION['edificio_id'])) {
                         </a>
                     </li>
 
-                    <li><a href="/WMS2/LandingPage/html/usuario/prestamosUser.php">
+                    <li><a href="/WMS2/LandingPage/html/usuario/PrestamosUser.php">
                             <label class="linkLabel">
                                 Ver prestamos</label>
                         </a></li>
@@ -106,7 +108,6 @@ if (isset($_SESSION['edificio_id'])) {
                             <label class="linkLabel">
                                 Ver historial</label>
                         </a></li>
-
                     <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                             <label class="linkLabel">
                                 Logout</label>
@@ -119,65 +120,76 @@ if (isset($_SESSION['edificio_id'])) {
         </aside>
 
         <!-- Contenido principal -->
-
         <main class="main-content">
             <section class="content">
-                <h2 class="form-title">Formulario de Solicitud</h2>
-                <form id="solicitudForm" class="styled-form">
-                    <div class="input-group">
-                        <label for="nombre" class="input-label">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="input-field" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-                    </div>
-
-                    <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
-
-                    <div class="input-group">
-                        <div class="custom-select-wrapper">
-                            <label for="material" class="input-label">Material(es)</label>
-                            <select id="material" name="material[]" class="custom-multi-select" multiple required>
-                                <?php
-                                if (!empty($materiales)) {
-                                    foreach ($materiales as $material) {
-                                        echo '<option value="' . htmlspecialchars($material['material_id']) . '">' . htmlspecialchars($material['modelo']) . ' (' . htmlspecialchars($material['tipo_material']) . ')</option>';
-                                    }
-                                } else {
-                                    echo '<option value="">No hay materiales disponibles</option>';
-                                }
-                                ?>
-                            </select>
-                            <small class="helper-text">Ctrl + Click para seleccionar múltiples materiales</small>
-                        </div>
+                <h2>Prestamos de <?php
+                                    echo $_SESSION['nombre'];
+                                    ?></h2>
+                <div class="contenedor-historial">
+                    <div class="busqueda-prestamos">
 
                     </div>
+                    <?php
+$usuario_id = $_SESSION['user_id'];
 
-                        <div class="input-group">
-                            <label for="comentarios" class="input-label">Notas</label>
-                            <textarea name="comentarios" class="input-field textarea" placeholder="Escribe tu comentario aquí" rows="4" required></textarea>
+// Capturar el estatus de la búsqueda
+$estatus = isset($_GET['estatus']) ? $_GET['estatus'] : '';
+
+// Llamar al método con los parámetros adecuados
+$historial = Prestamo::obtenerHistorialDeUsuarioPermanentes($usuario_id, $estatus);
+echo "<form method='get' action=''>";
+echo "<label for='estatus'>Filtrar por Estatus:</label>";
+echo "<select name='estatus' id='estatus'>";
+echo "<option value=''>--Seleccionar Estatus--</option>";
+echo "<option value='pendiente'" . ($estatus == 'pendiente' ? ' selected' : '') . ">Pendiente</option>";
+echo "<option value='aprobado'" . ($estatus == 'aprobado' ? ' selected' : '') . ">Aprobado</option>";
+echo "<option value='rechazado'" . ($estatus == 'rechazado' ? ' selected' : '') . ">Rechazado</option>";
+echo "<option value='finalizado'" . ($estatus == 'finalizado' ? ' selected' : '') . ">Finalizado</option>";
+echo "</select>";
+echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
+echo "</form>";
+
+if (!empty($historial)) {
+    echo '<h2 class="titulo-historial">Historial de Préstamos</h2>';
+    echo '<div class="lista-prestamos">';
+
+    foreach ($historial as $prestamo) {
+        echo '<div class="tarjeta-prestamo" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
+        echo '<h3>Préstamo: ' . htmlspecialchars($prestamo['operacion_id']) . '</h3>';
+        echo '<p><strong>Notas:</strong> ' . htmlspecialchars($prestamo['notas']) . '</p>';
+        echo '<p><strong>Estatus:</strong> ' . htmlspecialchars($prestamo['estatus']) . '</p>';
+        
+        // Mostrar todos los materiales asociados
+        echo '<p><strong>Material(es):</strong> ' . implode(', ', $prestamo['materiales']) . '</p>';
+        
+        echo '<p><strong>Responsable:</strong> ' . htmlspecialchars($prestamo['responsable']) . '</p>';
+        echo '<p><strong>Fecha de salida:</strong> ' . htmlspecialchars($prestamo['fecha_salida']) . '</p>';
+        echo '<p><strong>Fecha de devolución:</strong> ' . htmlspecialchars($prestamo['fecha_devolucion']) . '</p>';
+        echo '</div>';
+    }
+    
+
+    echo '</div>';
+} else {
+    echo '<div class="mensaje-sin-prestamos">';
+    echo '<h3>No se encontraron préstamos para este usuario.</h3>';
+    echo '</div>';
+}
+?>
+
+
+                </div>
+                <div id="popup" class="popup" style="display: none;">
+                    <div class="popup-content">
+                    <input type="hidden" id="operacion_id" name="operacion_id" />
+                        <div id="popup-detalles">
+                            <!-- Detalles del préstamo se insertarán aquí -->
+
+
                         </div>
+                    </div>
+                </div>
 
-                        <div class="input-group">
-                            <label for="fecha" class="input-label">Fecha de Solicitud</label>
-                            <input type="date" id="fecha" name="fecha" class="input-field" value="<?php echo date('Y-m-d'); ?>" readonly>
-                        </div>
-
-                        <button type="submit" class="btn btn-submit">Enviar Solicitud</button>
-                        <div id="message" class="form-message"></div>
-                </form>
-            </section>
-        </main>
-
-        <script>
-            // Obtener la fecha actual en formato YYYY-MM-DD
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
-            var yyyy = today.getFullYear();
-
-            today = yyyy + '-' + mm + '-' + dd; // Formato correcto para el input type="date"
-
-            // Establecer la fecha actual en el campo de fecha
-            document.getElementById('fecha').value = today;
-        </script>
 
         </main>
     </div>

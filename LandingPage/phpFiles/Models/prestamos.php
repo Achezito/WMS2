@@ -133,6 +133,68 @@ require_once BASE_PATH . '/phpFiles/config/conexion.php';
             return [];
         }
     }
+    public static function obtenerHistorialDeUsuarioPermanentes($usuario_id, $busqueda = '')
+{
+    // Conexión a la base de datos
+    $connection = Conexion::get_connection(); // Asegúrate de que esto retorne una instancia válida de `mysqli`
+    
+    try {
+        // Base de la consulta SQL
+        $sql = "SELECT pr.operacion_id, pr.notas, pr.solicitado_por, pr.estatus, 
+                       pr.responsable, pr.fecha_salida, pr.fecha_devolucion, 
+                       pr.edificio_id, 
+                       GROUP_CONCAT(i.modelo ORDER BY i.modelo SEPARATOR ', ') AS materiales
+                FROM historial_prestamos pr
+                LEFT JOIN inventario_prestamos ip ON pr.operacion_id = ip.prestamo_id
+                LEFT JOIN inventario i ON ip.material_id = i.material_id
+                WHERE pr.usuario_id = ?";
+        
+        // Agregar condición de búsqueda si se proporciona
+        if (!empty($busqueda)) {
+            $sql .= " AND (pr.notas LIKE ? OR pr.estatus LIKE ? OR pr.responsable LIKE ?)";
+        }
+        
+        // Preparar la declaración
+        $stmt = $connection->prepare($sql);
+        
+        if (!$stmt) {
+            throw new Exception("Error en la preparación de la consulta: " . $connection->error);
+        }
+        
+        // Crear el conjunto de parámetros para la consulta
+        if (!empty($busqueda)) {
+            $busqueda = '%' . $busqueda . '%';
+            $stmt->bind_param("isss", $usuario_id, $busqueda, $busqueda, $busqueda); // Tipos: `i` (integer) y `s` (string)
+        } else {
+            $stmt->bind_param("i", $usuario_id); // Solo el parámetro de usuario
+        }
+        
+        // Ejecutar la consulta
+        $stmt->execute();
+        
+        // Obtener los resultados
+        $result = $stmt->get_result();
+        
+        // Convertir a un array asociativo
+        $resultados = [];
+        
+        while ($row = $result->fetch_assoc()) {
+            // Separar los materiales en un array
+            $row['materiales'] = explode(', ', $row['materiales']);  // Convertir la cadena de materiales en un array
+            
+            $resultados[] = $row;
+        }
+        
+        // Retornar resultados
+        return $resultados;
+    
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+        return [];
+    }
+}
+
+
 
 
     public static function obtenerDetalles($operacion_id)

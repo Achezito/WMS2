@@ -261,11 +261,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                     <input type="hidden" name="estado" value="aprobado">
                                     <button class="aprobar" type="submit">Aprobar</button>
                                 </form>
-                                <button class="rechazar" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="rechazar rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
                                 
                             </td>
                             <td>
-                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                                    <button class="button2 ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -297,7 +297,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                 </form>
                             </td>
                             <td>
-                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                            <button class="button2 ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

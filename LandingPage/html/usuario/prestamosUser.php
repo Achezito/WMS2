@@ -104,6 +104,10 @@ if (isset($_SESSION['edificio_id'])) {
                             <label class="linkLabel">
                                 Ver prestamos</label>
                         </a></li>
+                        <li><a href="/WMS2/LandingPage/html/usuario/historialPrestamos.php">
+                            <label class="linkLabel">
+                                Ver historial</label>
+                        </a></li>
                     <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
                             <label class="linkLabel">
                                 Logout</label>
@@ -140,12 +144,13 @@ echo "<option value=''>--Seleccionar Estatus--</option>";
 echo "<option value='pendiente'" . ($estatus == 'pendiente' ? ' selected' : '') . ">Pendiente</option>";
 echo "<option value='aprobado'" . ($estatus == 'aprobado' ? ' selected' : '') . ">Aprobado</option>";
 echo "<option value='rechazado'" . ($estatus == 'rechazado' ? ' selected' : '') . ">Rechazado</option>";
+echo "<option value='finalizado'" . ($estatus == 'finalizado' ? ' selected' : '') . ">Finalizado</option>";
 echo "</select>";
 echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
 echo "</form>";
 
 if (!empty($historial)) {
-    echo '<h2 class="titulo-historial">Historial de Préstamos</h2>';
+    echo '<h2 class="titulo-historial">Historial de Préstamos actuales</h2>';
     echo '<div class="lista-prestamos">';
 
     foreach ($historial as $prestamo) {

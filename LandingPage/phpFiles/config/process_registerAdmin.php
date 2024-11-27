@@ -6,24 +6,56 @@ header('Content-Type: application/json');
 // Agregar log para depuración
 error_log("Iniciando el proceso de registro de usuario.");
 
+require_once('conexion.php'); // Tu conexión a la base de datos
+header('Content-Type: application/json');
+
+// Agregar log para depuración
+error_log("Iniciando el proceso de registro de usuario.");
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recibir los datos del formulario
-    $nombre = $_POST['nombre']; // 'fullName' cambiado a 'nombre' según el formulario
-    $usuarioNombre = $_POST['usuarioNombre']; // 'fullName' cambiado a 'nombre' según el formulario
-    $primer_apellido = $_POST['firstName']; // 'primerApellido' cambiado a 'firstName' según el formulario
-    $segundo_apellido = $_POST['lastName']; // 'segundoApellido' cambiado a 'lastName' según el formulario
-    $usuarioEmail = $_POST['usuarioEmail'];
-    $telefono = $_POST['telefono'];
+    $nombre = $_POST['nombre'] ?? null; // Solo se llena si tipoCuenta es "personal"
+    $usuarioNombre = $_POST['usuarioNombre'] ?? null; // Solo se llena si tipoCuenta es "usuario"
+    $primer_apellido = $_POST['firstName'] ?? null; // Solo para personal
+    $segundo_apellido = $_POST['lastName'] ?? null; // Solo para personal
+    $usuarioEmail = $_POST['usuarioEmail'] ?? null; // Solo para usuario
+    $telefono = $_POST['telefono'] ?? null; // Solo para personal
     $estado = $_POST['estado'] ?? 'alta'; // Estado por defecto es 'alta'
-    $correo = $_POST['email'];
-    $edificio_id = $_POST['edificio'];
-    $nombre_usuario = $_POST['username'];
-    $contrasena = $_POST['password']; // Recibe la contraseña sin encriptar
-    $confirmar_contrasena = $_POST['confirmPassword']; // Recibe la confirmación
-    $tipo_cuenta = $_POST['tipoCuenta']; // Tipo de cuenta
+    $correo = $_POST['email'] ?? null;
+    $edificio_id = $_POST['edificio'] ?? null;
+    $nombre_usuario = $_POST['username'] ?? null;
+    $contrasena = $_POST['password'] ?? null;
+    $confirmar_contrasena = $_POST['confirmPassword'] ?? null;
+    $tipo_cuenta = $_POST['tipoCuenta'] ?? null;
 
-    // Depuración: Mostrar los datos recibidos
-    error_log("Datos recibidos: nombre=$nombre, primer_apellido=$primer_apellido, correo=$correo");
+    // Validar datos básicos
+    if (!$nombre_usuario || !$contrasena || !$tipo_cuenta || !$correo) {
+        error_log("Faltan datos obligatorios para registrar al usuario.");
+        echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios.']);
+        exit;
+    }
+
+    // Aquí puedes agregar lógica específica para cada tipo de cuenta
+    if ($tipo_cuenta === 'personal') {
+        if (!$nombre || !$primer_apellido || !$segundo_apellido || !$telefono) {
+            error_log("Faltan datos para registrar un personal.");
+            echo json_encode(['success' => false, 'message' => 'Faltan datos para registrar un personal.']);
+            exit;
+        }
+        // Procesar registro de "personal"
+    } elseif ($tipo_cuenta === 'usuario') {
+        if (!$usuarioNombre || !$estado || !$usuarioEmail ||  !$edificio_id) {
+            error_log("Faltan datos para registrar un usuario.");
+            echo json_encode(['success' => false, 'message' => 'Faltan datos para registrar un usuario.']);
+            exit;
+        }
+        // Procesar registro de "usuario"
+    } else {
+        error_log("Tipo de cuenta no válido: $tipo_cuenta");
+        echo json_encode(['success' => false, 'message' => 'Tipo de cuenta no válido.']);
+        exit;
+    }
+
 
     try {
         // **Validar contraseñas**

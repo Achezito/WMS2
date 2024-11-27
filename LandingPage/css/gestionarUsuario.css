@@ -68,3 +68,15 @@ p{
     background-color: #f1f1f1;
 }
 
+#closeActionModal {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+#closeActionModal:hover {
+    background-color: #0056b3;
+}

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             const prestamoId = this.getAttribute('data-prestamo-id');
             fetchMateriales(prestamoId);
-            modal.style.display = "block";
+            modal.style.display = "flex";
         });
     });
 
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchMateriales(prestamoId) {
         // Hacer la solicitud AJAX a personal_prestamos.php para obtener los materiales
-        fetch(`personal_prestamos.php?prestamo_id=${prestamoId}`)
+        fetch(`/WMS2/LandingPage/formularios/personal_prestamos.php?prestamo_id=${prestamoId}`)
             .then(response => response.text())
             .then(data => {
                 materialesContent.innerHTML = data;
