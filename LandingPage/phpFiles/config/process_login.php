@@ -39,7 +39,7 @@ try {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/personal/indice/index.php",
+            "redirect" => " html/personal/indice/index.php",
             "debug" => "Sesión iniciada correctamente para personal."
         ]);
         exit;
@@ -53,7 +53,7 @@ try {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/usuario/usuario.php",
+            "redirect" => "html/usuario/usuario.php",
             "debug" => "Sesión iniciada correctamente para usuario."
         ]);
         exit;
@@ -64,7 +64,7 @@ try {
 
         echo json_encode([
             "success" => true,
-            "redirect" => "/WMS2/LandingPage/html/admin/selectEdificio.php",
+            "redirect" => "html/admin/selectEdificio.php",
             "debug" => "Sesión iniciada correctamente para administrador."
         ]);
         exit;

@@ -27,7 +27,7 @@ $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
+    header('location: ../../html/login.php');
     exit();
 }
 
@@ -51,12 +51,12 @@ if (isset($_SESSION['edificio_id'])) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/solicitud.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/solicitud.css">
+    <link rel="stylesheet" href="../../css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/inventario_prestamoAJAX.js"></script>
 </head>
 
 <body>
@@ -71,7 +71,7 @@ if (isset($_SESSION['edificio_id'])) {
             <div class="profile">
 
                 <!-- Perfil del usuario -->
-                <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
 
                 <h3 class="titleName">
                     <?php
@@ -92,22 +92,22 @@ if (isset($_SESSION['edificio_id'])) {
 
                     <li>
 
-                        <a href="/WMS2/LandingPage/html/usuario/usuario.php">
+                        <a href="../../html/usuario/usuario.php">
                             <label class="linkLabel">
                                 Solicitar</label>
                         </a>
                     </li>
 
-                    <li><a href="/WMS2/LandingPage/html/usuario/prestamosUser.php">
+                    <li><a href="../../html/usuario/prestamosUser.php">
                             <label class="linkLabel">
                                 Ver prestamos</label>
                         </a></li>
-                        <li><a href="/WMS2/LandingPage/html/usuario/historialPrestamos.php">
+                        <li><a href="../../html/usuario/historialPrestamos.php">
                             <label class="linkLabel">
                                 Ver historial</label>
                         </a></li>
 
-                    <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+                    <li><a href="../../phpFiles/config/logout.php">
                             <label class="linkLabel">
                                 Logout</label>
                         </a></li>

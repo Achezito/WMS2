@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function onClickRow(materialid) {
     // Abrir una nueva pestaña (o ventana) con la URL deseada
-    window.open(`/WMS2/LandingPage/html/personal/inventario/materialDetails.php?material_id=${materialid}`, '_blank');
+    window.open(`../html/personal/inventario/materialDetails.php?material_id=${materialid}`, '_blank');
 }
 
 

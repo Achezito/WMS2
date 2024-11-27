@@ -7,7 +7,7 @@ require_once BASE_PATH . '/phpFiles/Models/cuentas.php';
 require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 // Verificar si el usuario es administrador
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'administrador') {
-    header('Location: /WMS2/LandingPage/html/login.php');
+    header('Location: ../../html/login.php');
     exit();
 }
 
@@ -18,7 +18,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
     if ($inactividad > $limite_inactividad) {
         session_unset();
         session_destroy();
-        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        header("Location: ../../html/login.php?sesion=expirada");
         exit();
     }
 }
@@ -54,15 +54,15 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador - CISTA</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/admin.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/gestionarUsuario.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/admin.css">
+    <link rel="stylesheet" href="../../css/hom2.css">
+    <link rel="stylesheet" href="../../css/gestionarUsuario.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
-    <script src="/WMS2/LandingPage/js/registerAdminAJAX.js"></script>
-    <script src="/WMS2/LandingPage/js/gestionar_usuariosModals.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/inventario_prestamoAJAX.js"></script>
+    <script src="../../js/registerAdminAJAX.js"></script>
+    <script src="../../js/gestionar_usuariosModals.js"></script>
 
 </head>
 
@@ -74,7 +74,7 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                 <h1 class="app-title">CISTA</h1>
             </div>
             <div class="profile">
-                <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
                 <h3 class="titleName">
                     <?php echo $_SESSION['username']; ?>
                 </h3>
@@ -82,12 +82,12 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
             </div>
             <nav>
                 <ul>
-                    <li><a href="/WMS2/LandingPage/html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
-                    <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
+                    <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
+                    <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
+                    <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
+                    <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
+                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
+                    <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
                 </ul>
             </nav>
         </aside>

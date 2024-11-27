@@ -16,22 +16,22 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In / Sign Up</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/register.css">
-    <script src="/WMS2/LandingPage/js/register_user.js"></script>
-    <script src="/WMS2/LandingPage/js/login.js"></script>
-    <script src="/WMS2/LandingPage/js/registerAJAX.js"></script>
+    <link rel="stylesheet" href="../../css/register.css">
+    <script src="../../js/register_user.js"></script>
+    <script src="../../js/login.js"></script>
+    <script src="../../js/registerAJAX.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div class="left-panel">
             <div class="branding">
-                <img src="/WMS2/LandingPage/img/Logos/LineLogo.png" alt="Logo" class="logo">
+                <img src="../../img/Logos/LineLogo.png" alt="Logo" class="logo">
                 <h1>Bienvenido a CISTA</h1>
                 <p>Plataforma de Gestión de Materiales</p>
             </div>
             <div class="tabs">
-                <a href="/WMS2/LandingPage/index.php">
+                <a href="../../index.php">
                     <button id="signInTab" class="tab-button active">Iniciar Sesión</button>
                 </a>
             </div>

@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchMateriales(prestamoId) {
         // Hacer la solicitud AJAX a personal_prestamos.php para obtener los materiales
-        fetch(`/WMS2/LandingPage/formularios/personal_prestamos.php?prestamo_id=${prestamoId}`)
+        fetch(`../formularios/personal_prestamos.php?prestamo_id=${prestamoId}`)
             .then(response => response.text())
             .then(data => {
                 materialesContent.innerHTML = data;

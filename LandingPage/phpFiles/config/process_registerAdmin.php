@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("Transacción confirmada, usuario registrado exitosamente.");
 
         // Respuesta JSON para la redirección
-        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => '/WMS2/LandingPage/html/admin/gestionar_usuarios.php']);
+        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => 'html/admin/gestionar_usuarios.php']);
 
     } catch (Exception $e) {
         // Si ocurre un error, revertir la transacción

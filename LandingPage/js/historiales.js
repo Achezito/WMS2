@@ -55,7 +55,7 @@
 
         function obtenerMateriales(tipoOperacion, operacionId) {
             const xhr = new XMLHttpRequest();
-            xhr.open("GET", `../../../phpFiles/Models/historiales.php?tipo_operacion=${tipoOperacion}&operacion_id=${operacionId}`, true);
+            xhr.open("GET", `../phpFiles/Models/historiales.php?tipo_operacion=${tipoOperacion}&operacion_id=${operacionId}`, true);
             xhr.onload = function() {
                 if (xhr.status === 200) {
                     document.getElementById('modal-body').innerHTML = xhr.responseText;

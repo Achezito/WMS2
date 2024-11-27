@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
         </div>
         <div class="profile">
             <!-- Perfil del usuario -->
-            <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+            <img class="user-avatar" src="../img/Users/User.jpg" alt="User Avatar">
             <h3 class="titleName"><?php echo $_SESSION['fullname']; ?></h3>
             <p class="titleMail"><?php echo $_SESSION['correo']; ?></p>
         </div>

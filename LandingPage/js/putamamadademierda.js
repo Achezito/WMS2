@@ -29,7 +29,7 @@ function cerrarPopup() {
 // Función para eliminar el préstamo
 function eliminar(operacion_id) {
     if (confirm("¿Estás seguro de que deseas eliminar este préstamo?")) {
-        fetch(`/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=delete&operacion_id=${operacion_id}`, {
+        fetch(`../phpFiles/config/api_prestamo.php?action=delete&operacion_id=${operacion_id}`, {
             method: 'DELETE',
         })
         .then(response => response.json())
@@ -57,9 +57,9 @@ function modificar(operacion_id) {
     var popupModify = document.getElementById("popupModify");
 
     // Llamada AJAX con Fetch API para obtener los detalles del préstamo y los materiales disponibles
-    console.log(`/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=get&operacion_id=${operacion_id}`);
+    console.log(`../phpFiles/config/api_prestamo.php?action=get&operacion_id=${operacion_id}`);
 
-    fetch(`/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=get&operacion_id=${operacion_id}`)
+    fetch(`../phpFiles/config/api_prestamo.php?action=get&operacion_id=${operacion_id}`)
     .then(response => response.json())
     .then(data => {
         console.log("Respuesta del servidor:", data);
@@ -114,7 +114,7 @@ function guardarDatos(prestamoId) {
         material_ids: materialesSeleccionados
     };
 
-    fetch(`/WMS2/LandingPage/phpFiles/config/api_prestamo.php?action=update`, {
+    fetch(`../phpFiles/config/api_prestamo.php?action=update`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

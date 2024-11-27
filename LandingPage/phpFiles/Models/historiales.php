@@ -1,5 +1,6 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/WMS2/LandingPage/phpFiles/config/conexion.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/config/conexion.php';
 
 if (isset($_GET['tipo_operacion']) && isset($_GET['operacion_id'])) {
     $tipo_operacion = $_GET['tipo_operacion'];

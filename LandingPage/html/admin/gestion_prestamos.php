@@ -13,7 +13,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
         session_unset();
         session_destroy();
 
-        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        header("Location: ../..html/login.php?sesion=expirada");
         exit();
     }
 }
@@ -21,7 +21,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
 $_SESSION['ultimo_acceso'] = time();
 
 if (!isset($_SESSION['user_type'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
+    header('location: ../../html/login.php');
     exit();
 }
 
@@ -192,13 +192,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/personal_prestamos.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/index2.css">
+    <link rel="stylesheet" href="../../css/hom2.css">
+    <link rel="stylesheet" href="../../css/personal_prestamos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/pp_modal.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/pp_modal.js"></script>
     
 </head>
 <body>
@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                 <h1 class="app-title">CISTA</h1>
             </div>
             <div class="profile">
-                <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
                 <h3 class="titleName">
                     <?php echo $_SESSION['username']; ?>
                 </h3>
@@ -217,12 +217,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
             </div>
             <nav>
                 <ul>
-                    <li><a href="/WMS2/LandingPage/html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-                    <li><a href="/WMS2/LandingPage/html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
-                    <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
+                    <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
+                    <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
+                    <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
+                    <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
+                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
+                    <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
                 </ul>
             </nav>
         </aside>

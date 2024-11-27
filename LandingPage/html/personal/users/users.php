@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/usuarios.php';
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
-  header('location: /WMS2/LandingPage/html/login.php');
+  header('location: ../../../html/login.php');
   exit();
 }
 
@@ -31,15 +31,15 @@ if (isset($_SESSION['edificio_id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Historiales</title>
-  <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-  <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-  <link rel="stylesheet" href="/WMS2/LandingPage/css/users.css">
-  <link href="/WMS2/LandingPage/css/fontawesome/fontawesome.css" rel="stylesheet" />
-  <link href="/WMS2/LandingPage/css/fontawesome/solid.css" rel="stylesheet" />
-  <script src="/WMS2/LandingPage/js/index.js"></script>
-  <script src="/WMS2/LandingPage/js/usuarios.js"></script>
+  <link rel="stylesheet" href="../../../css/index.css">
+  <link rel="stylesheet" href="../../../css/index2.css">
+  <link rel="stylesheet" href="../../../css/users.css">
+  <link href="../../../css/fontawesome/fontawesome.css" rel="stylesheet" />
+  <link href="../../../css/fontawesome/solid.css" rel="stylesheet" />
+  <script src="../../../js/index.js"></script>
+  <script src="../../../js/usuarios.js"></script>
   <title>Principal</title>
-  <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+  <link rel="stylesheet" href="../../../css/hom2.css">
 </head>
 
 <body>
@@ -54,7 +54,7 @@ if (isset($_SESSION['edificio_id'])) {
       <div class="profile">
 
         <!-- Perfil del usuario -->
-        <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+        <img class="user-avatar" src="../../../img/Users/User.jpg" alt="User Avatar">
 
         <h3 class="titleName">
 
@@ -75,7 +75,7 @@ if (isset($_SESSION['edificio_id'])) {
       <nav>
         <ul>
 
-          <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+          <li><a href="../../../html/personal/indice/index.php">
               <label class="linkLabel">
                 Home</label>
             </a></li>
@@ -83,23 +83,23 @@ if (isset($_SESSION['edificio_id'])) {
           <li class="dropdown">
             <span class="dropdown-toggle">Formularios</span>
             <ul class="dropdown-menu">
-              <li><a href="/WMS2/LandingPage/formularios/personal_prestamos.php">Préstamos</a></li>
-              <li><a href="/WMS2/LandingPage/formularios/transacciones.php">Transacciones</a></li>
-              <li><a href="/WMS2/LandingPage/formularios/mantenimiento.php">Mantenimiento</a></li>
+              <li><a href="../../../formularios/personal_prestamos.php">Préstamos</a></li>
+              <li><a href="../../../formularios/transacciones.php">Transacciones</a></li>
+              <li><a href="../../../formularios/mantenimiento.php">Mantenimiento</a></li>
             </ul>
           </li>
 
 
-          <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+          <li><a href="../../../html/personal/users/users.php">
               <label class="linkLabel">
                 Usuarios</label>
             </a></li>
 
-          <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+          <li><a href="../../../html/personal/history/history.php">
               <label class="linkLabel">
                 Historiales</label>
             </a></li>
-          <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+          <li><a href="../../../phpFiles/config/logout.php">
               <label class="linkLabel">
                 Logout</label>
             </a></li>

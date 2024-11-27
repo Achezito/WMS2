@@ -78,7 +78,7 @@ function filterTable() {
 
 function onClickRow(usuarioId) {
     // Abrir una nueva pestaña (o ventana) con la URL deseada
-    window.open(`/WMS2/LandingPage/html/personal/users/usuarioRow.php?usuario_id=${usuarioId}`, '_blank');
+    window.open(`../html/personal/users/usuarioRow.php?usuario_id=${usuarioId}`, '_blank');
 }
 
 

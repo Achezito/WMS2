@@ -4,7 +4,7 @@ session_start();
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_id'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
+    header('location: ../../html/login.php');
     exit();
 }
 
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Préstamo</title>
-    <meta http-equiv="refresh" content="5;url=/WMS2/LandingPage/formularios/prestamos.php">
+    <meta http-equiv="refresh" content="5;url=../../formularios/prestamos.php">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
     <div class="mensaje">
         <h1><?php echo $mensaje; ?></h1>
-        <a href="/WMS2/LandingPage/formularios/prestamos.php">Volver</a>
+        <a href="../../formularios/prestamos.php">Volver</a>
     </div>
 </body>
 </html>

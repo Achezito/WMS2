@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const formData = new FormData(registerForm); // Crear FormData con datos del formulario
 
-        fetch("/WMS2/LandingPage/phpFiles/config/process_register.php", {
+        fetch("../phpFiles/config/process_register.php", {
             method: "POST",
             body: formData,
         })

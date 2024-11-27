@@ -5,7 +5,7 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 // Verificar si el usuario es administrador
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'administrador') {
-    header('Location: /WMS2/LandingPage/html/login.php');
+    header('Location: ../../html/login.php');
     exit();
 }
 
@@ -16,7 +16,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
     if ($inactividad > $limite_inactividad) {
         session_unset();
         session_destroy();
-        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        header("Location: ../../html/login.php?sesion=expirada");
         exit();
     }
 }
@@ -35,10 +35,10 @@ $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
     <title>Edificios</title>
    
    
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/selectAdmin.css">
+    <link rel="stylesheet" href="../../css/selectAdmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/inventario_prestamoAJAX.js"></script>
 </head>
 <body>
     <div class="container">
@@ -65,7 +65,7 @@ $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
             
             if (selectedOption) {
                 // Redirigir a otra página con el id del edificio como parámetro
-                window.location.href = `/WMS2/LandingPage/html/admin/indexAdmin.php?id=${selectedOption}`;
+                window.location.href = `../../html/admin/indexAdmin.php?id=${selectedOption}`;
             } else {
                 alert('Por favor, selecciona un edificio antes de continuar.');
             }

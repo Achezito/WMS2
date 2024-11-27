@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const errorDiv = document.getElementById("error");
 
-        fetch('/WMS2/LandingPage/phpFiles/Models/inventario_prestamo.php', {
+        fetch('../phpFiles/Models/inventario_prestamo.php', {
             method: 'POST',
             body: formData
         })

@@ -5,7 +5,7 @@ require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 require_once BASE_PATH . '/phpFiles/Models/historiales.php';
 require_once BASE_PATH . '/phpFiles/Models/prestamos.php';
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'usuario') {
-    header('Location: /WMS2/LandingPage/html/login.php');
+    header('Location: ../../html/login.php');
     exit();
 }
 
@@ -17,7 +17,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
     if ($inactividad > $limite_inactividad) {
         session_unset();
         session_destroy();
-        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        header("Location: ../../html/login.php?sesion=expirada");
         exit();
     }
 }
@@ -29,7 +29,7 @@ $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
+    header('location: ../../html/login.php');
     exit();
 }
 
@@ -53,13 +53,13 @@ if (isset($_SESSION['edificio_id'])) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/prestamo.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/prestamo.css">
+    <link rel="stylesheet" href="../../css/hom2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="/WMS2/LandingPage/js/index.js"></script>
-    <script src="/WMS2/LandingPage/js/inventario_prestamoAJAX.js"></script>
-    <script src="/WMS2/LandingPage/js/putamamadademierda.js"></script>
+    <script src="../../js/index.js"></script>
+    <script src="../../js/inventario_prestamoAJAX.js"></script>
+    <script src="../../js/putamamadademierda.js"></script>
 </head>
 
 <body>
@@ -74,7 +74,7 @@ if (isset($_SESSION['edificio_id'])) {
             <div class="profile">
 
                 <!-- Perfil del usuario -->
-                <img class="user-avatar" src="/WMS2/LandingPage/img/Users/User.jpg" alt="User Avatar">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
 
                 <h3 class="titleName">
                     <?php
@@ -94,21 +94,21 @@ if (isset($_SESSION['edificio_id'])) {
 
                     <li>
 
-                        <a href="/WMS2/LandingPage/html/usuario/usuario.php">
+                        <a href="../../html/usuario/usuario.php">
                             <label class="linkLabel">
                                 Solicitar</label>
                         </a>
                     </li>
 
-                    <li><a href="/WMS2/LandingPage/html/usuario/PrestamosUser.php">
+                    <li><a href="../../html/usuario/PrestamosUser.php">
                             <label class="linkLabel">
                                 Ver prestamos</label>
                         </a></li>
-                        <li><a href="/WMS2/LandingPage/html/usuario/historialPrestamos.php">
+                        <li><a href="../../html/usuario/historialPrestamos.php">
                             <label class="linkLabel">
                                 Ver historial</label>
                         </a></li>
-                    <li><a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+                    <li><a href="../../phpFiles/config/logout.php">
                             <label class="linkLabel">
                                 Logout</label>
                         </a></li>
@@ -150,7 +150,7 @@ echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
 echo "</form>";
 
 if (!empty($historial)) {
-    echo '<h2 class="titulo-historial">Historial de Préstamos</h2>';
+    echo '<h2 class="titulo-historial">Historial de prestamos actuales</h2>';
     echo '<div class="lista-prestamos">';
 
     foreach ($historial as $prestamo) {

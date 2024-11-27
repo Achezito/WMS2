@@ -15,7 +15,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
         session_destroy();
 
         // Redirigir a login.php con el mensaje de sesión expirada
-        header("Location: /WMS2/LandingPage/html/login.php?sesion=expirada");
+        header("Location: ../html/login.php?sesion=expirada");
         exit();
     }
 }
@@ -26,7 +26,7 @@ $_SESSION['ultimo_acceso'] = time();
 
 // Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['user_type'])) {
-    header('location: /WMS2/LandingPage/html/login.php');
+    header('location: ../html/login.php');
     exit();
 }
 ?>
@@ -78,7 +78,7 @@ if (!isset($_SESSION['user_type'])) {
             <nav>
                 <ul>
 
-                    <li><a href="/WMS2/LandingPage/html/personal/indice/index.php">
+                    <li><a href="../html/personal/indice/index.php">
                             <label class="linkLabel">
                                 Home</label>
                         </a></li>
@@ -86,23 +86,23 @@ if (!isset($_SESSION['user_type'])) {
                     <li class="dropdown">
                         <span class="dropdown-toggle">Formularios</span>
                         <ul class="dropdown-menu">
-                            <li><a href="../formularios/prestamos.php">Préstamos</a></li>
-                            <li><a href="../formularios/transacciones.php">Transacciones</a></li>
-                            <li><a href="../formularios/mantenimiento.php">Mantenimiento</a></li>
+                    ../formularios/prestamos.php">Préstamos</a></li>
+                    ../formularios/transacciones.php">Transacciones</a></li>
+                    ../formularios/mantenimiento.php">Mantenimiento</a></li>
                         </ul>
                     </li>
 
 
-                    <li><a href="/WMS2/LandingPage/html/personal/users/users.php">
+                    <li><a href="../html/personal/users/users.php">
                             <label class="linkLabel">
                                 Usuarios</label>
                         </a></li>
 
-                    <li><a href="/WMS2/LandingPage/html/personal/history/history.php">
+                    <li><a href="../html/personal/history/history.php">
                             <label class="linkLabel">
                                 Historiales</label>
                         </a></li>
-                    <a href="/WMS2/LandingPage/phpFiles/config/logout.php">
+                    <a href="../phpFiles/config/logout.php">
                         <label class="linkLabel">
                             Logout</label>
                             </ul>

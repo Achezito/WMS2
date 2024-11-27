@@ -4,9 +4,9 @@ header('Content-Type: application/json');
 
 session_start();
 
-require_once 'C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/prestamos.php';
-require_once 'C:/xampp/htdocs/WMS2/LandingPage/phpFiles/Models/inventario.php';
-require_once 'C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php';
+require_once '../../phpFiles/Models/prestamos.php';
+require_once '../../LandingPage/phpFiles/Models/inventario.php';
+require_once '../../LandingPage/phpFiles/config/conexion.php';
 
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
