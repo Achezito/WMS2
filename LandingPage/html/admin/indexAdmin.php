@@ -58,27 +58,29 @@ if (isset($_GET['id'])) {
 <body>
   <div class="container">
     <!-- Barra lateral -->
-    < class="sidebar">
-        <div class="logo-container">
-            <h1 class="app-title">CISTA</h1>
-        </div>
-        <div class="profile">
-            <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
-            <h3 class="titleName">
-                <?php echo $_SESSION['username']; ?>
-            </h3>
-            <p class="titleMail"> <?php echo $_SESSION['username']; ?></p>
-        </div>
-        <>
-            <ul>
-            <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
-                <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
-                <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
-                <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-                <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
-                <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
-            </ul>
-    ../..
+    <aside class="sidebar">
+            <div class="logo-container">
+                <h1 class="app-title">CISTA</h1>
+            </div>
+            <div class="profile">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
+                <h3 class="titleName">
+                    <?php echo $_SESSION['username']; ?>
+                </h3>
+                <p class="titleMail"> <?php echo $_SESSION['username']; ?></p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
+                    <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
+                    <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
+                    <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
+                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
+                    <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
+                </ul>
+            </nav>
+        </aside>
+
 
     <!-- Contenido principal -->
     <main class="main-content">
