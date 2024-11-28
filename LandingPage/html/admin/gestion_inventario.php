@@ -177,6 +177,47 @@ $tiposMaterial = TipoMaterial::mostrarTodosLosTiposMaterial();
     </div>
   </div>
 
+  <div id="myModalAdd" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Tipos de Materiales</h2>
+      <button>Añadir</button>
+      <?php
+          if (!empty($tiposMaterial)) {
+            echo "<table border='1'>";
+            // Encabezado del edificio
+            echo "<thead>";
+            echo "<tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Categoria</th>
+                  <th>Editar</th>
+
+              </tr>";
+            echo "</thead>";
+
+            // Cuerpo de la tabla
+            echo "<tbody>";
+            foreach ($tiposMaterial as $tm) {
+              echo "<tr onclick='onClickRow(" . htmlspecialchars($tm['tpi']) . ")'>";
+              echo "<td>" . htmlspecialchars($tm['tpi']) . "</td>";
+              echo "<td>" . htmlspecialchars($tm['nombre']) . "</td>";
+              echo "<td>" . htmlspecialchars($tm['categoria']) . "</td>";
+              
+             echo "<td> . '<button class='btn btn-actions' id=''>Editar</button> .</td>";
+         
+              echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+          } else {
+            echo "No hay materiales vinculados a tu edificio.";
+          }
+          ?>
+      
+    </div>
+  </div>
+
   <style>
     /* Estilo del fondo del modal */
 .modal {
@@ -227,6 +268,7 @@ $tiposMaterial = TipoMaterial::mostrarTodosLosTiposMaterial();
     const modal = document.getElementById("myModal");
     const openModalBtn = document.getElementById("openModalBtn");
     const closeBtn = document.querySelector(".close");
+    const modalAdd = document.getElementById("myModalAdd");
 
     // Abrir el modal al hacer clic en el botón
     openModalBtn.onclick = function() {
