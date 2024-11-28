@@ -28,16 +28,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirmar_contrasena = $_POST['confirmPassword'] ?? null;
     $tipo_cuenta = $_POST['tipoCuenta'] ?? null;
 
-    // Validar datos básicos
-    if (!$nombre_usuario || !$contrasena || !$tipo_cuenta || !$correo) {
-        error_log("Faltan datos obligatorios para registrar al usuario.");
-        echo json_encode(['success' => false, 'message' => 'Faltan datos obligatorios.']);
-        exit;
-    }
+   // Inicializa un arreglo para los campos faltantes
+$campos_faltantes = [];
+
+if (!$nombre_usuario) {
+    $campos_faltantes[] = 'nombre_usuario';
+}
+if (!$contrasena) {
+    $campos_faltantes[] = 'contrasena';
+}
+if (!$tipo_cuenta) {
+    $campos_faltantes[] = 'tipo_cuenta';
+}
+if (!$usuarioEmail) {
+    $campos_faltantes[] = 'correo';
+}
+
+// Si hay campos faltantes, muestra un error detallado
+if (!empty($campos_faltantes)) {
+    error_log("Faltan datos obligatorios: " . implode(', ', $campos_faltantes));
+    echo json_encode([
+        'success' => false,
+        'message' => 'Faltan datos obligatorios: ' . implode(', ', $campos_faltantes)
+    ]);
+    exit;
+}
 
     // Aquí puedes agregar lógica específica para cada tipo de cuenta
     if ($tipo_cuenta === 'personal') {
-        if (!$nombre || !$primer_apellido || !$segundo_apellido || !$telefono) {
+        if (!$nombre || !$primer_apellido || !$usuarioEmail ||  !$segundo_apellido || !$telefono) {
             error_log("Faltan datos para registrar un personal.");
             echo json_encode(['success' => false, 'message' => 'Faltan datos para registrar un personal.']);
             exit;
@@ -181,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         error_log("Transacción confirmada, usuario registrado exitosamente.");
 
         // Respuesta JSON para la redirección
-        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => 'html/admin/gestionar_usuarios.php']);
+        echo json_encode(['success' => true, 'message' => 'Registro exitoso.', 'redirect' => '../../html/admin/gestionar_usuarios.php']);
 
     } catch (Exception $e) {
         // Si ocurre un error, revertir la transacción

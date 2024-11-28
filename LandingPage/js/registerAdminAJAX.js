@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var formData = new FormData(this);
 
-        fetch('../phpFiles/config/process_registerAdmin.php', {
+        fetch('../../phpFiles/config/process_registerAdmin.php', {
             method: 'POST',
             body: formData
         })
