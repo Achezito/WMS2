@@ -1,9 +1,27 @@
 /* Encabezado principal */
 h2 {
     font-size: 24px;
-    color: #003a73;
-    margin-bottom: 20px;
+    color: #001637;
+    text-align: center;
     font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+}
+
+
+h4 {
+    color: #001c32; 
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2.5vh;
+    unicode-bidi: isolate;
 }
 
 /* Buscador */
@@ -17,10 +35,15 @@ h2 {
 
 /* Estilo del título */
 .header-container h2 {
-    font-size: 24px;
-    color: #0861a5;
-    margin: 0;
-    font-weight: bold;
+   font-size: 24px; 
+  color: #001c32; 
+  text-align: center; 
+  font-weight: bold; 
+  margin-bottom: 30px;
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  border-bottom: 4px solid #001c32; 
+  padding-bottom: 10px; 
 }
 
 /* Estilo del buscador */
@@ -87,6 +110,7 @@ td.estatus span {
     border: 2px solid; /* Borde */
     border-radius: 8px;
     text-transform: capitalize;
+    width: 140px;
 }
 
 /* Colores específicos */

@@ -193,7 +193,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/index2.css">
     <link rel="stylesheet" href="../css/hom2.css">
     <link rel="stylesheet" href="../css/personal_prestamos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -259,9 +258,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                 <form method="POST" action="personal_prestamos.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="aprobado">
-                                    <button class="button2" type="submit">Aprobar</button>
+                                    <button class="button3" type="submit">Aprobar</button>
                                 </form>
-                                <button class="button2 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="button3 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
                                 
                             </td>
                             <td>

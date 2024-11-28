@@ -171,9 +171,10 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
                 <li class="dropdown">
                     <span class="dropdown-toggle">Formularios</span>
                     <ul class="dropdown-menu">
-                        <li><a href="../formularios/mantenimiento.php">Mantenimiento</a></li>
+                      
                         <li><a href="../formularios/personal_prestamos.php">Préstamos</a></li>
                         <li><a href="../formularios/transacciones.php">Transacciones</a></li>
+                        <li><a href="../formularios/mantenimiento.php">Mantenimiento</a></li>
                     </ul>
                 </li>
                 <li><a href="../html/personal/users/users.php"><label class="linkLabel">Usuarios</label></a></li>
@@ -207,7 +208,7 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
                   <button type="submit">Registrar Mantenimiento</button>
             </form>
 
-            <h2>Mantenimientos Pendientes</h2>
+            <h4>Mantenimientos Pendientes</h4>
             <table>
                 <thead>
                     <tr>
