@@ -87,6 +87,7 @@ td.estatus span {
     border: 2px solid; /* Borde */
     border-radius: 8px;
     text-transform: capitalize;
+    width: 140px;
 }
 
 /* Colores específicos */
