@@ -111,8 +111,9 @@ if (isset($_SESSION['edificio_id'])) {
     <main class="main-content">
       <section class="content">
   
-       
+      <h2>Usuarios</h2>
           <div class="header-container">
+          
         <input type="text" id="searchInput" placeholder="Buscar...">
     </div>
 

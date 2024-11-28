@@ -1,3 +1,46 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; 
+  
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para mensajes cuando no hay usuarios */
+.no-users-message {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilo de la tabla cuando está vacía */
+.empty-table {
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
+}
+
+
+.content-box{
+    height: 100%;
+}
 /* Estilos para el modal */
 .modal {
     display: none;
@@ -55,6 +98,18 @@ button:hover {
     transform: translateY(-2px);
 }
 
+.button3 {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(to right, #0179ce, #33a3ff);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
 /* Alinear botones en las celdas de la tabla */
 .table-buttons {
     display: flex;
@@ -98,4 +153,26 @@ table td button {
     border-color: #0066af;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
     outline: none;
+}
+h2 {
+    font-size: 24px;
+    color: #001637;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 10px;
+}
+
+h4 {
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 2.5vh;
+    unicode-bidi: isolate;
 }
