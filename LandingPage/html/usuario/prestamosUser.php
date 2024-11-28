@@ -51,11 +51,11 @@ if (isset($_SESSION['edificio_id'])) {
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Principal</title>
     <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
     <link rel="stylesheet" href="/WMS2/LandingPage/css/prestamo.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
+    <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../js/index.js"></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
@@ -64,6 +64,7 @@ if (isset($_SESSION['edificio_id'])) {
 
 <body>
     <div class="container">
+    <button class="menu-toggle">☰</button>
         <!-- Barra lateral -->
         <aside class="sidebar">
             <div class="logo-container">
@@ -138,7 +139,7 @@ $estatus = isset($_GET['estatus']) ? $_GET['estatus'] : '';
 // Llamar al método con los parámetros adecuados
 $historial = Prestamo::obtenerHistorialDeUsuario($usuario_id, $estatus);
 echo "<form method='get' action=''>";
-echo "<label for='estatus'>Filtrar por Estatus:</label>";
+echo "<label class='label1' for='estatus'>Filtrar por Estatus:</label>";
 echo "<select name='estatus' id='estatus'>";
 echo "<option value=''>--Seleccionar Estatus--</option>";
 echo "<option value='pendiente'" . ($estatus == 'pendiente' ? ' selected' : '') . ">Pendiente</option>";
@@ -195,6 +196,17 @@ if (!empty($historial)) {
 
         </main>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector(".sidebar");
+        const menuToggle = document.querySelector(".menu-toggle");
+
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("hidden");
+            menuToggle.classList.toggle("hidden");
+        });
+    });
+</script>
 </body>
 
 </html>

@@ -2,66 +2,69 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    color: #000;
-    
-  }
+}
 
-  
-  .container {
+.container {
     display: flex;
     height: 100vh;
-    
-  }
-  
+}
+
 /* Barra lateral */
 .sidebar {
     width: 280px;
-    background: linear-gradient(to top , #1D4E89, #0D1F33, #0D1F33);
+    background: linear-gradient(to top, #1D4E89, #0D1F33, #0D1F33);
     color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-  
-  }
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    transition: transform 0.3s ease-in-out; /* Para animar la transición */
+    z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
 
-  nav{
+.sidebar.hidden {
+    transform: translateX(-280px); /* Oculta el menú desplazando */
+}
+nav{
     width: 100%;
-  }
-  
-  
-  .sidebar .profile {
+}
+
+.sidebar .profile {
     text-align: center;
     margin-bottom: 30px;
     padding-top: 20px;
-  }
-  
- .titleName{
+}
+
+.titleName{
     font-size: 14pt;
     padding: 10px 0px;
- }
+}
 .titleMail{
     font-size: 9pt;
     opacity: 0.5;
 }
- 
 
-  .linkLabel{ 
+.linkLabel{ 
     color: #ffffffb4;
     font-size: 18px;
     cursor: pointer;
-  }
-  
-  .sidebar nav ul {
+}
+
+.sidebar nav ul {
     list-style: none;
     padding: 0;
     width: 100%;
-  }
-  
-  .sidebar nav ul li {
+}
+
+.sidebar nav ul li {
     margin: 15px 0;
-  }
-  
-  .sidebar nav ul li a {
+}
+
+.sidebar nav ul li a {
     display: block;
     text-decoration: none;
     font-size: 18px;
@@ -73,28 +76,26 @@ body {
     box-sizing: border-box; /* Considera el padding dentro del ancho */
 }
 
-
-  /* Estilo del contenido principal */
-  .main-content {
+/* Estilo del contenido principal */
+.main-content {
     flex: 1;
     padding: 10px;
     display: flex;
     flex-direction: column;
-  }
-  
-  .header {
+}
+
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-  }
-  
-  .header h1 {
+}
+
+.header h1 {
     margin: 0;
-   
-  }
-  
-  .add-site {
+}
+
+.add-site {
     background-color: #00366f;
     color: #fff;
     border: none;
@@ -102,37 +103,38 @@ body {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-  }
-  
-  .add-site:hover {
+}
+
+.add-site:hover {
     background-color: #00366f;
-  }
-  
-  .content {
+}
+
+.content {
     background-color: #FFF;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    height: 100vh;
-  }
-  
-  .sidebar .logo {
+    min-height: 100vh; /* Esto asegura que la altura mínima sea igual a la altura de la ventana, pero puede crecer */
+    flex-grow: 1; /* Esto permite que el contenido se expanda y ocupe más espacio si es necesario */
+}
+
+
+.sidebar .logo {
     width: 100px;
     height: auto;
     opacity: 0.6;
     margin-top: 5px;
- 
-  }
-  
-  .sidebar .app-title {
+}
+
+.sidebar .app-title {
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 30px;
     text-align: center;
     height: 1px;
-  }
-  
-  /* Contenedor del logo y el título */
+}
+
+/* Contenedor del logo y el título */
 .logo-container {
     margin-left: 0;
     display: flex;
@@ -140,35 +142,32 @@ body {
     height: 70px;
     width: 100%;
     justify-content: space-between;
-  }
-  
-  
-  /* Logo de la aplicación */
-  .logo {
+}
+
+/* Logo de la aplicación */
+.logo {
     width: 80px; /* Aumenta el tamaño del logo */
     height: auto; /* Mantiene la proporción de la imagen */
-   
-   
-  }
-  
-  /* Título de la aplicación */
-  .app-title {
+}
+
+/* Título de la aplicación */
+.app-title {
     font-size: 20px;
     font-weight: bold;
     color: #fff;
     letter-spacing: 10px;
     opacity: 0.7;
     margin-left: 20px;
-  }
-  
-  /* Perfil del usuario */
-  .user-avatar {
+}
+
+/* Perfil del usuario */
+.user-avatar {
     width:100px;
     height: 100px;
     border-radius: 50%;
     border: 2.5px solid #e7e7e7;
     margin: 20px 0 10px;
-  }
+}
 
 /* Enlace principal del menú desplegable */
 .dropdown {
@@ -193,7 +192,6 @@ body {
 
 /* Estilo del menú desplegable */
 .dropdown-menu {
-    display: none; /* Oculto por defecto */
     position: absolute;
     top: 100%;
     left: 0;
@@ -226,26 +224,24 @@ body {
     display: block;
 }
 
-
 /* Estilos del formulario */
 form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
 }
 
 h2 {
+  font-size: 24px;
+  color: #001637;
   text-align: center;
-  color: #003366; /* Azul marino oscuro */
-  font-size: 23px; /* Tamaño de fuente más grande para un mejor impacto */
-  font-weight: 500; /* Fuente más gruesa para destacar el título */
-  margin-bottom: 20px;
-  text-transform: uppercase; /* Para un estilo más moderno y profesional */
-  letter-spacing: 1px; /* Espaciado entre letras para dar un toque más elegante */
-  line-height: 1.3; /* Mayor espacio entre las líneas para una mejor legibilidad */
+  font-weight: bold;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 10px;
 }
-
 
 h4 {
   color: #001c32; 
@@ -303,4 +299,60 @@ input:focus, select:focus {
 
 .submit-btn:hover {
   background-color: #3156d4;
+}
+
+/* Menú hamburguesa */
+.menu-toggle {
+    position: fixed;
+    bottom: 20px; /* Ubicado en la parte inferior */
+    left: 20px; /* Ubicado en la izquierda */
+    background-color: #366aaa;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1100;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.menu-toggle span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px auto;
+}
+
+/* Contenido principal */
+/* Contenido principal */
+.main-content {
+    flex: 1;
+    margin-left: 280px; /* Mantén el margen para dispositivos más grandes */
+    padding: 20px;
+    transition: margin-left 0.3s ease-in-out;
+    overflow: auto; /* Permite el desplazamiento si el contenido es más largo que la ventana */
+    min-height: 100vh; /* Asegura que ocupe al menos el 100% de la altura de la pantalla */
+}
+
+/* Cuando el sidebar se oculta, el contenido principal debe ocupar todo el espacio disponible */
+.sidebar.hidden ~ .main-content {
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 220px; /* Ajusta el tamaño de la barra lateral */
+    }
+
+    .sidebar.hidden {
+        transform: translateX(-220px); /* Cuando se oculte, el sidebar se moverá */
+    }
+
+    .main-content {
+        margin-left: 0; /* En pantallas pequeñas no debe haber margen en el contenido */
+        padding: 10px; /* Un pequeño ajuste en el padding para mayor consistencia */
+        min-height: auto; /* Deja que el contenido crezca en altura según lo necesite */
+    }
 }
