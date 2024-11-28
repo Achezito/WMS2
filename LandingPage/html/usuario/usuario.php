@@ -49,11 +49,11 @@ if (isset($_SESSION['edificio_id'])) {
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Principal</title>
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/solicitud.css">
-    <link rel="stylesheet" href="../../css/hom2.css">
+    <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../js/index.js"></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
@@ -61,6 +61,7 @@ if (isset($_SESSION['edificio_id'])) {
 
 <body>
     <div class="container">
+    <button class="menu-toggle">☰</button>
         <!-- Barra lateral -->
         <aside class="sidebar">
             <div class="logo-container">
@@ -125,15 +126,15 @@ if (isset($_SESSION['edificio_id'])) {
                 <h2 class="form-title">Formulario de Solicitud</h2>
                 <form id="solicitudForm" class="styled-form">
                     <div class="input-group">
-                        <label for="nombre" class="input-label">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" class="input-field" value="<?php echo $_SESSION['nombre']; ?>" readonly>
+                        <label for="nombre" class="label1">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" class="input-label" value="<?php echo $_SESSION['nombre']; ?>" readonly>
                     </div>
 
                     <input type="hidden" name="id" value="<?php echo $_SESSION['user_id']; ?>">
 
                     <div class="input-group">
                         <div class="custom-select-wrapper">
-                            <label for="material" class="input-label">Material(es)</label>
+                            <label for="material" class="label1">Material(es)</label>
                             <select id="material" name="material[]" class="custom-multi-select" multiple required>
                                 <?php
                                 if (!empty($materiales)) {
@@ -151,12 +152,12 @@ if (isset($_SESSION['edificio_id'])) {
                     </div>
 
                         <div class="input-group">
-                            <label for="comentarios" class="input-label">Notas</label>
+                            <label for="comentarios" class="label1">Notas</label>
                             <textarea name="comentarios" class="input-field textarea" placeholder="Escribe tu comentario aquí" rows="4" required></textarea>
                         </div>
 
                         <div class="input-group">
-                            <label for="fecha" class="input-label">Fecha de Solicitud</label>
+                            <label for="fecha" class="label1">Fecha de Solicitud</label>
                             <input type="date" id="fecha" name="fecha" class="input-field" value="<?php echo date('Y-m-d'); ?>" readonly>
                         </div>
 
@@ -181,6 +182,18 @@ if (isset($_SESSION['edificio_id'])) {
 
         </main>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector(".sidebar");
+        const menuToggle = document.querySelector(".menu-toggle");
+
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("hidden");
+            menuToggle.classList.toggle("hidden");
+        });
+    });
+</script>
+
 </body>
 
 </html>

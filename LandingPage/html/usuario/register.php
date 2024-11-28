@@ -14,9 +14,10 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Sign In / Sign Up</title>
     <link rel="stylesheet" href="../../css/register.css">
+    <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <script src="../../js/register_user.js"></script>
     <script src="../../js/login.js"></script>
     <script src="../../js/registerAJAX.js"></script>
@@ -24,6 +25,7 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
 
 <body>
     <div class="container">
+    <button class="menu-toggle">☰</button>
         <div class="left-panel">
             <div class="branding">
                 <img src="../../img/Logos/LineLogo.png" alt="Logo" class="logo">
@@ -85,6 +87,17 @@ require_once BASE_PATH . '/phpFiles/Models/edificios.php';
             </div>
         </div>
     </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.querySelector(".sidebar");
+        const menuToggle = document.querySelector(".menu-toggle");
+
+        menuToggle.addEventListener("click", () => {
+            sidebar.classList.toggle("hidden");
+            menuToggle.classList.toggle("hidden");
+        });
+    });
+</script>
 </body>
 
 </html>
