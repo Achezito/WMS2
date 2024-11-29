@@ -92,9 +92,9 @@ if (isset($_GET['id'])) {
                 <div class="card-icon">
                     <i class="fas fa-box"></i>
                 </div>
-                <h3>Gestión de Inventario</h3>
+                <h3>Gestión de Prestamos</h3>
                 <p>Visualiza, organiza y actualiza el inventario de materiales.</p>
-                <a href="../../html/admin/gestion_inventario.php" class="card-btn">Gestionar</a>
+                <a href="../../html/admin/gestion_prestamos.php" class="card-btn">Gestionar</a>
             </div>
 
             <div class="cardAdmin">
@@ -112,7 +112,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <h3>Gestión de Préstamos</h3>
                 <p>Revisa y administra las solicitudes de préstamos.</p>
-                <a href="../../html/admin/gestionar_prestamos.php" class="card-btn">Revisar</a>
+                <a href="../../html/admin/gestion_prestamos.php" class="card-btn">Revisar</a>
             </div>
 
             <div class="cardAdmin">
@@ -122,6 +122,15 @@ if (isset($_GET['id'])) {
                 <h3>Reportes</h3>
                 <p>Genera reportes detallados sobre el uso del sistema.</p>
                 <a href="../../html/admin/reportes.php" class="card-btn">Ver Reportes</a>
+            </div>
+
+            <div class="cardAdmin">
+                <div class="card-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Inventario</h3>
+                <p>Genera reportes detallados sobre el uso del sistema.</p>
+                <a href="../../html/admin/gestion_inventario.php" class="card-btn">Ver Reportes</a>
             </div>
         </div>
     </section>

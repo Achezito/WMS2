@@ -9,7 +9,7 @@ if (!isset($_SESSION['personal_id']) && $_SESSION['user_type'] != 'administrador
     exit();
 }
 
-$personal_id = $_SESSION['personal_id'];
+$personal_id = 9;
 
 function obtenerPrestamos($estado) {
     $conn = Conexion::get_connection();
@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         actualizarPrestamo($prestamo_id, $estado, $personal_id, $fecha_devolucion);
     }
 
-    header("Location: personal_prestamos.php");
+    header("Location: ../../html/admin/gestion_prestamos.php");
     exit();
 }
 

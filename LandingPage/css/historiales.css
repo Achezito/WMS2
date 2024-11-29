@@ -163,43 +163,10 @@ td.estatus span {
     text-transform: capitalize;
 }
 
-/* Colores de estatus */
-.disponible {
-    border-color: #27ae60;
-    color: #27ae60;
-    background-color: rgba(39, 174, 96, 0.1);
-}
-
-.enUso {
-    border-color: #f1c40f;
-    color: #f1a20f;
-    background-color: rgba(241, 135, 15, 0.1);
-}
-
-.enMantenimiento {
-    border-color: #3498db;
-    color: #3498db;
-    background-color: rgba(52, 152, 219, 0.1);
-}
-
-.fueraDeServicio {
-    border-color: #c77384;
-    color: #c77384;
-    background-color: #f2e6e7;
-}
-
 /* Hover en filas */
 table tr:hover td {
     background-color: #eaf1f8;
     cursor: pointer;
-}
-
-/* Estilo para mensajes cuando no hay usuarios */
-.no-users-message {
-    font-size: 18px;
-    color: #333;
-    text-align: center;
-    margin-top: 20px;
 }
 
 /* Estilo de la tabla cuando está vacía */

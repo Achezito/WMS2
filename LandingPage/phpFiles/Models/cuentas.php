@@ -17,6 +17,7 @@ class Cuenta
            p.primer_apellido as PrimerApellido,
            p.telefono as Telefono,
            p.correo as Correo,
+           u.estado as Estado,
            u.nombre as NombreUsuario,
            u.correo as CorreoUsuario,
            p.edificio_id as EdificioPersonal,
@@ -49,7 +50,9 @@ class Cuenta
             $nombre,
             $primerApellido,
             $telefono,
+            
             $correoPersonal,
+            $estado,
             $nombreUsuario,
             $correoUsuario,
             $edificio_idPersonal,
@@ -63,7 +66,7 @@ class Cuenta
                     $fullName = Personal::setFullname($nombre, $primerApellido);
                     return new Personal($personal_id, $fullName, $primerApellido, null, $telefono, $correoPersonal, $edificio_idPersonal, $username);
                 } else if ($type === 'usuario') {
-                    return new Usuario($usuario_id, $nombreUsuario, null, null, $correoUsuario, $edificio_idUsuario, $username);
+                    return new Usuario($usuario_id, $nombreUsuario, null, $estado, $correoUsuario, $edificio_idUsuario, $username);
                 } else if ($type === 'administrador') { // Nuevo caso para administrador
                     return new Administrador($id, $username);
                 }
