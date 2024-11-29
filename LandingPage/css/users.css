@@ -1,0 +1,141 @@
+
+#users-content {
+    margin: 80px 20px 0 20px;
+    width: calc(100% - 40px);
+    height: 75vh;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+h2 {
+    font-size: 24px;
+    color: #0861a5;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Buscador */
+/* Contenedor del encabezado */
+.header-container {
+    display: flex;
+    justify-content: flex-end;  /* Alinea el contenido al lado derecho */
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;  /* Asegura que el contenedor ocupe todo el ancho */
+}
+
+/* Estilo del campo de búsqueda */
+#searchInput {
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+/* Efecto cuando el campo de búsqueda está enfocado */
+#searchInput:focus {
+    border-color: #0861a5;
+    box-shadow: 0 0 8px rgba(8, 97, 165, 0.3);
+}
+
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Encabezado de la tabla */
+table th {
+    background-color: #f0f4f8;
+    color: #333333;
+    text-align: left;
+    font-size: 16px;
+    padding: 12px;
+    border-bottom: 2px solid #e6e8eb;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Filas de la tabla */
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 14px;
+    background: #f9fafc;
+}
+
+/* Estatus */
+td.estatus {
+    text-align: center;
+}
+
+td.estatus span {
+    display: inline-block;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid;
+    border-radius: 16px;
+    text-transform: capitalize;
+}
+
+
+
+/* Estilo para la fila de encabezado fija al scroll */
+table tr:hover td {
+    background-color: #eaf1f8;
+    cursor: pointer;
+}
+
+/* Bordes redondeados */
+table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    #users-content {
+        margin: 100px 10px 0 10px;
+        padding: 10px;
+    }
+
+    #searchInput {
+        width: 100%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    table th, table td {
+        padding: 10px;
+    }
+}

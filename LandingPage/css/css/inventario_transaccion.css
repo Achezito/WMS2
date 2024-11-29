@@ -1,0 +1,59 @@
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+#materialesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#materialesTable th, #materialesTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#materialesTable th {
+    background-color: #f2f2f2;
+}
+
+.eliminarMaterial {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.eliminarMaterial:hover {
+    background-color: #e53935;
+}
+
+/* Nuevo CSS para limitar la altura del formulario y agregar scroll */
+.form-container {
+    max-height: 90vh; /* Ajusta la altura según tus necesidades */
+    overflow-y: auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(to right, #0066af, #259bfc);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background: linear-gradient(to right, #259bfc, #0066af);
+    transform: translateY(-2px);
+}

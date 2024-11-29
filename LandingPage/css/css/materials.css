@@ -1,0 +1,162 @@
+/* Encabezado principal */
+h2 {
+    font-size: 24px;
+    color: #003a73;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Buscador */
+/* Contenedor del título y el buscador */
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Estilo del título */
+.header-container h2 {
+    font-size: 24px;
+    color: #0861a5;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Estilo del buscador */
+#searchInput {
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+#searchInput:focus {
+    border-color: #0861a5;
+    box-shadow: 0 0 8px rgba(8, 97, 165, 0.3);
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Encabezado de la tabla */
+table th {
+    background-color: #f0f4f8;
+    color: #333333;
+    text-align: left;
+    font-size: 16px;
+    padding: 12px;
+    border-bottom: 2px solid #e6e8eb;
+    text-transform: uppercase;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+/* Filas de la tabla */
+table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 14px;
+    background: #f9fafc;
+}
+
+/* Estatus */
+td.estatus {
+    text-align: center;
+}
+
+td.estatus span {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    border: 2px solid; /* Borde */
+    border-radius: 8px;
+    text-transform: capitalize;
+}
+
+/* Colores específicos */
+.disponible {
+    border-color: #27ae60; /* Verde oscuro */
+    color: #27ae60;
+    background-color: rgba(39, 174, 96, 0.1); /* Fondo verde suave */
+}
+
+.enUso {
+    border-color: #f1c40f; /* Amarillo oscuro */
+    color: #f1a20f;
+    background-color: rgba(241, 135, 15, 0.1); /* Fondo amarillo suave */
+}
+
+.enMantenimiento {
+    border-color: #3498db; /* Azul oscuro */
+    color: #3498db;
+    background-color: rgba(52, 152, 219, 0.1); /* Fondo azul suave */
+}
+
+.fueraDeServicio {
+    border-color: #c77384; /* Rojo oscuro */
+    color: #c77384;
+    background-color: #f2e6e7; /* Fondo rojo suave */
+}
+
+
+
+/* Hover en las filas */
+table tr:hover td {
+    background-color: #eaf1f8;
+    cursor: pointer;
+}
+
+/* Bordes redondeados */
+table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.scrollable-table {
+    max-height: 600px; /* Ajusta este valor según tu diseño */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+/* Asegura que la tabla ocupe el ancho completo */
+.scrollable-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Opcional: Ajuste para evitar que el encabezado se mueva al hacer scroll */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f0f4f8;
+    z-index: 2;
+}

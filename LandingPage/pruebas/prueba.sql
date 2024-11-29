@@ -48,6 +48,10 @@ JOIN
 WHERE e.edificio_id = p.edificio_id AND s.estatus = 'disponible';
 
 
+INSERT INTO cuentas(contraseña) VALUES 
+(SHA1('1234'))
+
+
 CREATE VIEW vista_prestamos_materiales AS
 SELECT 
     p.prestamo_id,
@@ -75,7 +79,10 @@ JOIN mantenimiento_material mm ON m.mantenimiento_id = mm.mantenimiento_id
 JOIN materiales ma ON mm.material_id = ma.material_id;
 
 
+ALTER TABLE usuarios
+ADD CONSTRAINT fk_edificio FOREIGN KEY (edificio_id) REFERENCES edificios(edificio_id)
 
+ALTER TABLE usuarios ADD COLUMN edificio_id INT NOT NULL;
 
 SELECT 
     pe.nombre, 
@@ -98,11 +105,28 @@ WHERE
 
 
 ALTER TABLE prestamos
-ADD COLUMN usuario_id INT NOT NULL,
+
 ADD FOREIGN KEY (usuario_id) REFERENCES usuarios(usuario_id);
+
+
 
 
 
 SELECT 
 FROM materiales 
 WHERE
+
+
+INSERT INTO usuarios (usuario_id, nombre, descripcion, estado, edificio_id)
+VALUES (4, 'Jose Perez', 'Alumno', 'alta', 1),
+(5, 'Jose Perez', 'Alumno', 'alta', 1),
+(6, 'Jose Perez', 'Alumno', 'alta', 1),
+(7, 'Jose Perez', 'Alumno', 'alta', 1),
+(8, 'Jose Perez', 'Alumno', 'alta', 1);
+
+SELECT i.material_id, i.serie, i.modelo, tm.nombre AS tipo_material, e.nombre, es.estatus AS edificio
+            FROM wms.inventario i
+            JOIN wms.tipo_material tm ON i.tipo_material_id = tm.tipo_material_id
+            JOIN wms.edificios e ON i.edificio_id = e.edificio_id
+            JOIN estatus es on i.estatus_id = es.estatus_id
+            WHERE i.edificio_id = 1 

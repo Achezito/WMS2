@@ -1,22 +1,27 @@
 <?php
-require_once('C:/xampp/htdocs/WMS2/LandingPage/phpFiles/config/conexion.php');
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/config/conexion.php';
 
 class Personal {
     private $personal_id;
     private $nombre;
     private $primer_apellido;
     private $segundo_apellido;
+    private $telefono;
+    private $correo;
     private $edificio_id;
     private $username; // Nueva propiedad para almacenar el nombre de usuario
 
 
 
 
-    public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $edificio_id = null, $username = null) {
+    public function __construct($personal_id = null, $nombre = null, $primer_apellido = null, $segundo_apellido = null, $telefono = null,$correo = null, $edificio_id = null, $username = null) {
         $this->personal_id = $personal_id;
         $this->nombre = $nombre;
         $this->primer_apellido = $primer_apellido;
         $this->segundo_apellido = $segundo_apellido;
+        $this->telefono = $telefono;
+        $this->correo = $correo;
         $this->edificio_id = $edificio_id;
         $this->username = $username;
     }
@@ -65,6 +70,25 @@ class Personal {
     }
 
 
+    public function getTelefono() {
+        return $this->telefono;
+    }
+
+    public function setTelefono($telefono) {
+        $this->telefono = $telefono;
+    }
+
+
+    public function getCorreo() {
+        return $this->correo;
+    }
+
+    public function setCorreo($correo) {
+        $this->correo = $correo;
+    }
+
+
+
 
 
     public function getEdificioId() {
@@ -90,21 +114,22 @@ class Personal {
 
     public function getEdificioDetails() {
         $connection = Conexion::get_connection();
-        $query = "SELECT nombre FROM edificios WHERE edificio_id = ?";  // Consulta para obtener nombre y dirección del edificio
-
+        $query = "SELECT nombre FROM edificios WHERE edificio_id = ?";
+    
         // Preparar la consulta y ejecutar
         $command = $connection->prepare($query);
-        $command->bind_param('i', $this->edificio_id);  // Usamos el edificio_id del objeto
+        $command->bind_param('i', $this->edificio_id);  
         $command->execute();
-        $command->bind_result($nombre_edificio, $direccion_edificio);  // Resultados de la consulta
-
+        $command->bind_result($nombre_edificio, $direccion_edificio); 
+    
         if ($command->fetch()) {
-            return array("nombre" => $nombre_edificio);
+            $result = array("nombre" => $nombre_edificio);
         } else {
-            return "Edificio no encontrado";  // Si no se encuentra el edificio
+            $result = "Edificio no encontrado";
         }
-
+    
         $connection->close();
-    }
+        return $result;
+    }    
 }
 

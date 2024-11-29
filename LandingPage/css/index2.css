@@ -1,0 +1,43 @@
+  /* Estilos generales de la tabla */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  
+}
+
+table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo para mensajes cuando no hay usuarios */
+.no-users-message {
+    font-size: 18px;
+    color: #333;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Estilo de la tabla cuando está vacía */
+.empty-table {
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
+}
+
+
+.content-box{
+    height: 100%;
+}
