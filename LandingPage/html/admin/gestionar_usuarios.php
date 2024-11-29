@@ -57,7 +57,7 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/admin.css">
     <link rel="stylesheet" href="../../css/hom2.css">
-    <link rel="stylesheet" href="../../css/gestionarUsuario.css">
+    <link rel="stylesheet" href="../../css/gestionarUsuarioAdmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../js/index.js"></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
@@ -101,9 +101,10 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                 <button class="btn btn-add" id="addUserBtn">+ Añadir Usuario</button>
 
                 <!-- Contenedor con scroll para la tabla de usuarios -->
-                <div class="table-container">
+                <div >
                     <!-- Tabla de usuarios -->
-                    <table class="user-table">
+                    <div class="table-scroll">
+                    <table >
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -119,12 +120,13 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                                     <td><?php echo $c['nombre_usuario']; ?></td>
                                     <td><?php echo $c['tipo_cuenta']; ?></td>
                                     <td>
-                                        <button class="btn btn-actions" id="">Acciones</button>
+                                        <button class="btn-acciones" id="">Acciones</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
                 </div>
             </section>
         </main>

@@ -151,7 +151,7 @@ echo "<button type='submit' class= 'btn-filtrar'>Filtrar</button>";
 echo "</form>";
 
 if (!empty($historial)) {
-    echo '<h2 class="titulo-historial">Historial de Préstamos actuales</h2>';
+    echo '<h2 class="titulo-historial">Historial</h2>';
     echo '<div class="lista-prestamos">';
 
     foreach ($historial as $prestamo) {

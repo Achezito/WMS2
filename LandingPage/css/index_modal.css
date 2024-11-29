@@ -62,7 +62,7 @@
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
-    background-color: #4CAF50;
+    background-color: #004890;
     color: white;
     font-size: 16px;
     cursor: pointer;
@@ -70,7 +70,7 @@
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color: #6c9bc5;
   }
   
   .scrollable-table {

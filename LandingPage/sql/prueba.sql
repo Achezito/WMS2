@@ -531,3 +531,8 @@ LEFT JOIN
     usuarios u ON pr.usuario_id = u.usuario_id;
     
     SELECT tipo_material_id as tpi, nombre, categoria FROM tipo_material
+
+
+    INSERT INTO personales (personal_id, nombre, primer_apellido, segundo_apellido, telefono, correo)
+     VALUES (0, 'Administrador', 'Gomez', 'perez','66432434', 'admin@gmail.com');
+

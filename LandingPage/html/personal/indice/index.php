@@ -17,7 +17,7 @@ if (isset($_SESSION['ultimo_acceso'])) {
   if ($inactividad > $limite_inactividad) {
     session_unset();
     session_destroy();
-    header("Location: ../../../html/login.php?sesion=expirada");
+    header("Location: ../../html/login.php?sesion=expirada");
     exit();
   }
 }
@@ -26,8 +26,8 @@ if (isset($_SESSION['ultimo_acceso'])) {
 $_SESSION['ultimo_acceso'] = time();
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_type'])) {
-  header('location: ../../../html/login.php');
+if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'personal') {
+  header('Location: ../../../index.php');
   exit();
 }
 

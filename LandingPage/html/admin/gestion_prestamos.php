@@ -25,8 +25,9 @@ if (!isset($_SESSION['user_type'])) {
     exit();
 }
 
-$personal_id = $_SESSION['personal_id'];
+
 $edificio_id = $_SESSION['edificio_id'];
+
 
 function obtenerPrestamos($estado, $edificio_id) {
     $conn = Conexion::get_connection();
@@ -119,14 +120,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else if ($estado == 'finalizado') {
         $fecha_devolucion = date('Y-m-d');
         if (actualizarInventario($prestamo_id, $estado)) {
-            actualizarPrestamo($prestamo_id, $estado, $personal_id, $fecha_devolucion);
+            actualizarPrestamo($prestamo_id, $estado, $personal_id = 9, $fecha_devolucion);
         }
     } else if ($estado == 'rechazado') {
         $fecha_devolucion = date('Y-m-d');
-        actualizarPrestamo($prestamo_id, $estado, $personal_id, $fecha_devolucion, $notas);
+        actualizarPrestamo($prestamo_id, $estado, $personal_id = 9, $fecha_devolucion, $notas);
     }
 
-    header("Location: personal_prestamos.php");
+    header("Location: gestion_prestamos.php");
     exit();
 }
 
@@ -198,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
     <link rel="stylesheet" href="../../css/personal_prestamos.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../../js/index.js"></script>
-    <script src="../../js/pp_modal.js"></script>
+    <script src="../../js/pp_modalAdmin.js"></script>
     
 </head>
 <body>
@@ -250,16 +251,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                             <td><?= $prestamo['fecha_salida'] ?></td>
                             <td><?= $prestamo['notas'] ?></td>
                             <td class="table-buttons">
-                                <form method="POST" action="personal_prestamos.php">
+                                <form method="POST" action="../../phpFiles/Models/personal_prestamosAdmin.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="aprobado">
-                                    <button class="aprobar" type="submit">Aprobar</button>
+                                    <button class="button3" type="submit">Aprobar</button>
                                 </form>
-                                <button class="rechazar" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="button2 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
                                 
                             </td>
                             <td>
-                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                                    <button class="button2 ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -284,14 +285,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                             <td><?= $prestamo['fecha_salida'] ?></td>
                             <td><?= $prestamo['notas'] ?></td>
                             <td class="table-buttons">
-                                <form method="POST" action="personal_prestamos.php">
+                                <form method="POST" action="../../phpFiles/Models/personal_prestamosAdmin.php">
                                     <input type="hidden" name="prestamo_id" value="<?= $prestamo['prestamo_id'] ?>">
                                     <input type="hidden" name="estado" value="finalizado">
                                     <button class="button2" type="submit">Finalizar</button>
                                 </form>
                             </td>
                             <td>
-                                <button class="button2" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+                            <button class="button2 ver-materiales-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Ver Materiales</button>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -306,7 +308,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
     <div class="modal-content">
         <span class="close">&times;</span>
         <h4>Rechazar Préstamo</h4>
-        <form method="POST" action="personal_prestamos.php">
+        <form method="POST" action="gestion_prestamos.php">
             <input type="hidden" name="prestamo_id" id="rechazoPrestamoId">
             <input type="hidden" name="estado" value="rechazado">
             <div class="form-group">
