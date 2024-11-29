@@ -3,16 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function init() {
-    // Inicialización para el ícono de cerrar sesión
-    const logoutIcon = document.getElementById('logout-icon');
-    if (logoutIcon) {
-        logoutIcon.addEventListener('click', function () {
-            // Redirige al login.html cuando se hace clic
-            window.location.href = 'login.html'; // Ajusta la ruta si es necesario
-        });
-    } else {
-        console.log('No se encontró el ícono de cerrar sesión');
-    }
 
     // Inicialización para los botones de editar
     const editButtons = document.querySelectorAll('.edit-button');
