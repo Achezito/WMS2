@@ -50,6 +50,7 @@ try {
         $_SESSION['correo'] = $user->getCorreo();
         $_SESSION['nombre'] = $user->getNombre();
         $_SESSION['edificio_id'] = $user->getEdificioId();
+        $_SESSION['Estado'] = $user->getEstado();
 
         echo json_encode([
             "success" => true,

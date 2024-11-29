@@ -26,8 +26,8 @@ $_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
 
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_type'])) {
-    header('location: ../../html/login.php');
+if (!isset($_SESSION['user_type']) || $_SESSION['Estado'] != 'alta') {
+    header('location: ../../index.php');
     exit();
 }
 

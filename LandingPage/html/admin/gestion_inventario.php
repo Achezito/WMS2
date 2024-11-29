@@ -2,18 +2,34 @@
 session_start();
 require_once __DIR__ . '/../../config/config.php';
 require_once BASE_PATH . '/phpFiles/Models/inventario.php';
-require_once BASE_PATH . '/phpFiles/Models/tipo_material.php';
 
 // Verificar si el usuario es administrador
 if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] != 'administrador') {
-  header('Location: ../../html/login.php');
-  exit();
+    header('Location: ../html/login.php');
+    exit();
 }
 
 // Verificar el tiempo de inactividad
 $limite_inactividad = 100000; // Tiempo en segundos
 if (isset($_SESSION['ultimo_acceso'])) {
+    $inactividad = time() - $_SESSION['ultimo_acceso'];
+    if ($inactividad > $limite_inactividad) {
+        session_unset();
+        session_destroy();
+        header("Location: ../html/login.php?sesion=expirada");
+        exit();
+    }
+}
+$_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
+
+
+$tipos_materiales = inventario::obtenerTiposMateriales();
+
+// Verificar el tiempo de inactividad
+if (isset($_SESSION['ultimo_acceso'])) {
   $inactividad = time() - $_SESSION['ultimo_acceso'];
+
+  // Si el tiempo de inactividad supera el límite, cerrar sesión y redirigir
   if ($inactividad > $limite_inactividad) {
     session_unset();
     session_destroy();
@@ -21,311 +37,181 @@ if (isset($_SESSION['ultimo_acceso'])) {
     exit();
   }
 }
-$_SESSION['ultimo_acceso'] = time(); // Actualizar el último acceso
 
+// Actualizar el tiempo de último acceso
+$_SESSION['ultimo_acceso'] = time();
 
+// Verificar si el usuario ha iniciado sesión
+if (!isset($_SESSION['user_type'])) {
+  header('location: ../../html/login.php');
+  exit();
+}
 
-// Verificar si el edificio está asignado
-if (isset($_GET['id'])) {
-  $edificio_id = $_GET['id'];
-  $_SESSION['edificio_id'] = $edificio_id; // Almacenar el ID del edificio en la sesión
-  $edificios = Inventario::obtenerMaterialesPorEdificioYEstatus($edificio_id);
+if (isset($_SESSION['edificio_id'])) {
+  $edificio_id = $_SESSION['edificio_id'];
+  $materiales = Inventario::obtenerMaterialesPorEdificio($edificio_id);
 } else {
-  // Si no hay edificio asignado, verifica si ya está en la sesión
-  if (isset($_SESSION['edificio_id'])) {
-    $edificio_id = $_SESSION['edificio_id'];
-    $edificios = Inventario::obtenerMaterialesPorEdificioYEstatus($edificio_id);
-    $materiales = Inventario::obtenerMaterialesPorEdificio($edificio_id);
+  echo "Error: No se ha asignado un edificio al usuario actual.";
+  exit();
+}
+
+// Manejar la actualización del material
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_material'])) {
+  $material_id = $_POST['material_id'];
+  $serie = $_POST['serie'];
+  $modelo = $_POST['modelo'];
+  $tipo_material_id = $_POST['tipo_material'];
+
+  $resultado = inventario::actualizarMaterial($material_id, $serie, $modelo, $tipo_material_id);
+
+  if ($resultado) {
+    $mensaje = "Material actualizado correctamente.";
   } else {
-    echo "Error: No se ha asignado un edificio al usuario actual.";
-    exit();
-  }
-}
-$proveedores = obtenerProveedores();
-$tiposMaterial = obtenerTiposMaterial();
-$materialesDisponibles = obtenerMaterialesDisponibles($edificio_id);
-
-
-
-function obtenerProveedores() {
-  $conn = Conexion::get_connection();
-  $query = "SELECT * FROM proveedores";
-  $result = $conn->query($query);
-  return $result->fetch_all(MYSQLI_ASSOC);
-}
-
-function obtenerTiposMaterial() {
-  $conn = Conexion::get_connection();
-  $query = "SELECT * FROM tipo_material";
-  $result = $conn->query($query);
-  return $result->fetch_all(MYSQLI_ASSOC);
-}
-
-function obtenerMaterialesDisponibles($edificio_id) {
-  $conn = Conexion::get_connection();
-  $query = "SELECT material_id, serie, modelo FROM inventario WHERE edificio_id = ? AND estatus_id = 1";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("i", $edificio_id);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  return $result->fetch_all(MYSQLI_ASSOC);
-}
-
-function insertarTransaccion($tipo_transaccion, $notas) {
-  $conn = Conexion::get_connection();
-  $fecha_inicio = date('Y-m-d');
-  $fecha_final = ($tipo_transaccion === 'salida') ? $fecha_inicio : null;
-
-  $query = "INSERT INTO transacciones (tipo_transaccion, fecha_inicio, fecha_final, notas) 
-            VALUES (?, ?, ?, ?)";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("ssss", $tipo_transaccion, $fecha_inicio, $fecha_final, $notas);
-  $stmt->execute();
-  return $stmt->insert_id;
-}
-
-function insertarMaterial($serie, $modelo, $tipo_material, $edificio_id, $estatus_id) {
-  $conn = Conexion::get_connection();
-  $query = "INSERT INTO inventario (serie, modelo, tipo_material_id, edificio_id, estatus_id) 
-            VALUES (?, ?, ?, ?, ?)";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("ssiii", $serie, $modelo, $tipo_material, $edificio_id, $estatus_id);
-  $stmt->execute();
-  return $stmt->insert_id;
-}
-
-function insertarInventarioTransaccion($transaccion_id, $material_id, $personal_id, $proveedor_id) {
-  $conn = Conexion::get_connection();
-  $query = "INSERT INTO inventario_transaccion (transaccion_id, material_id, personal_id, proveedor_id) 
-            VALUES (?, ?, ?, ?)";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("iiii", $transaccion_id, $material_id, $personal_id, $proveedor_id);
-  $stmt->execute();
-}
-
-function actualizarEstatusMaterial($material_id, $estatus_id) {
-  $conn = Conexion::get_connection();
-  $query = "UPDATE inventario SET estatus_id = ? WHERE material_id = ?";
-  $stmt = $conn->prepare($query);
-  $stmt->bind_param("ii", $estatus_id, $material_id);
-  $stmt->execute();
-}
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $tipo_transaccion = $_POST['tipo_transaccion'];
-  $proveedor_id = $_POST['proveedor'];
-  $notas = $_POST['notas'];
-
-  // Insertar un nuevo proveedor si es necesario
-  if ($proveedor_id == 'nuevo') {
-      $nombre = $_POST['nuevo_proveedor_nombre'];
-      $telefono = $_POST['nuevo_proveedor_telefono'];
-      $correo = $_POST['nuevo_proveedor_correo'];
-      $proveedor_id = insertarProveedor($nombre, $telefono, $correo);
+    $mensaje = "Error al actualizar el material.";
   }
 
-  $transaccion_id = insertarTransaccion($tipo_transaccion, $notas);
-
-  if ($tipo_transaccion === 'salida') {
-      $materiales_seleccionados = $_POST['materiales'];
-      foreach ($materiales_seleccionados as $material_id) {
-          actualizarEstatusMaterial($material_id, 4); // Cambiar estatus a 'Fuera de servicio'
-          insertarInventarioTransaccion($transaccion_id, $material_id, $personal_id = 9, $proveedor_id);
-      }
-  } else if ($tipo_transaccion === 'entrada') {
-      // Insertar nuevos tipos de material si es necesario
-      $tipo_material_id = $_POST['tipo_material'];
-      if ($tipo_material_id == 'nuevo_tipo') {
-          $nombre_tipo = $_POST['nuevo_tipo_material_nombre'];
-          $categoria = $_POST['nuevo_tipo_material_categoria'];
-          $descripcion = $_POST['nuevo_tipo_material_descripcion'];
-          $tipo_material_id = insertarTipoMaterial($nombre_tipo, $categoria, $descripcion);
-      }
-
-      // Insertar materiales en el inventario y relacionarlos con la transacción
-      $series = $_POST['series'];
-      $modelos = $_POST['modelos'];
-      $tipos = $_POST['tipos'];
-      $estatus_id = 1;  // 'Disponible'
-
-      foreach ($series as $index => $serie) {
-          $material_id = insertarMaterial($serie, $modelos[$index], $tipos[$index], $edificio_id, $estatus_id);
-          insertarInventarioTransaccion($transaccion_id, $material_id, $personal_id = 9, $proveedor_id);
-      }
-  }
+  // Redirigir para evitar la reenvío del formulario al refrescar
+  header("Location: " . $_SERVER['PHP_SELF']);
+  exit();
 }
+
 
 
 ?>
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Principal</title>
   <link rel="stylesheet" href="../../css/index.css">
   <link rel="stylesheet" href="../../css/index2.css">
   <link rel="stylesheet" href="../../css/hom2.css">
   <link rel="stylesheet" href="../../css/materials.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="../../css/index_modal.css">
   <script src="../../js/index.js"></script>
-  <script src="../../js/inventario_transaccion.js"></script>
-  <link rel="stylesheet" href="../../css/inventario_transaccion.css">
+    
 </head>
-
 <body>
   <div class="container">
     <!-- Barra lateral -->
     <aside class="sidebar">
-      <div class="logo-container">
-        <h1 class="app-title">CISTA</h1>
-      </div>
-      <div class="profile">
-        <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
-        <h3 class="titleName">
-          <?php echo $_SESSION['username']; ?>
-        </h3>
-        <p class="titleMail"> <?php echo $_SESSION['username']; ?></p>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
-          <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
-          <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
-          <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-          <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
-          <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
-        </ul>
-      </nav>
-    </aside>
-
-    <!-- Contenido principal -->
-     <main class="main-content">
-        <section class="content">
-            <div class="form-container">
-                <h2>Registro de Transacción</h2>
-                <form method="POST" action="">
-                    <div class="form-group">
-                        <label for="tipo_transaccion">Tipo de Transacción:</label>
-                        <select name="tipo_transaccion" id="tipo_transaccion" required>
-                            <option value="entrada">Entrada</option>
-                            <option value="salida">Salida</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="proveedor">Proveedor:</label>
-                        <select name="proveedor" id="proveedor" required>
-                            <?php foreach ($proveedores as $proveedor): ?>
-                                <option value="<?= $proveedor['proveedor_id'] ?>"><?= $proveedor['nombre'] ?></option>
-                            <?php endforeach; ?>
-                            <option value="nuevo">Agregar nuevo proveedor</option>
-                        </select>
-                    </div>
-                    <div id="nuevoProveedor" style="display:none;">
-                        <div class="form-group">
-                            <label for="nuevo_proveedor_nombre">Nombre:</label>
-                            <input type="text" id="nuevo_proveedor_nombre" name="nuevo_proveedor_nombre">
-                        </div>
-                        <div class="form-group">
-                            <label for="nuevo_proveedor_telefono">Teléfono:</label>
-                            <input type="text" id="nuevo_proveedor_telefono" name="nuevo_proveedor_telefono">
-                        </div>
-                        <div class="form-group">
-                            <label for="nuevo_proveedor_correo">Correo:</label>
-                            <input type="email" id="nuevo_proveedor_correo" name="nuevo_proveedor_correo">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="notas">Notas:</label>
-                        <textarea name="notas" id="notas" rows="4"></textarea>
-                    </div>
-                    <div id="entradaMateriales">
-                        <div class="form-group">
-                            <label for="modelo_material">Modelo del Material:</label>
-                            <input type="text" id="modelo_material" name="modelo_material">
-                        </div>
-                        <div class="form-group">
-                            <label for="tipo_material">Tipo de Material:</label>
-                            <select name="tipo_material" id="tipo_material">
-                                <?php foreach ($tiposMaterial as $tipo): ?>
-                                    <option value="<?= $tipo['tipo_material_id'] ?>"><?= $tipo['nombre'] ?></option>
-                                <?php endforeach; ?>
-                                <option value="nuevo_tipo">Agregar nuevo tipo de material</option>
-                            </select>
-                        </div>
-                        <div id="nuevoTipoMaterial" style="display:none;">
-                            <div class="form-group">
-                                <label for="nuevo_tipo_material_nombre">Nombre:</label>
-                                <input type="text" id="nuevo_tipo_material_nombre" name="nuevo_tipo_material_nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="nuevo_tipo_material_categoria">Categoría:</label>
-                                <input type="text" id="nuevo_tipo_material_categoria" name="nuevo_tipo_material_categoria">
-                            </div>
-                            <div class="form-group">
-                                <label for="nuevo_tipo_material_descripcion">Descripción:</label>
-                                <textarea id="nuevo_tipo_material_descripcion" name="nuevo_tipo_material_descripcion" rows="3"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="cantidad_material">Cantidad de Materiales:</label>
-                            <input type="number" id="cantidad_material" name="cantidad_material" min="1">
-                            <button type="button" id="agregarMaterial">Agregar Material</button>
-                        </div>
-                        <div class="form-group">
-                            <div class="table-container">
-                                <table id="materialesTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Serie</th>
-                                            <th>Modelo</th>
-                                            <th>Tipo</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Aquí se generarán los templates de materiales -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="salidaMateriales" style="display:none;">
-                        <div class="form-group">
-                            <label for="materialesDisponibles">Materiales Disponibles:</label>
-                            <select id="materialesDisponibles">
-                                <?php foreach ($materialesDisponibles as $material): ?>
-                                    <option value="<?= $material['material_id'] ?>"><?= $material['serie'] ?> - <?= $material['modelo'] ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                            <button type="button" id="agregarMaterialSalida">Agregar Material</button>
-                        </div>
-                        <div class="form-group">
-                            <div class="table-container">
-                                <table id="agregarMaterialesTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Serie</th>
-                                            <th>Modelo</th>
-                                            <th>Acción</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Aquí se generarán los materiales seleccionados para salida -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit">Registrar Transacción</button>
-                </form>
+            <div class="logo-container">
+                <h1 class="app-title">CISTA</h1>
             </div>
-        </section>
+            <div class="profile">
+                <img class="user-avatar" src="../../img/Users/User.jpg" alt="User Avatar">
+                <h3 class="titleName">
+                    <?php echo $_SESSION['username']; ?>
+                </h3>
+                <p class="titleMail"> <?php echo $_SESSION['username']; ?></p>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../../html/admin/indexAdmin.php"><label class="linkLabel">Home</label></a></li>
+                    <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
+                    <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
+                    <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
+                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
+                    <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+      <section class="content">
+        <div class="header-container">
+          <h2><?php echo htmlspecialchars($materiales[0]['edificio']); ?></h2>
+          <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Buscar...">
+        </div>
+        <div class="scrollable-table">
+          <?php
+          if (!empty($materiales)) {
+            echo "<table border='1'>";
+            // Encabezado del edificio
+            echo "<thead>";
+            echo "<tr>
+                    <th>ID Material</th>
+                    <th>Serie</th>
+                    <th>Modelo</th>
+                    <th>Tipo</th>
+                    <th>Estatus</th>
+                    <th>Acciones</th>
+                </tr>";
+            echo "</thead>";
+
+            // Cuerpo de la tabla
+            echo "<tbody>";
+            foreach ($materiales as $material) {
+              // Determinar la clase CSS según el estatus
+              $estatus_class = '';
+              switch (trim($material['estatus'])) {
+                case 'Disponible':
+                  $estatus_class = 'disponible';
+                  break;
+                case 'En uso':
+                  $estatus_class = 'enUso';
+                  break;
+                case 'En mantenimiento':
+                  $estatus_class = 'enMantenimiento';
+                  break;
+                case 'Fuera de servicio':
+                  $estatus_class = 'fueraDeServicio';
+                  break;
+              }
+
+              echo "<tr data-id='" . htmlspecialchars($material['material_id']) . "'>";
+              echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
+              echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
+              echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
+              echo "<td data-tipo-id='" . htmlspecialchars($material['tipo_material_id']) . "'>" . htmlspecialchars($material['tipo_material']) . "</td>";
+              echo "<td class='estatus'><span class='$estatus_class'>" . htmlspecialchars($material['estatus']) . "</span></td>";
+              echo "<td><button class='edit-button'>Editar</button></td>";
+              echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+          } else {
+            echo "No hay materiales vinculados a tu edificio.";
+          }
+          ?>
+        </div>
+      </section>
     </main>
+  </div>
+
+  <?php if (isset($mensaje)) { echo "<p>$mensaje</p>"; } ?>
+
+  <!-- Modal para editar material -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Editar Material</h2>
+      <form id="editForm" method="POST" action="">
+        <input type="hidden" id="materialId" name="material_id">
+        <label for="serieInput">Serie:</label>
+        <input type="text" id="serieInput" name="serie">
+        <label for="modeloInput">Modelo:</label>
+        <input type="text" id="modeloInput" name="modelo">
+        <label for="tipoInput">Tipo:</label>
+        <select id="tipoInput" name="tipo_material">
+          <?php foreach ($tipos_materiales as $tipo): ?>
+            <option value="<?php echo $tipo['tipo_material_id']; ?>"><?php echo $tipo['nombre']; ?></option>
+          <?php endforeach; ?>
+        </select>
+        <button type="submit" name="update_material">Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+      const filter = this.value.toLowerCase();
+      const rows = document.querySelectorAll("table tbody tr");
+      rows.forEach(row => {
+        const cells = Array.from(row.children);
+        const match = cells.some(cell => cell.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? "" : "none";
+      });
+    });
+  </script>
 </body>
+
 </html>
