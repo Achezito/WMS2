@@ -116,7 +116,7 @@ if (isset($_GET['id'])) {
                 </div>
                 <h3>Gestión de Préstamos</h3>
                 <p>Revisa y administra las solicitudes de préstamos.</p>
-                <a href="../../html/admin/gestionar_prestamos.php" class="card-btn">Revisar</a>
+                <a href="../../html/admin/gestion_prestamos.php" class="card-btn">Revisar</a>
             </div>
 
             <div class="cardAdmin">

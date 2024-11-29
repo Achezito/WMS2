@@ -260,7 +260,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                                     <input type="hidden" name="estado" value="aprobado">
                                     <button class="button3" type="submit">Aprobar</button>
                                 </form>
-                                <button class="button3 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
+                                <button class="button2 rechazar-prestamo-btn" data-prestamo-id="<?= $prestamo['prestamo_id'] ?>">Rechazar</button>
                                 
                             </td>
                             <td>

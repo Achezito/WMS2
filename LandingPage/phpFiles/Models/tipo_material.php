@@ -70,5 +70,14 @@ class TipoMaterial {
     
         return $edificios;
     }
+
+    function insertarTipoMaterial($nombre, $categoria, $descripcion) {
+        $conn = Conexion::get_connection();
+        $query = "INSERT INTO tipo_material (nombre, categoria, descripcion) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("sss", $nombre, $categoria, $descripcion);
+        $stmt->execute();
+        return $stmt->insert_id;
+    }
 }
 ?>

@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    $('#material').select2();
     document.getElementById('solicitudForm').addEventListener('submit', function(e) {
         e.preventDefault(); // Evitar el envío tradicional del formulario
 
@@ -11,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const errorDiv = document.getElementById("error");
 
-        fetch('../phpFiles/Models/inventario_prestamo.php', {
+        fetch('../../phpFiles/Models/inventario_prestamo.php', {
             method: 'POST',
             body: formData
         })
