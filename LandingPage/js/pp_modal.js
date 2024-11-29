@@ -47,4 +47,35 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => console.error('Error:', error));
     }
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+        e.preventDefault();
+    
+        const formData = new FormData(this);
+    
+        // Hacer la solicitud a PHP
+        fetch('personal_prestamos.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Esperamos una respuesta JSON
+        .then(data => {
+            if (data.error) {
+                // Mostrar el mensaje en el popup si hay un error
+                showErrorPopup(data.message);
+            } else {
+                // Aquí puedes manejar la lógica si no hay error, por ejemplo, redirigir o actualizar la página
+                location.reload(); // O cualquier otra acción
+            }
+        })
+        .catch(error => {
+            console.error('Error al hacer la solicitud:', error);
+        });
+    });
+    
+    // Función para mostrar un popup con el mensaje de error
+    function showErrorPopup(message) {
+        alert(message);  // Esto puede ser reemplazado por un modal más estilizado si lo deseas
+    }
 });
+

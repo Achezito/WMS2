@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (actualizarInventario($prestamo_id, $estado)) {
             actualizarPrestamo($prestamo_id, $estado, $personal_id);
         } else {
-            echo "Error: Uno o más materiales no están disponibles.";
+            echo json_encode(['error' => true, 'message' => 'Uno o más materiales no están disponibles.']);
             exit();
         }
     } else if ($estado == 'finalizado') {
