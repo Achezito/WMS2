@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const formData = new FormData(loginForm);
 
         // Enviar la solicitud AJAX con fetch
-        fetch("../phpFiles/config/process_login.php", {
+        fetch("phpFiles/config/process_login.php", {
             method: "POST",
             body: formData
         })

@@ -1,5 +1,10 @@
-
-
+.label1 {
+    font-size: 16px;
+    color: #001637;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  }
 .contenedor-historial {
     padding: 20px;
     max-width: 1200px;
@@ -8,9 +13,24 @@
 
 .titulo-historial {
     text-align: center;
-    color: #4CAF50;
+    color: #003366; /* Azul marino oscuro */
+    font-size: 23px; /* Tamaño de fuente más grande para un mejor impacto */
+    font-weight: 500; /* Fuente más gruesa para destacar el título */
     margin-bottom: 20px;
+    text-transform: uppercase; /* Para un estilo más moderno y profesional */
+    letter-spacing: 1px; /* Espaciado entre letras para dar un toque más elegante */
+    line-height: 1.3; /* Mayor espacio entre las líneas para una mejor legibilidad */
 }
+
+.titulo-historial::after {
+    content: "";
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #003366; /* Línea decorativa debajo del título */
+    margin: 10px auto 0; /* Espacio entre el título y la línea */
+}
+
 
 .lista-prestamos {
     display: flex;
@@ -33,30 +53,48 @@
 .lista-prestamos::-webkit-scrollbar-track {
     background-color: #f1f1f1;
 }
-
+/* Estilos de la tarjeta de préstamo */
 .tarjeta-prestamo {
     background-color: #fff;
     padding: 20px;
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    border-radius: 12px; /* Bordes más suaves y modernos */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* Sombra más suave pero notoria */
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para ambos efectos */
     width: 100%;
+    max-width: 350px; /* Limita el tamaño máximo para mantener un diseño más controlado */
+    display: inline-block; /* Asegura que las tarjetas se alineen en una fila */
 }
 
 .tarjeta-prestamo:hover {
-    transform: scale(1.01);
-}
-.tarjeta-prestamo h3 {
-    margin-top: 0;
-    color: #333;
+    transform: scale(1.03); /* Leve ampliación para el efecto hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada en hover */
 }
 
-.tarjeta-prestamo p {
-    margin: 5px 0;
-    color: #555;
+/* Título de la tarjeta */
+.tarjeta-prestamo h3 {
+    margin-top: 0;
+    font-size: 1.25rem; /* Un poco más grande para destacar */
+    color: #333;
+    font-weight: 600; /* Fuente más pesada para el título */
 }
+
+/* Descripción o detalles */
+.tarjeta-prestamo p {
+    margin: 8px 0;
+    font-size: 0.95rem; /* Tamaño de fuente más pequeño para el texto descriptivo */
+    color: #666; /* Gris oscuro para un contraste sutil */
+    line-height: 1.5; /* Espaciado entre líneas para mayor legibilidad */
+}
+
+/* Estilo del contenedor de las tarjetas si es necesario */
+.tarjetas-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
 
 /* Contenedor principal del pop-up */
 .popup {
@@ -65,35 +103,53 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 40%;
-    max-width: 600px;
+    max-width: 500px;
     max-height: 80vh; /* Limita la altura máxima al 80% de la ventana */
-    background-color: #fff;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    padding: 20px;
-    color: #000;
+    background-color: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+    border-radius: 12px; /* Bordes más suaves */
+    padding: 25px;
+    color: #333;
     z-index: 1000;
     display: none;
     flex-direction: column;
     overflow-y: auto; /* Activa el desplazamiento vertical si el contenido es muy alto */
+    font-family: 'Arial', sans-serif;
+    animation: fadeIn 0.3s ease; /* Animación de aparición */
 }
-/* Estilos del popup */
+
+/* Animación para mostrar el pop-up */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -45%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Encabezado del popup */
 .popup-header {
     text-align: center;
     margin-bottom: 20px;
 }
 
 .popup-header h2 {
-    font-size: 24px;
+    font-size: 1.5rem;
     margin: 0;
     color: #333;
+    font-weight: 600;
 }
 
 .popup-header p {
-    font-size: 16px;
+    font-size: 0.95rem;
     color: #666;
+    margin-top: 8px;
 }
 
+/* Contenedor de botones */
 .options {
     display: flex;
     justify-content: center;
@@ -101,45 +157,47 @@
     margin-bottom: 20px;
 }
 
+/* Botones */
 .button {
-    padding: 10px 20px;
-    font-size: 16px;
+    padding: 12px 25px;
+    font-size: 0.95rem;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 30px; /* Bordes completamente redondeados */
     border: none;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     min-width: 120px;
+    font-weight: 500;
 }
 
 .delete-btn {
-    background-color: #f44336; /* Rojo para eliminar */
-    color: white;
+    background-color: #b6180d; /* Rojo vibrante */
+    color: #fff;
 }
 
 .modify-btn {
-    background-color: #4CAF50; /* Verde para modificar */
-    color: white;
-}
-
-.button:hover {
-    opacity: 0.8;
-}
-
-.popup-footer {
-    text-align: center;
-    margin-top: 20px;
+    background-color: #76c179; /* Verde elegante */
+    color: #fff;
 }
 
 .close-btn {
-    background-color: #757575; /* Gris para cerrar */
-    color: white;
+    background-color: #757575; /* Gris sobrio */
+    color: #fff;
 }
 
-.close-btn:hover {
-    opacity: 0.8;
+/* Hover en botones */
+.button:hover {
+    transform: translateY(-2px); /* Leve levantamiento */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra adicional */
+    opacity: 0.9;
 }
 
-
+/* Pie del popup */
+.popup-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #555;
+}
 
 /* Contenedor del formulario */
 #popupModify {
@@ -199,7 +257,7 @@
 
 
 .btn-filtrar {
-    background-color: #007BFF;
+    background-color: #003366;
     color: white;
     border: none;
     padding: 8px 16px;
@@ -209,7 +267,7 @@
     border-radius: 4px;
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: calc(100% - 40px);
-    margin: 20;
+    margin: 20px;
 }
 
 .btn-filtrar:hover {

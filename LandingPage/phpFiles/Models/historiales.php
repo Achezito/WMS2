@@ -145,7 +145,7 @@ function dibujar_historial_materiales($tipo_operacion, $operacion_id)
 
     // Verificar si se encontraron resultados
     if (!empty($materiales)) {
-        echo "<table id='tabla_historial_materiales' class='display' style='width:100%'>
+        echo "<table id='tabla_historial_materiales' class='display' >
                 <thead>
                     <tr>
                         <th>Material ID</th>

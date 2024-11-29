@@ -529,3 +529,5 @@ LEFT JOIN
     personales p ON pr.personal_id = p.personal_id
 LEFT JOIN 
     usuarios u ON pr.usuario_id = u.usuario_id;
+    
+    SELECT tipo_material_id as tpi, nombre, categoria FROM tipo_material

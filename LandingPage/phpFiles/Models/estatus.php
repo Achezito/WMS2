@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../../config/config.php';
+require_once BASE_PATH . '/phpFiles/config/conexion.php';
 class Estatus {
     private $estatus_id;
     private $estauts;
@@ -30,5 +32,6 @@ class Estatus {
     public function setEstatus($estauts) {
         $this->estauts = $estauts;
     }
+
 }
 ?>
