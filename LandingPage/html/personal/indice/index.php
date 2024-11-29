@@ -6,6 +6,9 @@ require_once BASE_PATH . '/phpFiles/Models/inventario.php';
 // Límite de inactividad en segundos
 $limite_inactividad = 100000;
 
+// Obtener los tipos de materiales
+$tipos_materiales = inventario::obtenerTiposMateriales();
+
 // Verificar el tiempo de inactividad
 if (isset($_SESSION['ultimo_acceso'])) {
   $inactividad = time() - $_SESSION['ultimo_acceso'];
@@ -36,6 +39,26 @@ if (isset($_SESSION['edificio_id'])) {
   exit();
 }
 
+// Manejar la actualización del material
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_material'])) {
+  $material_id = $_POST['material_id'];
+  $serie = $_POST['serie'];
+  $modelo = $_POST['modelo'];
+  $tipo_material_id = $_POST['tipo_material'];
+
+  $resultado = inventario::actualizarMaterial($material_id, $serie, $modelo, $tipo_material_id);
+
+  if ($resultado) {
+    $mensaje = "Material actualizado correctamente.";
+  } else {
+    $mensaje = "Error al actualizar el material.";
+  }
+
+  // Redirigir para evitar la reenvío del formulario al refrescar
+  header("Location: " . $_SERVER['PHP_SELF']);
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +71,7 @@ if (isset($_SESSION['edificio_id'])) {
   <link rel="stylesheet" href="../../../css/index2.css">
   <link rel="stylesheet" href="../../../css/hom2.css">
   <link rel="stylesheet" href="../../../css/materials.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="../../../css/index_modal.css">
   <script src="../../../js/index.js"></script>
 </head>
 
@@ -101,6 +124,7 @@ if (isset($_SESSION['edificio_id'])) {
                     <th>Modelo</th>
                     <th>Tipo</th>
                     <th>Estatus</th>
+                    <th>Acciones</th>
                 </tr>";
             echo "</thead>";
 
@@ -124,12 +148,13 @@ if (isset($_SESSION['edificio_id'])) {
                   break;
               }
 
-              echo "<tr onclick='onClickRow(" . htmlspecialchars($material['material_id']) . ")'>";
+              echo "<tr data-id='" . htmlspecialchars($material['material_id']) . "'>";
               echo "<td>" . htmlspecialchars($material['material_id']) . "</td>";
               echo "<td>" . htmlspecialchars($material['serie']) . "</td>";
               echo "<td>" . htmlspecialchars($material['modelo']) . "</td>";
-              echo "<td>" . htmlspecialchars($material['tipo_material']) . "</td>";
+              echo "<td data-tipo-id='" . htmlspecialchars($material['tipo_material_id']) . "'>" . htmlspecialchars($material['tipo_material']) . "</td>";
               echo "<td class='estatus'><span class='$estatus_class'>" . htmlspecialchars($material['estatus']) . "</span></td>";
+              echo "<td><button class='edit-button'>Editar</button></td>";
               echo "</tr>";
             }
             echo "</tbody>";
@@ -141,6 +166,30 @@ if (isset($_SESSION['edificio_id'])) {
         </div>
       </section>
     </main>
+  </div>
+
+  <?php if (isset($mensaje)) { echo "<p>$mensaje</p>"; } ?>
+
+  <!-- Modal para editar material -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Editar Material</h2>
+      <form id="editForm" method="POST" action="">
+        <input type="hidden" id="materialId" name="material_id">
+        <label for="serieInput">Serie:</label>
+        <input type="text" id="serieInput" name="serie">
+        <label for="modeloInput">Modelo:</label>
+        <input type="text" id="modeloInput" name="modelo">
+        <label for="tipoInput">Tipo:</label>
+        <select id="tipoInput" name="tipo_material">
+          <?php foreach ($tipos_materiales as $tipo): ?>
+            <option value="<?php echo $tipo['tipo_material_id']; ?>"><?php echo $tipo['nombre']; ?></option>
+          <?php endforeach; ?>
+        </select>
+        <button type="submit" name="update_material">Guardar Cambios</button>
+      </form>
+    </div>
   </div>
   <script>
     document.getElementById("searchInput").addEventListener("keyup", function () {
