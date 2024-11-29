@@ -72,7 +72,7 @@
 
 .card-btn {
     display: inline-block;
-    background: #007bff;
+    background: #15203C;
     color: #fff;
     text-decoration: none;
     padding: 10px 25px;
@@ -82,7 +82,12 @@
 }
 
 .card-btn:hover {
-    background: #0056b3;
+    background:#95A0BE;
+}
+/*Iconos*/
+i {
+    content: "\f0c0";
+    color:#284263;
 }
 
 /* Responsivo */
