@@ -51,7 +51,7 @@ if (isset($_SESSION['edificio_id'])) {
 <html lang="en">
 
 <head>
-    <<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Principal</title>
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/prestamo.css">

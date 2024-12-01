@@ -398,3 +398,28 @@ input:focus, select:focus {
       color: #000;
       text-decoration: none;
     }
+
+    @media (max-width: 768px) {
+        .content {
+            background-color: #FFF;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            min-height: 130vh;
+            flex-grow: 1;
+        }
+        .sidebar {
+            width: 220px; /* Ajusta el tamaño de la barra lateral */
+        }
+    
+        .sidebar.hidden {
+            transform: translateX(-220px); /* Cuando se oculte, el sidebar se moverá */
+        }
+    
+        .main-content {
+            margin-left: 0; /* En pantallas pequeñas no debe haber margen en el contenido */
+            padding: 10px; /* Un pequeño ajuste en el padding para mayor consistencia */
+            min-height: 130vh; /* Ajuste para que el contenido tenga una altura mínima de 130vh */
+        }
+    }
+    
