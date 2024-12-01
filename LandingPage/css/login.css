@@ -394,5 +394,62 @@ a:-webkit-any-link, .register-link{
     text-decoration: underline;
     margin-top: 15px;
 }
+.toggle-menu button {
+    position: absolute;
+    bottom: 20px; /* Asegura que la flecha esté al fondo del panel */
+    left: 50%;
+    transform: translateX(-50%);
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2.5vh;
+    cursor: pointer;
+    z-index: 10;  /* Asegura que la flecha esté encima de otros elementos */
+}
 
-    
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .left-panel {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    /* Clase para esconder el panel cuando está cerrado */
+    .left-panel.closed {
+        transform: translateY(-90%); /* Esconde el panel cuando está cerrado */
+    }
+
+    .toggle-menu button {
+        display: block; /* Mostrar la flecha solo en pantallas responsivas */
+    }
+
+
+    .toggle-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #003a73;
+        padding: 1.5vh 0;
+        cursor: pointer;
+    }
+
+    .container {
+        flex-direction: column;
+        padding-top: 6vh; /* Ajusta el contenido para dar espacio al menú */
+    }
+
+    .left-panel h1 {
+        font-size: 2em;
+        margin-bottom: 15px;
+        font-weight: bold;
+    }
+}

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-
 <html lang="es">
-<div transition-style="in:square:center">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,12 +47,48 @@
                 <img src="img/Logos/LineLogo.png" alt="Logo" class="logo">
                 <h1>Bienvenido a CISTA</h1>
             </div>
+
+            <!-- Botón para mostrar/ocultar el panel -->
+            <div class="toggle-menu">
+                <button id="toggle-btn">▼</button> <!-- Este es el botón de la flecha -->
+            </div>
         </div>
 
     </div>
 
     <!-- Incluir el archivo JavaScript externo -->
     <script src="js/login.js" defer></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('toggle-btn');
+            const leftPanel = document.querySelector('.left-panel');
+
+            if (!toggleBtn || !leftPanel) {
+                console.error('No se encontraron los elementos necesarios');
+                return;
+            }
+
+            function updateArrowVisibility() {
+                const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
+                
+                if (isSmallScreen) {
+                    toggleBtn.style.display = 'block'; 
+                } else {
+                    toggleBtn.style.display = 'none'; 
+                }
+            }
+
+            updateArrowVisibility();
+
+            window.addEventListener('resize', updateArrowVisibility);
+
+            toggleBtn.addEventListener('click', function() {
+                console.log('Botón clickeado'); 
+                leftPanel.classList.toggle('closed'); 
+                toggleBtn.textContent = leftPanel.classList.contains('closed') ? '▼' : '▲';
+            });
+        });
+    </script>
 </body>
-</div>
 </html>
