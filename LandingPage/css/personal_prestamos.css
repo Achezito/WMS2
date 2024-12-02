@@ -3,23 +3,56 @@ table {
     border-collapse: collapse;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px; 
-  
 }
 
-table th, table td {
+/* Contenedor para hacer la tabla desplazable */
+.scrollable-table {
+    max-height: 80vh; /* Ajusta este valor según tu diseño */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    margin-bottom: 30px; /* Espaciado inferior */
+}
+
+/* Asegura que la tabla ocupe el ancho completo */
+.scrollable-table table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff; /* Fondo blanco para contraste */
+}
+
+/* Estilo para los encabezados fijos */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #194b812e; /* Fondo semi-transparente para encabezados */
+    color: #333;
+    font-weight: bold;
+    text-align: left;
+    padding: 12px;
+    z-index: 2;
+    border-bottom: 2px solid #ddd; /* Línea distintiva debajo de los encabezados */
+}
+
+/* Estilo para las celdas del cuerpo */
+.scrollable-table tbody td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
-  
 }
 
-table th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-
-table tr:hover {
+/* Resaltado de filas al pasar el ratón */
+.scrollable-table tbody tr:hover {
     background-color: #f1f1f1;
+}
+
+/* Mensajes cuando la tabla está vacía */
+.scrollable-table .empty-table {
+    text-align: center;
+    font-size: 18px;
+    color: #ccc;
+    padding: 20px;
 }
 
 /* Estilo para mensajes cuando no hay usuarios */
@@ -37,10 +70,10 @@ table tr:hover {
     color: #ccc;
 }
 
-
-.content-box{
+.content-box {
     height: 100%;
 }
+
 /* Estilos para el modal */
 .modal {
     display: none;
@@ -51,8 +84,8 @@ table tr:hover {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -86,28 +119,31 @@ button {
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
-    background: linear-gradient(to right, #0066af, #259bfc);
+    background: #1D4E89;
     border: none;
-    border-radius: 25px;
+    border-radius: 25px; 
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    display: inline-block;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
 }
 
 button:hover {
-    background: linear-gradient(to right, #259bfc, #0066af);
-    transform: translateY(-2px);
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
 }
 
-.button3 {
-    padding: 12px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background: linear-gradient(to right, #0179ce, #33a3ff);
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+button:active {
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
 }
 
 /* Alinear botones en las celdas de la tabla */
@@ -154,6 +190,7 @@ table td button {
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
     outline: none;
 }
+
 h2 {
     font-size: 24px;
     color: #001637;

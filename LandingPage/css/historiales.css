@@ -234,32 +234,42 @@ table tr:hover td {
 }
 /* Botón de Ver más */
 .ver-mas-btn {
-    display: inline-block;
-    padding: 12px 20px;
+    padding: 12px 25px;
     font-size: 16px;
     font-weight: bold;
-    text-align: center;
     color: #ffffff;
-    background-color: #0861a5; /* Color principal */
+    background: #1D4E89;
     border: none;
-    border-radius: 30px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 25px;
     cursor: pointer;
-    transition: all 0.3s ease; /* Transición suave */
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
     text-decoration: none; /* Sin subrayado */
 }
 
+/* Efectos en hover */
 .ver-mas-btn:hover {
-    background-color: #005082; /* Color más oscuro al pasar el cursor */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Sombra más profunda */
-    transform: translateY(-2px); /* Efecto de elevación */
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
 }
 
+/* Efecto al presionar */
 .ver-mas-btn:active {
-    background-color: #003a5a; /* Color más oscuro al presionar */
-    transform: translateY(0); /* Sin elevación */
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra menor */
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
 }
+
+/* Contorno de enfoque (accesibilidad) */
+.ver-mas-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul */
+}
+
 .p1 {
     display: block;
     margin-block-start: 1em;

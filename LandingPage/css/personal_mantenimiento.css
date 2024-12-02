@@ -66,16 +66,31 @@ button {
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
-    background: linear-gradient(to right, #0066af, #259bfc);
+    background: #1D4E89;
     border: none;
-    border-radius: 25px;
+    border-radius: 25px; 
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    display: inline-block;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
 }
 
 button:hover {
-    background: linear-gradient(to right, #259bfc, #0066af);
-    transform: translateY(-2px);
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+button:active {
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
 }
 
 /* Alinear botones en las celdas de la tabla */

@@ -1,4 +1,3 @@
-
 #users-content {
     margin: 80px 20px 0 20px;
     width: calc(100% - 40px);
@@ -9,6 +8,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     overflow-x: auto;
 }
+
 h2 {
     font-size: 24px;
     color: #0861a5;
@@ -44,6 +44,27 @@ h2 {
     box-shadow: 0 0 8px rgba(8, 97, 165, 0.3);
 }
 
+/* Contenedor de la tabla con scroll */
+.scrollable-table {
+    max-height: 80vh; /* Ajusta este valor según tu diseño */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+/* Asegura que la tabla ocupe el ancho completo */
+.scrollable-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Opcional: Ajuste para evitar que el encabezado se mueva al hacer scroll */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f0f4f8;
+    z-index: 2;
+}
 
 /* Tabla */
 table {
@@ -54,6 +75,20 @@ table {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
+}
+
+.table-container {
+    max-height: 400px; /* Altura máxima de la tabla visible */
+    overflow-y: auto; /* Habilita el scroll vertical */
+    overflow-x: auto; /* Habilita el scroll horizontal */
+    border: 1px solid #ddd; /* Bordes opcionales */
+    border-radius: 12px; /* Bordes redondeados opcionales */
+    margin-top: 20px;
+}
+
+.table-container table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
 /* Encabezado de la tabla */
@@ -95,8 +130,6 @@ td.estatus span {
     text-transform: capitalize;
 }
 
-
-
 /* Estilo para la fila de encabezado fija al scroll */
 table tr:hover td {
     background-color: #eaf1f8;
@@ -119,7 +152,6 @@ table tr:last-child td:first-child {
 table tr:last-child td:last-child {
     border-bottom-right-radius: 12px;
 }
-
 /* Responsividad */
 @media (max-width: 768px) {
     #users-content {

@@ -3,14 +3,14 @@
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom right, #007bff, #6c63ff);
+    background: linear-gradient(to bottom right, #002e60, #6d92bb);
     color: #333;
-    display: flex;
+    display: flex
+;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
-
 /* Contenedor principal */
 .container {
     background: #ffffff;
@@ -25,8 +25,9 @@
 /* Título */
 h1 {
     font-size: 2rem;
-    color: #007bff;
+    color: #011832;
     margin-bottom: 20px;
+    
 }
 
 /* Label */
@@ -40,38 +41,77 @@ label {
 /* Select */
 select {
     width: 100%;
-    padding: 10px;
+    padding: 12px 20px;
     font-size: 1rem;
-    border: 2px solid #007bff;
+    border: 2px solid #4c8cb3;
     border-radius: 8px;
-    margin-bottom: 20px;
     background: #f9f9f9;
     color: #333;
+    appearance: none; /* Elimina los estilos por defecto del navegador */
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"%3E%3Cpath fill="none" d="M5 7l5 5 5-5z"%3E%3C/path%3E%3C/svg%3E'); /* Añade un icono de flecha hacia abajo */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* Ajusta la posición de la flecha */
+    background-size: 12px;
+    transition: all 0.3s ease; /* Transición suave al interactuar */
 }
 
 select:focus {
-    outline: none;
-    border-color: #6c63ff;
-    box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+    outline: none; /* Elimina el borde azul de enfoque */
+    border-color: #0861a5; /* Color más intenso para el borde cuando está en foco */
+    box-shadow: 0 0 8px rgba(8, 97, 165, 0.3); /* Agrega sombra al enfoque */
 }
+
+select:hover {
+    border-color: #0861a5; /* Cambia el color del borde al pasar el ratón */
+    background-color: #f0f4f8; /* Cambia el color de fondo cuando el usuario pasa el ratón */
+}
+
+option {
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #333;
+    border: none;
+}
+
+/* Estilo para opciones seleccionadas */
+select:active,
+select:focus {
+    background-color: #e8f1f9; /* Color suave de fondo al seleccionar */
+}
+
 
 /* Botón */
 .btn {
-    display: inline-block;
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    color: #ffffff;
-    background: #007bff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 16px;
     font-weight: bold;
+    color: #ffffff;
+    background: #1D4E89;
+    border: none;
+    border-radius: 25px; 
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    display: inline-block;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
 }
 
 .btn:hover {
-    background: #0056b3;
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+.btn:active {
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+.bth:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
 }
 
 /* Mensaje inferior */

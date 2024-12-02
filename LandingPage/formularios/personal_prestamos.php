@@ -195,6 +195,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
     <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/hom2.css">
     <link rel="stylesheet" href="../css/personal_prestamos.css">
+    <link rel="stylesheet" href="../css/index_modal.css">
+    <link rel="stylesheet" href="../css/materials.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="../js/index.js"></script>
     <script src="../js/pp_modal.js"></script>
@@ -238,6 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
             <h2>Gestión de Préstamos</h2>
 
             <h4>Préstamos Pendientes</h4>
+            <div class="scrollable-table">
             <table>
                 <thead>
                     <tr>
@@ -270,8 +273,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
-
+            </div>
             <h4>Préstamos Aprobados</h4>
+            <div class="scrollable-table">
             <table>
                 <thead>
                     <tr>
@@ -303,6 +307,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['prestamo_id'])) {
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </section>
     </main>
   </div>

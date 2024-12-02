@@ -57,22 +57,37 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
   button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    background-color: #004890;
-    color: white;
+    padding: 12px 25px;
     font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: #1D4E89;
+    border: none;
+    border-radius: 25px; 
     cursor: pointer;
-    margin-top: 10px;
-  }
-  
-  button:hover {
-    background-color: #6c9bc5;
-  }
-  
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    display: inline-block;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+
+button:hover {
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+button:active {
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
+}
   .scrollable-table {
     max-height: 80vh; /* Ajusta este valor según tu diseño */
     overflow-y: auto; /* Habilita el scroll vertical */
