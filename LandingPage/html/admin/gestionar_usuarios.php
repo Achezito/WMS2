@@ -86,7 +86,6 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                     <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
                     <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
                     <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
                     <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
                 </ul>
             </nav>
@@ -206,10 +205,10 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                     <input type="email" id="usuarioEmail" name="usuarioEmail" required>
                 </div>
 
-                <button type="submit">Registrar Usuario</button>
+                <button type="submit" class="btn-submit">Registrar Usuario</button>
                 <div id="message" style="display:none;"></div>
             </form>
-            <button id="closeAddUserModal">Cerrar</button>
+            <button id="closeAddUserModal"  class="btn-submit">Cerrar</button>
         </div>
     </div>
 
@@ -271,7 +270,7 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
             .modal-content {
                 background-color: #fff;
                 padding: 20px;
-                border-radius: 5px;
+                border-radius: 15px;
                 max-width: 400px;
                 width: 100%;
                 text-align: center;

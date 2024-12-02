@@ -91,7 +91,7 @@ if (isset($_GET['id'])) {
             <div class="cardAdmin">
                 <div class="card-icon">
                     <i class="fas fa-box"></i>
-                </div>
+            </div>
                 <h3>Gestión de Prestamos</h3>
                 <p>Visualiza, organiza y actualiza el inventario de materiales.</p>
                 <a href="../../html/admin/gestion_prestamos.php" class="card-btn">Gestionar</a>
@@ -104,24 +104,6 @@ if (isset($_GET['id'])) {
                 <h3>Gestión de Usuarios</h3>
                 <p>Administra las cuentas y permisos de los usuarios.</p>
                 <a href="../../html/admin/gestionar_usuarios.php" class="card-btn">Administrar</a>
-            </div>
-
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-handshake"></i>
-                </div>
-                <h3>Gestión de Préstamos</h3>
-                <p>Revisa y administra las solicitudes de préstamos.</p>
-                <a href="../../html/admin/gestion_prestamos.php" class="card-btn">Revisar</a>
-            </div>
-
-            <div class="cardAdmin">
-                <div class="card-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <h3>Reportes</h3>
-                <p>Genera reportes detallados sobre el uso del sistema.</p>
-                <a href="../../html/admin/reportes.php" class="card-btn">Ver Reportes</a>
             </div>
 
             <div class="cardAdmin">

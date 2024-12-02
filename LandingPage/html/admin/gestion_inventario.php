@@ -111,7 +111,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_material'])) {
                     <li><a href="../../html/admin/gestion_inventario.php"><label class="linkLabel">Gestión de Inventario</label></a></li>
                     <li><a href="../../html/admin/gestionar_usuarios.php"><label class="linkLabel">Gestión de Usuarios</label></a></li>
                     <li><a href="../../html/admin/gestion_prestamos.php"><label class="linkLabel">Gestión de Préstamos</label></a></li>
-                    <li><a href="../../html/admin/reportes.php"><label class="linkLabel">Reportes</label></a></li>
                     <li><a href="../../phpFiles/config/logout.php"><label class="linkLabel">Logout</label></a></li>
                 </ul>
             </nav>

@@ -111,7 +111,8 @@ table td button {
 .table-scroll td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd; /
+    border-bottom: 1px solid #ddd; 
+    font-size: 17px;
 }
 
 .table-scroll th {
@@ -124,8 +125,13 @@ table td button {
     background-color: #f9f9f9; 
 }
 
-p{
+p {
     color: #000;
+    font-size: 20px;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 10px;
+    font-family: var(--font-family);
 }
 
 /* Botones */
@@ -134,16 +140,33 @@ p{
     font-size: 16px;
     font-weight: bold;
     color: #ffffff;
-    background: linear-gradient(to right, #0066af, #259bfc);
+    background: #1D4E89;
     border: none;
     border-radius: 25px;
     cursor: pointer;
-    transition: background 0.3s ease, transform 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
 }
 
 button:hover {
-    background: linear-gradient(to right, #259bfc, #0066af);
-    transform: translateY(-2px);
+    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
+    transform: translateY(-3px); /* Efecto de elevación */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+}
+
+.btn,.btn-submit :active {
+    transform: translateY(1px); /* Efecto al presionar */
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+}
+
+.btn,.btn-submit :focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
 }
 
 .btn {
@@ -153,9 +176,22 @@ button:hover {
     cursor: pointer;
 }
 
-.btn-add {
-    background-color: #2865a7;
-    color: white;
+.btn-add,.btn-submit  {
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background: #1D4E89;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
 }
 
 .btn-edit {
@@ -163,10 +199,6 @@ button:hover {
     color: white;
 }
 
-.btn-delete {
-    background-color: #dc3545;
-    color: white;
-}
 
 /* Paginación */
 .pagination {
@@ -198,3 +230,4 @@ button:hover {
 #closeActionModal:hover {
     background-color: #0056b3;
 }
+

@@ -358,7 +358,6 @@ input:focus, select:focus {
 }
   .modal {
       display: none;
-      /* Ocultarlo por defecto */
       position: fixed;
       justify-content: center;
       align-items: center;
