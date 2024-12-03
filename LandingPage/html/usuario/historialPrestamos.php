@@ -51,6 +51,7 @@ if (isset($_SESSION['edificio_id'])) {
 <html lang="en">
 
 <head>
+<script src="../../js/select2/jquery-3.7.1.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Principal</title>
     <link rel="stylesheet" href="../../css/index.css">
@@ -58,6 +59,7 @@ if (isset($_SESSION['edificio_id'])) {
     
     <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="../../js/select2/select2.min.js"></script>
     <script src="../../js/index.js"></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
     <script src="../../js/putamamadademierda.js"></script>
@@ -156,11 +158,12 @@ if (!empty($historial)) {
     echo '<div class="lista-prestamos">';
 
     foreach ($historial as $prestamo) {
-        echo '<div class="tarjeta-prestamo" onclick="abrirPopup(' . $prestamo['operacion_id'] . ')">';
+        echo '<div class="tarjeta-prestamo" data-estatus="' . htmlspecialchars($prestamo['estatus']) . '" onclick="abrirPopup(' . $prestamo['operacion_id'] . ', \'' . htmlspecialchars($prestamo['estatus']) . '\')">';
         echo '<h3>Préstamo: ' . htmlspecialchars($prestamo['operacion_id']) . '</h3>';
         echo '<p><strong>Notas:</strong> ' . htmlspecialchars($prestamo['notas']) . '</p>';
         echo '<p><strong>Estatus:</strong> ' . htmlspecialchars($prestamo['estatus']) . '</p>';
-        
+    
+
         // Mostrar todos los materiales asociados
         echo '<p><strong>Material(es):</strong> ' . implode(', ', $prestamo['materiales']) . '</p>';
         
