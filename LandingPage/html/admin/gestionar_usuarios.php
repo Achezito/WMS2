@@ -102,8 +102,8 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                 <!-- Contenedor con scroll para la tabla de usuarios -->
                 <div >
                     <!-- Tabla de usuarios -->
-                    <div class="table-scroll">
-                    <table >
+                    <div class="scrollable-table">
+                    <table>
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -114,12 +114,14 @@ $Edificios = Edificios::mostrarTodosLosEdificios();
                         </thead>
                         <tbody>
                             <?php foreach ($cuentas as $c): ?>
-                                <tr class="user-row" data-id="<?php echo $c['cuenta_id']; ?>" data-usuario="<?php echo $c['nombre_usuario']; ?>" data-cuenta="<?php echo $c['tipo_cuenta']; ?>">
+                                <tr class="user-row" data-id="<?php echo $c['cuenta_id']; ?>" 
+                                    data-usuario="<?php echo $c['nombre_usuario']; ?>" 
+                                    data-cuenta="<?php echo $c['tipo_cuenta']; ?>">
                                     <td><?php echo $c['cuenta_id']; ?></td>
                                     <td><?php echo $c['nombre_usuario']; ?></td>
                                     <td><?php echo $c['tipo_cuenta']; ?></td>
                                     <td>
-                                        <button class="btn-acciones" id="">Acciones</button>
+                                        <button class="btn-acciones">Acciones</button>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

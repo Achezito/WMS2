@@ -1,53 +1,58 @@
+/* ----------------- Tabla General ----------------- */
 table {
     width: 100%;
     border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px; 
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Contenedor para hacer la tabla desplazable */
+/* ----------------- Contenedor Desplazable ----------------- */
 .scrollable-table {
-    max-height: 80vh; /* Ajusta este valor según tu diseño */
-    overflow-y: auto; /* Habilita el scroll vertical */
-    border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
-    margin-bottom: 30px; /* Espaciado inferior */
+    max-height: 80vh; /* Altura máxima ajustable */
+    overflow-y: auto; /* Scroll vertical */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
 }
 
-/* Asegura que la tabla ocupe el ancho completo */
 .scrollable-table table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff; /* Fondo blanco para contraste */
 }
 
-/* Estilo para los encabezados fijos */
+/* Encabezados fijos y estilo */
 .scrollable-table thead th {
+    background-color: #f0f4f8;
+    color: #333333;
+    text-align: left;
+    font-size: 16px;
+    padding: 12px;
+    border-bottom: 2px solid #e6e8eb;
+    text-transform: uppercase;
+    font-weight: 600;
     position: sticky;
     top: 0;
-    background-color: #194b812e; /* Fondo semi-transparente para encabezados */
-    color: #333;
-    font-weight: bold;
-    text-align: left;
-    padding: 12px;
-    z-index: 2;
-    border-bottom: 2px solid #ddd; /* Línea distintiva debajo de los encabezados */
+    z-index: 1;
 }
 
-/* Estilo para las celdas del cuerpo */
+/* Celdas del cuerpo */
 .scrollable-table tbody td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 14px;
+    background: #f9fafc;
 }
 
-/* Resaltado de filas al pasar el ratón */
+/* Hover sobre filas */
 .scrollable-table tbody tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Mensajes cuando la tabla está vacía */
+/* Tabla vacía */
 .scrollable-table .empty-table {
     text-align: center;
     font-size: 18px;
@@ -55,26 +60,7 @@ table {
     padding: 20px;
 }
 
-/* Estilo para mensajes cuando no hay usuarios */
-.no-users-message {
-    font-size: 18px;
-    color: #333;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Estilo de la tabla cuando está vacía */
-.empty-table {
-    text-align: center;
-    font-size: 18px;
-    color: #ccc;
-}
-
-.content-box {
-    height: 100%;
-}
-
-/* Estilos para el modal */
+/* ----------------- Modal ----------------- */
 .modal {
     display: none;
     position: fixed;
@@ -84,8 +70,7 @@ table {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo oscuro transparente */
 }
 
 .modal-content {
@@ -95,25 +80,25 @@ table {
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    max-width: 800px; /* Aumentamos el tamaño máximo */
-    max-height: 600px; /* Limitar la altura máxima */
+    max-width: 800px;
+    max-height: 600px;
 }
 
+/* Botón de cierre */
 .close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
     cursor: pointer;
 }
 
-/* Botones generales */
+.close:hover, .close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+/* ----------------- Botones ----------------- */
 button {
     padding: 12px 25px;
     font-size: 16px;
@@ -121,32 +106,31 @@ button {
     color: #ffffff;
     background: #1D4E89;
     border: none;
-    border-radius: 25px; 
+    border-radius: 25px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
-    display: inline-block;
-    text-transform: uppercase; 
-    letter-spacing: 1px; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 button:hover {
-    background: linear-gradient(to right, #749DC8, #A2D2FF); /* Tonos más claros en hover */
-    transform: translateY(-3px); /* Efecto de elevación */
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+    background: linear-gradient(to right, #749DC8, #A2D2FF);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 button:active {
-    transform: translateY(1px); /* Efecto al presionar */
-    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2); /* Sombra más sutil */
+    transform: translateY(1px);
+    box-shadow: 0 3px 7px rgba(0, 0, 0, 0.2);
 }
 
 button:focus {
     outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4); /* Contorno azul para accesibilidad */
+    box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.4);
 }
 
-/* Alinear botones en las celdas de la tabla */
+/* Botones en celdas */
 .table-buttons {
     display: flex;
     justify-content: center;
@@ -162,7 +146,7 @@ table td button {
     margin-left: 5px;
 }
 
-/* Estilos para los campos del formulario en el modal de rechazo */
+/* ----------------- Formularios ----------------- */
 .form-group {
     margin-bottom: 20px;
 }
@@ -191,6 +175,7 @@ table td button {
     outline: none;
 }
 
+/* ----------------- Encabezados ----------------- */
 h2 {
     font-size: 24px;
     color: #001637;
@@ -203,13 +188,7 @@ h2 {
 }
 
 h4 {
-    display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 2.5vh;
-    unicode-bidi: isolate;
 }
