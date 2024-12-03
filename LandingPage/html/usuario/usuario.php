@@ -50,15 +50,16 @@ if (isset($_SESSION['edificio_id'])) {
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Principal</title>
+    <script src="../../js/select2/jquery-3.7.1.min.js"></script>
     <link rel="stylesheet" href="../../css/index.css">
     <link rel="stylesheet" href="../../css/solicitud.css">
     <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="../../css/select2/select2.min.css" rel="stylesheet" />
     <!-- Enlace a jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
     <!-- Enlace a Select2 -->
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="../../js/select2/select2.min.js"></script>
     <script src="../../js/index.js"></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
 </head>
