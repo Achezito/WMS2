@@ -209,6 +209,7 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
             </form>
 
             <h4>Mantenimientos Pendientes</h4>
+            <div class="scrollable-table">
             <table>
                 <thead>
                     <tr>
@@ -233,6 +234,7 @@ function obtenerMaterialIdPorMantenimiento($mantenimiento_id)
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            </div>
         </section>
     </main>
 

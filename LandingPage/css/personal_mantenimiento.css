@@ -3,10 +3,8 @@ h2 {
     color: #001637;
     text-align: center;
     font-weight: bold;
-    margin-bottom: 30px;
     text-transform: uppercase;
     letter-spacing: 2px;
-    padding-bottom: 10px;
 }
 
 h4 {
@@ -21,6 +19,12 @@ h4 {
     font-size: 2.5vh;
     unicode-bidi: isolate;
 }
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+
 /* Estilos para el modal */
 .modal {
     display: none;
@@ -94,6 +98,15 @@ button:focus {
 }
 
 /* Alinear botones en las celdas de la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
 .table-buttons {
     display: flex;
     justify-content: center;
@@ -136,4 +149,26 @@ table td button {
     border-color: #0066af;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
     outline: none;
+}
+.scrollable-table {
+  max-height: 80vh; /* Ajusta este valor según tu diseño */
+  overflow-y: auto; /* Habilita el scroll vertical */
+  border: 1px solid #ddd; /* Bordes para distinguir el área de desplazamiento */
+  border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+/* Asegura que la tabla ocupe el ancho completo */
+.scrollable-table {
+    max-height: 150px; /* Ajusta la altura según sea necesario */
+    overflow-y: auto;  /* Activa el desplazamiento vertical */
+}
+
+
+
+/* Opcional: Ajuste para evitar que el encabezado se mueva al hacer scroll */
+.scrollable-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #f0f4f8;
+  z-index: 2;
 }
