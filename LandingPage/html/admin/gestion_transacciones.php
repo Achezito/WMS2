@@ -112,47 +112,55 @@ function actualizarEstatusMaterial($material_id, $estatus_id) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $tipo_transaccion = $_POST['tipo_transaccion'];
-  $proveedor_id = $_POST['proveedor'];
-  $notas = $_POST['notas'];
+  header('Content-Type: application/json');
+  $response = ['success' => false, 'message' => ''];
 
-  // Insertar un nuevo proveedor si es necesario
-  if ($proveedor_id == 'nuevo') {
-      $nombre = $_POST['nuevo_proveedor_nombre'];
-      $telefono = $_POST['nuevo_proveedor_telefono'];
-      $correo = $_POST['nuevo_proveedor_correo'];
-      $proveedor_id = insertarProveedor($nombre, $telefono, $correo);
+  try {
+      $tipo_transaccion = $_POST['tipo_transaccion'];
+      $proveedor_id = $_POST['proveedor'];
+      $notas = $_POST['notas'];
+
+      // Insertar un nuevo proveedor si es necesario
+      if ($proveedor_id === 'nuevo') {
+          $nombre = $_POST['nuevo_proveedor_nombre'];
+          $telefono = $_POST['nuevo_proveedor_telefono'];
+          $correo = $_POST['nuevo_proveedor_correo'];
+          $proveedor_id = insertarProveedor($nombre, $telefono, $correo);
+
+          if (!$proveedor_id) {
+              throw new Exception("Error al insertar el nuevo proveedor.");
+          }
+      }
+
+      // Insertar transacción
+      $transaccion_id = insertarTransaccion($tipo_transaccion, $notas);
+
+      if (!$transaccion_id) {
+          throw new Exception("Error al insertar la transacción.");
+      }
+
+      if ($tipo_transaccion === 'salida') {
+          $materiales_seleccionados = $_POST['materiales'];
+          foreach ($materiales_seleccionados as $material_id) {
+              $estatus_actualizado = actualizarEstatusMaterial($material_id, 4);
+              if (!$estatus_actualizado) {
+                  throw new Exception("Error al actualizar el estatus del material con ID $material_id.");
+              }
+              $inventario_transaccion = insertarInventarioTransaccion($transaccion_id, $material_id, 9, $proveedor_id);
+              if (!$inventario_transaccion) {
+                  throw new Exception("Error al insertar en inventario-transacción para el material con ID $material_id.");
+              }
+          }
+      }
+
+      $response['success'] = true;
+      $response['message'] = "Operación completada con éxito.";
+  } catch (Exception $e) {
+      $response['message'] = $e->getMessage();
   }
 
-  $transaccion_id = insertarTransaccion($tipo_transaccion, $notas);
-
-  if ($tipo_transaccion === 'salida') {
-      $materiales_seleccionados = $_POST['materiales'];
-      foreach ($materiales_seleccionados as $material_id) {
-          actualizarEstatusMaterial($material_id, 4); // Cambiar estatus a 'Fuera de servicio'
-          insertarInventarioTransaccion($transaccion_id, $material_id, $personal_id = 9, $proveedor_id);
-      }
-  } else if ($tipo_transaccion === 'entrada') {
-      // Insertar nuevos tipos de material si es necesario
-      $tipo_material_id = $_POST['tipo_material'];
-      if ($tipo_material_id == 'nuevo_tipo') {
-          $nombre_tipo = $_POST['nuevo_tipo_material_nombre'];
-          $categoria = $_POST['nuevo_tipo_material_categoria'];
-          $descripcion = $_POST['nuevo_tipo_material_descripcion'];
-          $tipo_material_id = insertarTipoMaterial($nombre_tipo, $categoria, $descripcion);
-      }
-
-      // Insertar materiales en el inventario y relacionarlos con la transacción
-      $series = $_POST['series'];
-      $modelos = $_POST['modelos'];
-      $tipos = $_POST['tipos'];
-      $estatus_id = 1;  // 'Disponible'
-
-      foreach ($series as $index => $serie) {
-          $material_id = insertarMaterial($serie, $modelos[$index], $tipos[$index], $edificio_id, $estatus_id);
-          insertarInventarioTransaccion($transaccion_id, $material_id, $personal_id = 9, $proveedor_id);
-      }
-  }
+  echo json_encode($response);
+  exit;
 }
 
 
@@ -208,7 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <section class="content">
             <div class="form-container">
                 <h2>Registro de Transacción</h2>
-                <form method="POST" action="">
+                <form id="form">
                     <div class="form-group">
                         <label for="tipo_transaccion">Tipo de Transacción:</label>
                         <select name="tipo_transaccion" id="tipo_transaccion" required>
@@ -322,6 +330,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                     </div>
                     <button type="submit">Registrar Transacción</button>
+                    <div id="messageContainer" class="message"></div>
+
                 </form>
             </div>
         </section>

@@ -230,7 +230,7 @@
 }
 
 /* Botón del formulario */
-#popupModify button {
+#popupModify .guardar{
     align-self: flex-end;
     padding: 10px 20px;
     background-color: #28a745;
@@ -241,7 +241,7 @@
     transition: background-color 0.3s ease;
 }
 
-#popupModify button:hover {
+#popupModify .guardar:hover {
     background-color: #218838;
 }
 
@@ -396,4 +396,14 @@
         max-height: 60vh; 
         padding: 10px; 
     }
+}
+/* Cambiar el color de la "x" para eliminar elementos */
+.select2-selection__choice__remove {
+    color: #888; /* Un color gris suave */
+    font-size: 18px; /* Aumentar el tamaño */
+}
+
+/* Cambiar el color cuando pasa el mouse sobre la "x" */
+.select2-selection__choice__remove:hover {
+    color: #ff6f61; /* Un color suave pero visible, como un rosa suave */
 }

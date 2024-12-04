@@ -8,6 +8,7 @@ error_log("Iniciando el proceso de registro de usuario.");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recibir los datos del formulario
+    
     $nombre = $_POST['nombre'] ?? null; // Solo se llena si tipoCuenta es "personal"
     $usuarioNombre = $_POST['usuarioNombre'] ?? null; // Solo se llena si tipoCuenta es "usuario"
     $primer_apellido = $_POST['firstName'] ?? null; // Solo para personal
@@ -21,14 +22,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = $_POST['password'] ?? null;
     $confirmar_contrasena = $_POST['confirmPassword'] ?? null;
     $tipo_cuenta = $_POST['tipoCuenta'] ?? null;
-
-    // Inicializa un arreglo para los campos faltantes
-    $campos_faltantes = [];
-    if (!$nombre_usuario) $campos_faltantes[] = 'nombre_usuario';
-    if (!$contrasena) $campos_faltantes[] = 'contrasena';
-    if (!$tipo_cuenta) $campos_faltantes[] = 'tipo_cuenta';
-    if (!$usuarioEmail) $campos_faltantes[] = 'correo';
-
+    
+    $campos_faltantes = []; // Inicializa un arreglo para los campos faltantes
+    
+    // Validación de los campos según el tipo de cuenta
+    if ($tipo_cuenta === 'personal') {
+        if (empty($correo)) {
+            $campos_faltantes[] = 'correo';
+        }
+        if (empty($nombre)) {
+            $campos_faltantes[] = 'nombre';
+        }
+        if (empty($primer_apellido)) {
+            $campos_faltantes[] = 'primer apellido';
+        }
+        if (empty($segundo_apellido)) {
+            $campos_faltantes[] = 'segundo apellido';
+        }
+        if (empty($telefono)) {
+            $campos_faltantes[] = 'telefono';
+        }
+    }
+    
+    if ($tipo_cuenta === 'usuario') {
+        if (empty($usuarioNombre)) {
+            $campos_faltantes[] = 'usuarioNombre';
+        }
+        if (empty($usuarioEmail)) {
+            $campos_faltantes[] = 'usuarioEmail';
+        }
+    }
+    
+    if (empty($nombre_usuario)) {
+        $campos_faltantes[] = 'nombre de usuario';
+    }
+    
+    if (empty($correo)) {
+        $campos_faltantes[] = 'correo';
+    }
+    
+    if (empty($contrasena)) {
+        $campos_faltantes[] = 'contraseña';
+    }
+    
+    if (empty($confirmar_contrasena)) {
+        $campos_faltantes[] = 'confirmar contraseña';
+    }
+    
+    if ($contrasena !== $confirmar_contrasena) {
+        echo json_encode(['success' => false, 'message' => 'Las contraseñas no coinciden.']);
+        exit;
+    }
+    
     // Si hay campos faltantes, muestra un error detallado
     if (!empty($campos_faltantes)) {
         error_log("Faltan datos obligatorios: " . implode(', ', $campos_faltantes));
