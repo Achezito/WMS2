@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Agregar materiales al inventario (para entrada)
     agregarMaterialBtn.addEventListener('click', function() {
+        event.preventDefault();  // Esto evita que el evento de click haga algo inesperado.
         const modeloMaterial = document.getElementById('modelo_material').value;
         const tipoMaterial = document.getElementById('tipo_material').value;
         const cantidadMaterial = document.getElementById('cantidad_material').value;
@@ -131,5 +132,41 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target.classList.contains('eliminarMaterial')) {
             event.target.closest('tr').remove();
         }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('form');  // Asegúrate de tener un id para tu formulario
+    const mensajeDiv = document.getElementById('messageContainer'); // Div donde se mostrará el mensaje
+    console.log(mensajeDiv); // Verifica si el elemento se selecciona correctamente
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();  // Prevenir que se recargue la página
+
+        const formData = new FormData(form); // Obtiene todos los datos del formulario
+
+        // Usamos fetch para enviar los datos de forma asincrónica
+        fetch('../formularios/transacciones.php', {  // Aquí va la URL del script que procesará la solicitud
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json()) // Asumiendo que la respuesta será JSON
+        .then(data => {
+            // Muestra el mensaje de éxito o error
+            if (data.success) {
+                mensajeDiv.innerHTML = "Transacción registrada con éxito! Nota: puedes ver los materiales en la seccion principal.";
+                mensajeDiv.style.color = 'green';
+            } else {
+                mensajeDiv.innerHTML = "Hubo un error al registrar la transacción.";
+                mensajeDiv.style.color = 'red';
+            }
+            mensajeDiv.style.display = 'block';  // Hacer visible el mensaje
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            mensajeDiv.innerHTML = "Hubo un problema con la solicitud.";
+            mensajeDiv.style.color = 'red';
+            mensajeDiv.style.display = 'block';  // Hacer visible el mensaje
+        });
     });
 });

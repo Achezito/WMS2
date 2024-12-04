@@ -60,7 +60,7 @@ if (isset($_SESSION['edificio_id'])) {
     <link rel="stylesheet" href="../../css/homeUsuarios.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="../../css/select2/select2.min.css" rel="stylesheet" />
-    <script src="../../js/index.js"></script>
+    <script src="../../js/index.js" defer></script>
     <script src="../../js/inventario_prestamoAJAX.js"></script>
     <script src="../../js/select2/select2.min.js"></script>
     <script src="../../js/putamamadademierda.js"></script>

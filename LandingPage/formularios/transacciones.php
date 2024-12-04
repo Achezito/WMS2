@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo_transaccion = $_POST['tipo_transaccion'];
     $proveedor_id = $_POST['proveedor'];
     $notas = $_POST['notas'];
-
+    
     $transaccion_id = insertarTransaccion($tipo_transaccion, $notas);
 
     if ($tipo_transaccion === 'salida') {
@@ -104,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    header('Location: transacciones.php');
+    // Enviar respuesta JSON al cliente
+    echo json_encode(['success' => true, 'message' => 'Inventario registrado exitosamente, puedes ver los materiales en la seccion principal.']);
     exit();
 }
 
@@ -133,11 +134,11 @@ function insertarTipoMaterial($nombre, $categoria, $descripcion) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transacciones</title>
     <link rel="stylesheet" href="../css/forms.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/index2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/hom2.css">
-    <link rel="stylesheet" href="/WMS2/LandingPage/css/inventario_transaccion.css">
-    <script src="/WMS2/LandingPage/js/inventario_transaccion.js"></script>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/index2.css">
+    <link rel="stylesheet" href="../css/hom2.css">
+    <link rel="stylesheet" href="../css/inventario_transaccion.css">
+    <script src="../js/inventario_transaccion.js"></script>
 </head>
 <body>
   <div class="container">
@@ -174,7 +175,7 @@ function insertarTipoMaterial($nombre, $categoria, $descripcion) {
         <section class="content">
             <div class="form-container">
                 <h2>Registro de Transacción</h2>
-                <form method="POST" action="">
+                <form id="form">
                     <div class="form-group">
                         <label for="tipo_transaccion">Tipo de Transacción:</label>
                         <select name="tipo_transaccion" id="tipo_transaccion" required>
@@ -258,6 +259,8 @@ function insertarTipoMaterial($nombre, $categoria, $descripcion) {
                         </div>
                     </div>
                     <button type="submit">Registrar Transacción</button>
+
+                    <div id="messageContainer"  style="display: none;"></div>
                 </form>
             </div>
         </section>
